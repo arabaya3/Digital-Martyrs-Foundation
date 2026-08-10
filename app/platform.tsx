@@ -62,6 +62,7 @@ import type {
 } from "@/lib/types";
 
 const STORAGE_KEY = "martyrs-foundation-poc-v4";
+const THEME_STORAGE_KEY = "martyrs-foundation-theme";
 
 async function uploadStoredDocument(file: File, category: string): Promise<StoredDocument> {
   const form = new FormData();
@@ -394,6 +395,8 @@ function AppShell({
   children,
   openPersona,
   toast,
+  theme,
+  toggleTheme,
 }: {
   state: DemoState;
   setState: React.Dispatch<React.SetStateAction<DemoState>>;
@@ -402,6 +405,8 @@ function AppShell({
   children: ReactNode;
   openPersona: () => void;
   toast: (message: string) => void;
+  theme: "light" | "dark";
+  toggleTheme: () => void;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const current = personas.find((persona) => persona.id === state.persona)!;
@@ -574,6 +579,19 @@ function AppShell({
             <kbd>Ctrl K</kbd>
           </label>
           <div className="topbar-actions">
+            <button
+              className="icon-button theme-toggle"
+              onClick={toggleTheme}
+              aria-label={
+                theme === "dark"
+                  ? state.language === "ar" ? "التبديل إلى المظهر الفاتح" : "Switch to light theme"
+                  : state.language === "ar" ? "التبديل إلى المظهر الداكن" : "Switch to dark theme"
+              }
+              aria-pressed={theme === "dark"}
+              title={state.language === "ar" ? "تبديل المظهر" : "Toggle theme"}
+            >
+              {theme === "dark" ? "☀" : "☾"}
+            </button>
             <button
               className="language-toggle"
               onClick={() =>
@@ -4154,6 +4172,13 @@ export default function PlatformApp() {
   const [persistenceStatus, setPersistenceStatus] = useState<"loading" | "saving" | "saved" | "offline" | "error">("loading");
   const [personaOpen, setPersonaOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  // Resolved before first paint so the stored choice never flashes the wrong theme.
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    if (typeof window === "undefined") return "light";
+    const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+    if (stored === "light" || stored === "dark") return stored;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  });
   const { route, navigate } = useRoute();
 
   useEffect(() => {
@@ -4178,6 +4203,12 @@ export default function PlatformApp() {
     void hydrate();
     return () => { active = false; };
   }, []);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+  }, [theme]);
 
   useEffect(() => {
     if (!stateHydrated.current) return;
@@ -4359,6 +4390,8 @@ export default function PlatformApp() {
       navigate={navigate}
       openPersona={() => setPersonaOpen(true)}
       toast={toast}
+      theme={theme}
+      toggleTheme={() => setTheme((previous) => (previous === "dark" ? "light" : "dark"))}
     >
       {content}
       {!["/", "/login", "/register"].includes(route) && <div className="demo-data-tools"><span className={`persistence-state persistence-${persistenceStatus}`}>● {persistenceStatus === "saved" ? (state.language === "ar" ? "محفوظ في قاعدة البيانات" : "Saved to database") : persistenceStatus === "saving" ? (state.language === "ar" ? "جارٍ الحفظ…" : "Saving…") : persistenceStatus === "loading" ? (state.language === "ar" ? "جارٍ تحميل البيانات…" : "Loading data…") : (state.language === "ar" ? "نسخة محلية — تعذر الاتصال" : "Local copy — connection unavailable")}</span><button onClick={exportState}>{state.language === "ar" ? "تصدير" : "Export"} ↓</button><label>{state.language === "ar" ? "استيراد" : "Import"} ↑<input type="file" accept="application/json" onChange={(event) => { void importState(event.target.files?.[0]); event.target.value = ""; }} /></label><button className="reset-demo" onClick={() => { void reset(); }}>↻ {copy[state.language].reset}</button></div>}
