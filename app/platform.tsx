@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import {
   startTransition,
   useEffect,
@@ -337,6 +338,22 @@ function MiniBadge({
   return <span className={`mini-badge status-${tone}`}>{children}</span>;
 }
 
+/**
+ * Official Martyrs Foundation emblem. Decorative in every placement — the
+ * adjacent text always carries the accessible name — so it is hidden from
+ * assistive tech rather than repeating that name twice.
+ */
+function BrandMark({ className = "" }: { className?: string }) {
+  return (
+    <span className={`brand-mark ${className}`.trim()} aria-hidden="true">
+      {/* Pre-optimised at build time (86 KB, 512px) and never rendered above
+          112px, so the optimizer would only add a round trip — and it is
+          unavailable locally, where `env.ASSETS` is not bound. */}
+      <Image src="/logo.png" alt="" width={512} height={512} unoptimized />
+    </span>
+  );
+}
+
 /** Document status is stored as a technical value; never show it raw to users. */
 function documentStatusLabel(status: CaseDocument["status"], language: Language) {
   const labels: Record<CaseDocument["status"], [string, string]> = {
@@ -449,11 +466,7 @@ function AppShell({
             }}
             aria-label={t.foundation}
           >
-            <span className="brand-mark" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-            </span>
+            <BrandMark />
             <span>
               <strong>{t.foundation}</strong>
               <small>{t.platform}</small>
@@ -515,11 +528,7 @@ function AppShell({
     <div className={`app-shell ${mobileOpen ? "mobile-open" : ""}`}>
       <aside className="sidebar">
         <div className="sidebar-brand">
-          <span className="brand-mark brand-mark-light" aria-hidden="true">
-            <i />
-            <i />
-            <i />
-          </span>
+          <BrandMark className="brand-mark-light" />
           <div>
             <strong>{t.foundation}</strong>
             <small>{t.platform}</small>
@@ -759,11 +768,7 @@ function LandingPage({
             <div className="product-glow" />
             <div className="product-window">
               <header>
-                <span className="brand-mark brand-mark-light">
-                  <i />
-                  <i />
-                  <i />
-                </span>
+                <BrandMark className="brand-mark-light" />
                 <div>
                   <b>{ar ? "طلب المنحة التعليمية" : "Education Grant Application"}</b>
                   <small>MF-2026-000184</small>
@@ -857,11 +862,7 @@ function LandingPage({
       </main>
       <footer className="public-footer">
         <div className="brand">
-          <span className="brand-mark brand-mark-light">
-            <i />
-            <i />
-            <i />
-          </span>
+          <BrandMark className="brand-mark-light" />
           <span>
             <strong>{copy[language].foundation}</strong>
             <small>{ar ? "نموذج إثبات مفهوم — ٢٠٢٦" : "Proof of concept — 2026"}</small>
@@ -890,11 +891,7 @@ function LoginPage({
           {ar ? "→ العودة إلى المنصة العامة" : "← Back to public site"}
         </button>
         <div className="login-heading">
-          <span className="brand-mark">
-            <i />
-            <i />
-            <i />
-          </span>
+          <BrandMark />
           <span className="demo-pill">● {ar ? "وضع العرض التجريبي" : "DEMO MODE"}</span>
           <h1>{ar ? "اختر دوراً لبدء الجولة" : "Choose a role to begin"}</h1>
           <p>
@@ -942,11 +939,7 @@ function LoginPage({
         <div className="visual-orbit orbit-one" />
         <div className="visual-orbit orbit-two" />
         <div className="visual-emblem">
-          <span className="brand-mark brand-mark-xl brand-mark-light">
-            <i />
-            <i />
-            <i />
-          </span>
+          <BrandMark className="brand-mark-xl brand-mark-light" />
         </div>
         <div className="visual-copy">
           <span>{ar ? "المنصة الرقمية الموحّدة" : "UNIFIED DIGITAL PLATFORM"}</span>
@@ -1032,7 +1025,7 @@ function RegistrationPage({
     <main className="registration-page">
       <header className="registration-header">
         <button className="back-link" onClick={() => navigate("/login")}>{ar ? "→ العودة للدخول" : "← Back to sign in"}</button>
-        <div><span className="brand-mark"><i /><i /><i /></span><p><strong>{ar ? "تسجيل مواطن جديد" : "New citizen registration"}</strong><small>{ar ? "بيانات تجريبية فقط" : "Demo data only"}</small></p></div>
+        <div><BrandMark /><p><strong>{ar ? "تسجيل مواطن جديد" : "New citizen registration"}</strong><small>{ar ? "بيانات تجريبية فقط" : "Demo data only"}</small></p></div>
         <span className="demo-pill">● {ar ? "إثبات مفهوم" : "POC"}</span>
       </header>
       <section className="registration-shell">
@@ -4078,7 +4071,7 @@ function TemplateStudio({ state, setState, toast }: { state: DemoState; setState
         </main>
         <aside className="content-card notification-preview">
           <span className="eyebrow">{ar ? "معاينة المواطن" : "CITIZEN PREVIEW"}</span>
-          <div className="phone-preview"><header><span className="brand-mark"><i /><i /><i /></span><strong>{copy[tab].foundation}</strong><small>{tab === "ar" ? "الآن" : "now"}</small></header><h3>{title}</h3><p>{body.replaceAll("{{citizen.first_name}}", tab === "ar" ? "زينب" : "Zainab").replaceAll("{{service.name}}", tab === "ar" ? "المنحة التعليمية" : "Education Grant").replaceAll("{{draft.id}}", "DRAFT-184")}</p><button onClick={openDraft}>{tab === "ar" ? "فتح المسودة" : "Open draft"}</button></div>
+          <div className="phone-preview"><header><BrandMark /><strong>{copy[tab].foundation}</strong><small>{tab === "ar" ? "الآن" : "now"}</small></header><h3>{title}</h3><p>{body.replaceAll("{{citizen.first_name}}", tab === "ar" ? "زينب" : "Zainab").replaceAll("{{service.name}}", tab === "ar" ? "المنحة التعليمية" : "Education Grant").replaceAll("{{draft.id}}", "DRAFT-184")}</p><button onClick={openDraft}>{tab === "ar" ? "فتح المسودة" : "Open draft"}</button></div>
           <div className="channel-options">{(["in-app", "sms", "email"] as const).map((channel) => <label key={channel}><input type="checkbox" checked={template.channels.includes(channel)} onChange={(event) => toggleChannel(channel, event.target.checked)} /> {channel === "in-app" ? (ar ? "داخل المنصة" : "In-app") : channel.toUpperCase()}</label>)}</div>
         </aside>
       </div>
@@ -4117,7 +4110,7 @@ function VerifyPage({ state, navigate }: { state: DemoState; navigate: (path: st
   const ar = state.language === "ar";
   const valid = state.case.signed && state.case.decisionPublished;
   const qrPattern = "111111101010101111111100000101110101000001101110101011101011101101011101010101110110111010111010111011011101010001010111011101000001011101010000011111110101010111111100000000111010000000101101111001011011010010101011011101011101010111101100010011000011101011101010101010111111001101000001001011111010110100001111111010101011011101100000100110001011101101110101111101111011011101000101010111011101000001011010010000011111110110101111111";
-  return <main className="verify-page"><div className={`verification-result ${valid ? "valid" : "pending"}`}><span className="verification-icon">{valid ? "✓" : "◷"}</span><MiniBadge tone={valid ? "success" : "warning"}>{valid ? (ar ? "وثيقة صالحة في العرض" : "VALID DEMO DOCUMENT") : (ar ? "لم تُصدر بعد" : "NOT YET ISSUED")}</MiniBadge><h1>{valid ? (ar ? "تم التحقق من القرار" : "Decision verified") : (ar ? "القرار بانتظار اللجنة" : "Decision is awaiting committee action")}</h1><p>{valid ? (ar ? "تطابق رمز الوثيقة مع القرار التجريبي الموقّع والمنشور." : "The document code matches the signed and published demo decision.") : (ar ? "أكمل مسار الموظف واللجنة لإصدار الوثيقة." : "Complete the staff and committee journey to issue this document.")}</p><section className="decision-document"><header><span className="brand-mark"><i /><i /><i /></span><div><strong>{ar ? "مؤسسة الشهداء" : "Martyrs Foundation"}</strong><small>{ar ? "وثيقة قرار تجريبية" : "Demo decision document"}</small></div><span className="decision-seal">◇</span></header><div className="decision-title"><span>{ar ? "قرار لجنة دعم التعليم" : "EDUCATION SUPPORT COMMITTEE DECISION"}</span><h2>{valid ? (ar ? "الموافقة على طلب المنحة التعليمية" : "Approval of Education Grant Application") : (ar ? "مسودة قرار غير معتمدة" : "Unapproved decision draft")}</h2><p dir="ltr">DEC-EDU-2026-0184</p></div><div className="decision-body"><p>{ar ? "بعد الاطلاع على ملف الطلب والوثائق وتقييم قواعد الأهلية والمراجع الاصطناعية، وبعد تحقق النصاب والتصويت المسجل، تقرر:" : "Following review of the application, evidence, eligibility results and synthetic legal references, and after recorded quorum and voting, the Committee decided:"}</p><strong>{valid ? (ar ? "الموافقة — ضمن سيناريو إثبات المفهوم فقط" : "APPROVED — within this proof-of-concept only") : (ar ? "بانتظار الاعتماد" : "AWAITING AUTHORIZATION")}</strong><div className="decision-facts"><div><span>{ar ? "المستفيدة" : "Beneficiary"}</span><b>{ar ? state.case.citizenNameAr : state.case.citizenNameEn}</b></div><div><span>{ar ? "الطالبة" : "Student"}</span><b>{ar ? state.case.familyMemberAr : state.case.familyMemberEn}</b></div><div><span>{ar ? "الطلب" : "Application"}</span><b dir="ltr">{state.case.id}</b></div><div><span>{ar ? "تاريخ القرار" : "Decision date"}</span><b>{valid ? "26/07/2026" : "—"}</b></div></div></div><footer><div className="qr-grid" aria-label={ar ? "رمز تحقق بصري" : "Visual verification code"}>{qrPattern.split("").map((cell, index) => <i key={index} className={cell === "1" ? "on" : ""} />)}</div><div><span>{ar ? "رمز التحقق" : "Verification code"}</span><strong dir="ltr">DOC-EDU-184</strong><small>{ar ? "امسح الرمز أو افتح مسار التحقق العام" : "Scan or use the public verification route"}</small></div><div className="signature-block"><span>{ar ? "التوقيع الإلكتروني" : "Electronic signature"}</span><strong>{valid ? "✓ SIM-SIGN-8042" : "—"}</strong><small>{ar ? "محاكاة بلا قيمة قانونية" : "Simulation with no legal validity"}</small></div></footer></section><div className="verify-actions"><button className="button button-secondary" onClick={() => window.print()}>{ar ? "طباعة / حفظ PDF" : "Print / Save PDF"} ⎙</button><button className="button button-primary" onClick={() => navigate(valid ? "/citizen/applications/MF-2026-000184" : "/login")}>{valid ? (ar ? "العودة إلى الطلب" : "Back to application") : (ar ? "إكمال العرض" : "Continue demo")} ←</button></div><small>{ar ? "هذا التحقق محلي ضمن إثبات المفهوم، ولا يعتمد على سجل حكومي أو بنية توقيع حقيقية." : "Verification is local to this proof of concept and does not use a live government registry or real signing infrastructure."}</small></div></main>;
+  return <main className="verify-page"><div className={`verification-result ${valid ? "valid" : "pending"}`}><span className="verification-icon">{valid ? "✓" : "◷"}</span><MiniBadge tone={valid ? "success" : "warning"}>{valid ? (ar ? "وثيقة صالحة في العرض" : "VALID DEMO DOCUMENT") : (ar ? "لم تُصدر بعد" : "NOT YET ISSUED")}</MiniBadge><h1>{valid ? (ar ? "تم التحقق من القرار" : "Decision verified") : (ar ? "القرار بانتظار اللجنة" : "Decision is awaiting committee action")}</h1><p>{valid ? (ar ? "تطابق رمز الوثيقة مع القرار التجريبي الموقّع والمنشور." : "The document code matches the signed and published demo decision.") : (ar ? "أكمل مسار الموظف واللجنة لإصدار الوثيقة." : "Complete the staff and committee journey to issue this document.")}</p><section className="decision-document"><header><BrandMark /><div><strong>{ar ? "مؤسسة الشهداء" : "Martyrs Foundation"}</strong><small>{ar ? "وثيقة قرار تجريبية" : "Demo decision document"}</small></div><span className="decision-seal">◇</span></header><div className="decision-title"><span>{ar ? "قرار لجنة دعم التعليم" : "EDUCATION SUPPORT COMMITTEE DECISION"}</span><h2>{valid ? (ar ? "الموافقة على طلب المنحة التعليمية" : "Approval of Education Grant Application") : (ar ? "مسودة قرار غير معتمدة" : "Unapproved decision draft")}</h2><p dir="ltr">DEC-EDU-2026-0184</p></div><div className="decision-body"><p>{ar ? "بعد الاطلاع على ملف الطلب والوثائق وتقييم قواعد الأهلية والمراجع الاصطناعية، وبعد تحقق النصاب والتصويت المسجل، تقرر:" : "Following review of the application, evidence, eligibility results and synthetic legal references, and after recorded quorum and voting, the Committee decided:"}</p><strong>{valid ? (ar ? "الموافقة — ضمن سيناريو إثبات المفهوم فقط" : "APPROVED — within this proof-of-concept only") : (ar ? "بانتظار الاعتماد" : "AWAITING AUTHORIZATION")}</strong><div className="decision-facts"><div><span>{ar ? "المستفيدة" : "Beneficiary"}</span><b>{ar ? state.case.citizenNameAr : state.case.citizenNameEn}</b></div><div><span>{ar ? "الطالبة" : "Student"}</span><b>{ar ? state.case.familyMemberAr : state.case.familyMemberEn}</b></div><div><span>{ar ? "الطلب" : "Application"}</span><b dir="ltr">{state.case.id}</b></div><div><span>{ar ? "تاريخ القرار" : "Decision date"}</span><b>{valid ? "26/07/2026" : "—"}</b></div></div></div><footer><div className="qr-grid" aria-label={ar ? "رمز تحقق بصري" : "Visual verification code"}>{qrPattern.split("").map((cell, index) => <i key={index} className={cell === "1" ? "on" : ""} />)}</div><div><span>{ar ? "رمز التحقق" : "Verification code"}</span><strong dir="ltr">DOC-EDU-184</strong><small>{ar ? "امسح الرمز أو افتح مسار التحقق العام" : "Scan or use the public verification route"}</small></div><div className="signature-block"><span>{ar ? "التوقيع الإلكتروني" : "Electronic signature"}</span><strong>{valid ? "✓ SIM-SIGN-8042" : "—"}</strong><small>{ar ? "محاكاة بلا قيمة قانونية" : "Simulation with no legal validity"}</small></div></footer></section><div className="verify-actions"><button className="button button-secondary" onClick={() => window.print()}>{ar ? "طباعة / حفظ PDF" : "Print / Save PDF"} ⎙</button><button className="button button-primary" onClick={() => navigate(valid ? "/citizen/applications/MF-2026-000184" : "/login")}>{valid ? (ar ? "العودة إلى الطلب" : "Back to application") : (ar ? "إكمال العرض" : "Continue demo")} ←</button></div><small>{ar ? "هذا التحقق محلي ضمن إثبات المفهوم، ولا يعتمد على سجل حكومي أو بنية توقيع حقيقية." : "Verification is local to this proof of concept and does not use a live government registry or real signing infrastructure."}</small></div></main>;
 }
 
 function CitizenProfilePage({ state, setState, toast }: { state: DemoState; setState: React.Dispatch<React.SetStateAction<DemoState>>; toast: (message: string) => void }) {

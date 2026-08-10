@@ -441,73 +441,44 @@ textarea::placeholder {
   font-size: 12.5px;
 }
 
+/* Official Martyrs Foundation emblem. The artwork is a circular full-colour
+   seal, so it carries no container fill of its own — it must read cleanly on
+   the dark sidebar and on light page surfaces alike. It is never mirrored. */
 .brand-mark {
   position: relative;
-  display: inline-block;
+  display: inline-grid;
+  place-items: center;
   flex: 0 0 auto;
   width: 40px;
   height: 40px;
-  border-radius: 12px;
-  background: var(--navy-950);
-  overflow: hidden;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
 }
 
-.brand-mark i {
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* The seal is a fixed institutional artwork: it must not flip with direction. */
+  transform: none;
+}
+
+/* On the dark sidebar the seal sits over a soft light disc so its navy and
+   green details keep separation from the background. */
+.brand-mark-light::before {
+  content: "";
   position: absolute;
-  display: block;
-  width: 7px;
-  height: 25px;
-  top: 8px;
-  background: var(--gold-500);
-  border-radius: 7px 7px 2px 2px;
-  transform-origin: bottom center;
+  inset: -2px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 1px 6px rgba(7, 27, 46, 0.28);
 }
 
-.brand-mark i:nth-child(1) {
-  right: 12px;
-  transform: rotate(34deg);
-}
-
-.brand-mark i:nth-child(2) {
-  left: 16px;
-  height: 29px;
-  top: 5px;
-}
-
-.brand-mark i:nth-child(3) {
-  left: 9px;
-  transform: rotate(-34deg);
-}
-
-.brand-mark-light {
-  background: rgba(255, 255, 255, 0.11);
+.brand-mark-light img {
+  position: relative;
 }
 
 .brand-mark-xl {
   width: 112px;
   height: 112px;
-  border-radius: 28px;
-}
-
-.brand-mark-xl i {
-  width: 16px;
-  height: 66px;
-  top: 24px;
-}
-
-.brand-mark-xl i:nth-child(1) {
-  right: 32px;
-}
-
-.brand-mark-xl i:nth-child(2) {
-  left: 48px;
-  height: 76px;
-  top: 15px;
-}
-
-.brand-mark-xl i:nth-child(3) {
-  left: 25px;
 }
 
 .button {
