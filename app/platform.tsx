@@ -389,6 +389,68 @@ function SectionHeader({
   );
 }
 
+/**
+ * Counts a formatted metric up to its final value on mount and whenever it
+ * changes. `value` arrives already localized (Arabic-Indic or Western digits,
+ * separators, units), so the digit run is interpolated in place and the
+ * surrounding formatting is preserved verbatim. Falls back to the exact string
+ * when there is nothing numeric to animate, and always lands on it precisely.
+ */
+function useCountUp(value: string, durationMs = 900) {
+  // Holds the in-flight value only; null means "show the final string".
+  const [animated, setAnimated] = useState<string | null>(null);
+  const frame = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Match the first run of digits, including Arabic-Indic, with separators.
+    const match = value.match(/[\d٠-٩][\d٠-٩.,٫٬]*/);
+    if (reduced || !match) return;
+
+    const raw = match[0];
+    const westernized = raw
+      .replace(/[٠-٩]/g, (d) => String(d.charCodeAt(0) - 0x0660))
+      .replace(/[,٬]/g, "")
+      .replace(/٫/, ".");
+    const target = Number(westernized);
+    if (!Number.isFinite(target) || target === 0) return;
+
+    const arabicDigits = /[٠-٩]/.test(raw);
+    const decimals = (westernized.split(".")[1] ?? "").length;
+    const grouped = /[,٬]/.test(raw);
+    const format = (n: number) => {
+      const text = n.toLocaleString(arabicDigits ? "ar-IQ" : "en-GB", {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+        useGrouping: grouped,
+      });
+      return value.replace(raw, text);
+    };
+
+    const start = performance.now();
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / durationMs, 1);
+      // easeOutCubic — fast start, settled finish.
+      const eased = 1 - Math.pow(1 - progress, 3);
+      if (progress >= 1) {
+        setAnimated(null);
+        return;
+      }
+      setAnimated(format(target * eased));
+      frame.current = requestAnimationFrame(tick);
+    };
+    frame.current = requestAnimationFrame(tick);
+
+    return () => {
+      if (frame.current !== null) cancelAnimationFrame(frame.current);
+      setAnimated(null);
+    };
+  }, [value, durationMs]);
+
+  return animated ?? value;
+}
+
 function MetricCard({
   label,
   value,
@@ -405,13 +467,18 @@ function MetricCard({
   onClick?: () => void;
 }) {
   const Tag = onClick ? "button" : "div";
+  const shown = useCountUp(value);
   return (
     <Tag className={`metric-card metric-${tone}`} onClick={onClick}>
       <span className="metric-icon" aria-hidden="true">
         {icon}
       </span>
       <span className="metric-label">{label}</span>
-      <strong>{value}</strong>
+      {/* The animated value is decorative mid-flight; announce only the final
+          figure so screen readers are not spammed with intermediate numbers. */}
+      <strong aria-label={value}>
+        <span aria-hidden="true">{shown}</span>
+      </strong>
       {trend && <span className="metric-trend">{trend}</span>}
     </Tag>
   );
