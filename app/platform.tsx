@@ -506,8 +506,36 @@ function AppShell({
   toggleTheme: () => void;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const notificationsRef = useRef<HTMLDivElement | null>(null);
   const current = personas.find((persona) => persona.id === state.persona)!;
   const t = copy[state.language];
+  const unreadCount = state.notifications.filter((notification) => !notification.read).length;
+  const notificationsHome = {
+    citizen: "/citizen/notifications",
+    staff: "/staff/notifications",
+    manager: "/manager/notifications",
+    committee: "/committee/notifications",
+    executive: "/executive/notifications",
+    admin: "/admin/notifications",
+  }[state.persona];
+
+  // Close the panel on outside click or Escape, and restore focus to the bell.
+  useEffect(() => {
+    if (!notificationsOpen) return;
+    const onPointerDown = (event: MouseEvent) => {
+      if (!notificationsRef.current?.contains(event.target as Node)) setNotificationsOpen(false);
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setNotificationsOpen(false);
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [notificationsOpen]);
   const isPublic =
     route === "/" || route === "/register" || route === "/services" || route.startsWith("/services/") || route.startsWith("/verify/");
 
@@ -692,21 +720,89 @@ function AppShell({
             >
               {state.language === "ar" ? "EN" : "ع"}
             </button>
-            <button
-              className="icon-button"
-              onClick={() => navigate({
-                citizen: "/citizen/notifications",
-                staff: "/staff/notifications",
-                manager: "/manager/notifications",
-                committee: "/committee/notifications",
-                executive: "/executive/notifications",
-                admin: "/admin/notifications",
-              }[state.persona])}
-              aria-label={state.language === "ar" ? "الإشعارات" : "Notifications"}
-            >
-              ♢
-              <i>{state.persona === "citizen" ? state.notifications.filter((notification) => !notification.read).length : 3}</i>
-            </button>
+            <div className="notification-menu" ref={notificationsRef}>
+              <button
+                className="icon-button notification-bell"
+                onClick={() => setNotificationsOpen((open) => !open)}
+                aria-label={
+                  state.language === "ar"
+                    ? `الإشعارات${unreadCount ? ` — ${unreadCount} غير مقروءة` : ""}`
+                    : `Notifications${unreadCount ? ` — ${unreadCount} unread` : ""}`
+                }
+                aria-expanded={notificationsOpen}
+                aria-haspopup="true"
+              >
+                {/* The prototype's notification glyph. Kept in the same geometric
+                    set as the rest of the shell — a colour emoji would be the only
+                    one of its kind, and the dedicated bell codepoints render as
+                    tofu on Windows. */}
+                <span aria-hidden="true">◔</span>
+                {/* Only shown when there is something unread — a "0" badge is noise. */}
+                {unreadCount > 0 && <i aria-hidden="true">{unreadCount > 9 ? "9+" : unreadCount}</i>}
+              </button>
+              {notificationsOpen && (
+                <div className="notification-panel" role="dialog" aria-label={state.language === "ar" ? "الإشعارات" : "Notifications"}>
+                  <header>
+                    <strong>{state.language === "ar" ? "الإشعارات" : "Notifications"}</strong>
+                    {unreadCount > 0 && (
+                      <button
+                        className="text-button"
+                        onClick={() =>
+                          setState((previous) => ({
+                            ...previous,
+                            notifications: previous.notifications.map((notification) => ({ ...notification, read: true })),
+                          }))
+                        }
+                      >
+                        {state.language === "ar" ? "تعليم الكل كمقروء" : "Mark all read"}
+                      </button>
+                    )}
+                  </header>
+                  <div className="notification-panel-list">
+                    {state.notifications.length === 0 ? (
+                      <p className="notification-empty">
+                        {state.language === "ar" ? "لا توجد إشعارات." : "No notifications."}
+                      </p>
+                    ) : (
+                      state.notifications.slice(0, 6).map((notification) => (
+                        <button
+                          key={notification.id}
+                          className={`notification-item ${notification.read ? "" : "unread"}`}
+                          onClick={() => {
+                            setState((previous) => ({
+                              ...previous,
+                              notifications: previous.notifications.map((item) =>
+                                item.id === notification.id ? { ...item, read: true } : item,
+                              ),
+                            }));
+                            setNotificationsOpen(false);
+                            navigate(notificationsHome);
+                          }}
+                        >
+                          <span className="notification-dot" aria-hidden="true" />
+                          <span>
+                            <strong>{state.language === "ar" ? notification.titleAr : notification.titleEn}</strong>
+                            <small>{state.language === "ar" ? notification.bodyAr : notification.bodyEn}</small>
+                            <em>{localDate(notification.at, state.language)}</em>
+                          </span>
+                        </button>
+                      ))
+                    )}
+                  </div>
+                  <footer>
+                    <button
+                      className="text-button"
+                      onClick={() => {
+                        setNotificationsOpen(false);
+                        navigate(notificationsHome);
+                      }}
+                    >
+                      {state.language === "ar" ? "عرض كل الإشعارات" : "View all notifications"}
+                    </button>
+                  </footer>
+                </div>
+              )}
+            </div>
             <button className="role-button" onClick={openPersona}>
               <span className="avatar avatar-small">{current.initials}</span>
               <span>{t.switchRole}</span>

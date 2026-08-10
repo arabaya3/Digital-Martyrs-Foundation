@@ -644,20 +644,151 @@ textarea::placeholder {
   border-color: var(--border-strong);
 }
 
+/* Count badge uses the brand navy so the top bar reads as one palette —
+   previously it was danger red next to the emerald controls. */
 .icon-button i {
   position: absolute;
-  min-width: 20px;
-  height: 20px;
+  min-width: 19px;
+  height: 19px;
   top: -6px;
   inset-inline-end: -5px;
-  padding: 0 3px;
+  padding: 0 5px;
   display: grid;
   place-items: center;
-  border-radius: 9px;
-  color: white;
-  background: var(--danger);
-  font-size: 12px;
+  border-radius: 99px;
+  color: var(--brand-ink);
+  background: var(--brand);
+  box-shadow: 0 0 0 2px var(--surface);
+  font-size: 11px;
+  font-weight: 700;
   font-style: normal;
+  line-height: 1;
+}
+
+/* ---------- notification menu ---------- */
+.notification-menu {
+  position: relative;
+  display: inline-flex;
+}
+
+.notification-bell span {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.notification-panel {
+  position: absolute;
+  z-index: 70;
+  inset-block-start: calc(100% + 10px);
+  inset-inline-end: 0;
+  width: min(360px, calc(100vw - 32px));
+  display: grid;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--sh-lg);
+  overflow: hidden;
+  animation: notificationIn var(--dur2) var(--ease-out) both;
+}
+
+@keyframes notificationIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.notification-panel > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+  padding: var(--s4) var(--s5);
+  border-block-end: 1px solid var(--hairline);
+}
+
+.notification-panel > header strong {
+  font-size: 14px;
+}
+
+.notification-panel-list {
+  display: grid;
+  max-height: 340px;
+  overflow-y: auto;
+}
+
+.notification-item {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr);
+  gap: var(--s3);
+  align-items: start;
+  padding: var(--s3) var(--s5);
+  border: 0;
+  border-block-end: 1px solid var(--hairline);
+  background: transparent;
+  text-align: start;
+  transition: background var(--dur2) var(--ease);
+}
+
+.notification-item:hover {
+  background: var(--surface-2);
+}
+
+.notification-item.unread {
+  background: var(--accent-weak);
+}
+
+.notification-item > span {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.notification-item strong {
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.notification-item small {
+  color: var(--text-muted);
+  font-size: 11.5px;
+  line-height: 1.6;
+}
+
+.notification-item em {
+  color: var(--text-subtle);
+  font-size: 11px;
+  font-style: normal;
+}
+
+.notification-dot {
+  width: 8px;
+  height: 8px;
+  margin-block-start: 5px;
+  border-radius: 99px;
+  background: transparent;
+}
+
+.notification-item.unread .notification-dot {
+  background: var(--accent);
+}
+
+.notification-empty {
+  margin: 0;
+  padding: var(--s7) var(--s5);
+  color: var(--text-subtle);
+  font-size: 12.5px;
+  text-align: center;
+}
+
+.notification-panel > footer {
+  padding: var(--s3) var(--s5);
+  border-block-start: 1px solid var(--hairline);
+  text-align: center;
 }
 
 .language-toggle {
