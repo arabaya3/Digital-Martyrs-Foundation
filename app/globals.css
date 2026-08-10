@@ -91,6 +91,10 @@
   --accent-strong: #066b54;
   --accent-ink: #ffffff;
   --accent-weak: #e4f3ee;
+  /* Accent text sitting on its own tinted chip (--emerald-100/-50, --gold-100/-50).
+     Those tints invert between themes, so this needs its own value per theme —
+     --accent-strong is unreadable on the dark tint, --accent on the light one. */
+  --accent-on-tint: #066b54;
   --focus: rgba(10, 139, 111, 0.4);
 
   /* ---- type ---- */
@@ -170,6 +174,7 @@
   --accent-strong: #179479;
   --accent-ink: #04140f;
   --accent-weak: rgba(28, 174, 140, 0.15);
+  --accent-on-tint: #46c2a4;
   --focus: rgba(28, 174, 140, 0.45);
 
   --info: #7bb4ec;
@@ -480,7 +485,7 @@ textarea::placeholder {
 
 .brand strong,
 .sidebar-brand strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 16px;
   font-weight: 800;
 }
@@ -575,13 +580,13 @@ textarea::placeholder {
 }
 
 .button-secondary {
-  color: var(--navy-900);
+  color: var(--ink);
   background: var(--surface);
   border-color: var(--stone-300);
 }
 
 .button-ghost {
-  color: var(--navy-950);
+  color: var(--ink);
   background: transparent;
   border-color: rgba(11, 38, 61, 0.22);
 }
@@ -617,7 +622,7 @@ textarea::placeholder {
 .text-button {
   border: 0;
   background: transparent;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-weight: 800;
   font-size: 13.5px;
   padding: 5px 0;
@@ -797,7 +802,7 @@ textarea::placeholder {
   border-radius: 9px;
   border: 1px solid var(--stone-200);
   background: var(--surface);
-  color: var(--navy-900);
+  color: var(--ink);
   font-size: 13px;
   font-weight: 800;
 }
@@ -805,7 +810,7 @@ textarea::placeholder {
 .eyebrow {
   display: inline-block;
   margin-bottom: 8px;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-size: 12.5px;
   font-weight: 900;
   letter-spacing: 0.07em;
@@ -854,7 +859,7 @@ textarea::placeholder {
 }
 
 .status-success {
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
@@ -869,7 +874,7 @@ textarea::placeholder {
 }
 
 .status-gold {
-  color: var(--gold-700);
+  color: var(--gold-strong);
   background: var(--gold-100);
 }
 
@@ -879,7 +884,7 @@ textarea::placeholder {
   width: 42px;
   height: 42px;
   border-radius: 13px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
   font-size: 13.5px;
   font-weight: 900;
@@ -925,7 +930,7 @@ textarea::placeholder {
 .section-header h1 {
   max-width: 850px;
   margin-bottom: 7px;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: clamp(27px, 2.6vw, 41px);
   line-height: 1.17;
   letter-spacing: -0.035em;
@@ -1023,7 +1028,7 @@ textarea::placeholder {
 
 .public-nav nav button:hover {
   background: var(--stone-100);
-  color: var(--navy-950);
+  color: var(--ink);
 }
 
 .nav-actions {
@@ -1078,7 +1083,7 @@ textarea::placeholder {
   align-items: center;
   gap: 9px;
   margin-bottom: 22px;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-size: 13px;
   font-weight: 900;
   letter-spacing: 0.04em;
@@ -1092,7 +1097,7 @@ textarea::placeholder {
 
 .hero h1 {
   margin-bottom: 24px;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: clamp(46px, 5vw, 78px);
   line-height: 1.08;
   letter-spacing: -0.055em;
@@ -1101,7 +1106,7 @@ textarea::placeholder {
 
 .hero h1 em {
   display: block;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-style: normal;
 }
 
@@ -1130,7 +1135,7 @@ textarea::placeholder {
 }
 
 .trust-row span::first-letter {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
 }
 
 .hero-product {
@@ -1245,7 +1250,7 @@ textarea::placeholder {
 }
 
 .product-steps .done i {
-  color: white;
+  color: #12211d;
   border-color: var(--emerald-500);
   background: var(--emerald-500);
 }
@@ -1265,7 +1270,7 @@ textarea::placeholder {
 
 .product-main h3 {
   margin-bottom: 7px;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 16px;
 }
 
@@ -1298,13 +1303,13 @@ textarea::placeholder {
 
 .ai-mini span {
   margin-bottom: 20px;
-  color: var(--gold-700);
+  color: var(--gold-strong);
   font-size: 11.5px;
   font-weight: 900;
 }
 
 .ai-mini b {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 15px;
   line-height: 1.5;
 }
@@ -1337,12 +1342,12 @@ textarea::placeholder {
   width: 29px;
   height: 29px;
   border-radius: 9px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
 .floating-stat b {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 13px;
 }
 
@@ -1448,7 +1453,7 @@ textarea::placeholder {
 
 .public-service-card h3 {
   margin: 22px 0 9px;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 19px;
 }
 
@@ -1469,7 +1474,7 @@ textarea::placeholder {
 }
 
 .public-service-card footer b {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
 }
 
 .public-footer {
@@ -1528,7 +1533,7 @@ textarea::placeholder {
   margin-bottom: 13px;
   padding: 6px 9px;
   border-radius: 99px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
   font-size: 12px;
   font-weight: 900;
@@ -1536,7 +1541,7 @@ textarea::placeholder {
 
 .login-heading h1 {
   margin-bottom: 10px;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: clamp(32px, 3.4vw, 50px);
   letter-spacing: -0.04em;
 }
@@ -1580,7 +1585,7 @@ textarea::placeholder {
 }
 
 .login-personas strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 14px;
 }
 
@@ -1595,7 +1600,7 @@ textarea::placeholder {
 }
 
 .login-personas > button > i {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-style: normal;
 }
 
@@ -1616,12 +1621,12 @@ textarea::placeholder {
   width: 35px;
   height: 35px;
   border-radius: 10px;
-  color: var(--navy-800);
+  color: var(--ink);
   background: var(--info-100);
 }
 
 .login-notice strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 13px;
 }
 
@@ -1915,7 +1920,7 @@ textarea::placeholder {
   border: 0;
   outline: 0;
   background: transparent;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 13px;
 }
 
@@ -1923,7 +1928,7 @@ textarea::placeholder {
   padding: 3px 6px;
   border: 1px solid var(--stone-200);
   border-radius: 5px;
-  color: var(--stone-500);
+  color: var(--text-muted);
   background: var(--surface);
   font-size: 11.5px;
   direction: ltr;
@@ -2012,7 +2017,7 @@ textarea::placeholder {
 .modal h2,
 .action-drawer h2 {
   margin-bottom: 0;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 23px;
 }
 
@@ -2048,7 +2053,7 @@ textarea::placeholder {
 }
 
 .persona-card strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 13.5px;
 }
 
@@ -2063,7 +2068,7 @@ textarea::placeholder {
 }
 
 .persona-card > i {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-style: normal;
 }
 
@@ -2135,7 +2140,7 @@ textarea::placeholder {
 }
 
 .catalogue-search > span {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-size: 23px;
 }
 
@@ -2143,7 +2148,7 @@ textarea::placeholder {
   border: 0;
   outline: 0;
   background: transparent;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 14px;
 }
 
@@ -2242,14 +2247,14 @@ textarea::placeholder {
 }
 
 .service-category {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-size: 12px;
   font-weight: 900;
 }
 
 .service-card h3 {
   margin: 6px 0 8px;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 16px;
   line-height: 1.5;
 }
@@ -2275,7 +2280,7 @@ textarea::placeholder {
   justify-content: space-between;
   padding: 10px 0 0;
   border: 0;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   background: transparent;
   font-size: 12.5px;
   font-weight: 850;
@@ -2299,14 +2304,14 @@ textarea::placeholder {
   width: 52px;
   height: 52px;
   border-radius: 16px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
   font-size: 23px;
 }
 
 .empty-state h3 {
   margin: 8px 0 0;
-  color: var(--navy-950);
+  color: var(--ink);
 }
 
 .empty-state p {
@@ -2422,7 +2427,7 @@ textarea::placeholder {
 }
 
 .content-card h2 {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 19px;
 }
 
@@ -2450,7 +2455,7 @@ textarea::placeholder {
   height: 24px;
   flex: 0 0 auto;
   border-radius: 7px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
   font-size: 12px;
 }
@@ -2478,7 +2483,7 @@ textarea::placeholder {
   width: 32px;
   height: 32px;
   border-radius: 9px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
@@ -2556,7 +2561,7 @@ textarea::placeholder {
 }
 
 .legal-card h3 {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 16px;
 }
 
@@ -2612,7 +2617,7 @@ textarea::placeholder {
 
 .next-action-card h2 {
   margin-bottom: 3px;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 19px;
 }
 
@@ -2669,7 +2674,7 @@ textarea::placeholder {
 }
 
 .action-callout strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 13px;
 }
 
@@ -2711,7 +2716,7 @@ textarea::placeholder {
 }
 
 .profile-card header strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 13px;
 }
 
@@ -2721,7 +2726,7 @@ textarea::placeholder {
 }
 
 .profile-card header > b {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-size: 15px;
 }
 
@@ -2776,7 +2781,7 @@ textarea::placeholder {
   width: 38px;
   height: 38px;
   border-radius: 11px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
@@ -2842,7 +2847,7 @@ textarea::placeholder {
 }
 
 .eligible-services > button i {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-style: normal;
 }
 
@@ -2865,7 +2870,7 @@ textarea::placeholder {
 }
 
 .notifications-preview > div.unread > span {
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
@@ -2897,7 +2902,7 @@ textarea::placeholder {
 
 .wizard-heading h1 {
   margin-bottom: 4px;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 27px;
 }
 
@@ -2950,7 +2955,7 @@ textarea::placeholder {
   border: 2px solid var(--border);
   border-radius: 50%;
   background: var(--surface-3);
-  color: var(--text-subtle);
+  color: var(--text-muted);
   font-style: normal;
   font-weight: 800;
   transition: background var(--dur2) var(--ease), border-color var(--dur2) var(--ease),
@@ -3012,7 +3017,7 @@ textarea::placeholder {
 
 .wizard-title h2 {
   margin-bottom: 3px;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 20px;
 }
 
@@ -3049,7 +3054,7 @@ textarea::placeholder {
   height: 30px;
   flex: 0 0 auto;
   border-radius: 9px;
-  color: white;
+  color: #ffffff;
   background: var(--emerald-700);
 }
 
@@ -3091,7 +3096,7 @@ textarea::placeholder {
 
 .input-field > span b {
   float: inline-end;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-size: 11.5px;
 }
 
@@ -3104,7 +3109,7 @@ textarea::placeholder {
   border: 1px solid var(--stone-300);
   border-radius: 9px;
   outline: 0;
-  color: var(--navy-950);
+  color: var(--ink);
   background: var(--surface);
   font-size: 12.5px;
 }
@@ -3168,7 +3173,7 @@ textarea::placeholder {
 }
 
 .family-select button > i {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-style: normal;
   font-size: 18px;
 }
@@ -3190,7 +3195,7 @@ textarea::placeholder {
   width: 30px;
   height: 30px;
   border-radius: 9px;
-  color: var(--navy-800);
+  color: var(--ink);
   background: var(--info-100);
 }
 
@@ -3322,7 +3327,7 @@ textarea::placeholder {
   width: 35px;
   height: 35px;
   border-radius: 10px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
@@ -3350,14 +3355,14 @@ textarea::placeholder {
 }
 
 .ai-document-card header > span {
-  color: var(--gold-700);
+  color: var(--gold-strong);
   font-size: 12px;
   font-weight: 900;
 }
 
 .ai-document-card > strong {
   display: block;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 12.5px;
 }
 
@@ -3396,7 +3401,7 @@ textarea::placeholder {
   top: 9px;
   inset-inline-end: 9px;
   border: 0;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   background: transparent;
   font-size: 11.5px;
 }
@@ -3408,7 +3413,7 @@ textarea::placeholder {
 }
 
 .review-warning > span {
-  background: var(--warning);
+  background: #9c5f10;
 }
 
 .review-warning strong {
@@ -3517,7 +3522,7 @@ textarea::placeholder {
 }
 
 .wizard-help b {
-  color: var(--gold-700);
+  color: var(--gold-strong);
   font-size: 12px;
 }
 
@@ -3557,7 +3562,7 @@ textarea::placeholder {
 
 .application-list-card h3 {
   margin: 3px 0;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 14px;
 }
 
@@ -3587,7 +3592,7 @@ textarea::placeholder {
   height: 32px;
   border: 0;
   border-radius: 9px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
@@ -3604,7 +3609,7 @@ textarea::placeholder {
 
 .case-tracking-header h1 {
   margin: 5px 0 3px;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 27px;
 }
 
@@ -3640,8 +3645,8 @@ textarea::placeholder {
   width: 47px;
   height: 47px;
   border-radius: 14px;
-  color: white;
-  background: var(--warning);
+  color: #ffffff;
+  background: #9c5f10;
   font-size: 19px;
   font-weight: 900;
 }
@@ -3649,7 +3654,7 @@ textarea::placeholder {
 .completion-hero h2,
 .decision-hero h2 {
   margin-bottom: 5px;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 18px;
 }
 
@@ -3706,7 +3711,7 @@ textarea::placeholder {
   min-width: 135px;
   padding: 9px 12px;
   border-radius: 9px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-50);
 }
 
@@ -3752,21 +3757,21 @@ textarea::placeholder {
   height: 33px;
   border: 2px solid var(--stone-200);
   border-radius: 50%;
-  color: var(--stone-500);
-  background: white;
+  color: var(--text-muted);
+  background: var(--surface);
   font-style: normal;
   font-size: 12px;
   font-weight: 800;
 }
 
 .timeline .done i {
-  color: white;
+  color: #12211d;
   border-color: var(--emerald-500);
   background: var(--emerald-500);
 }
 
 .timeline .current i {
-  color: white;
+  color: #12211d;
   border-color: var(--gold-500);
   background: var(--gold-500);
   box-shadow: 0 0 0 5px var(--gold-100);
@@ -3779,7 +3784,7 @@ textarea::placeholder {
 
 .timeline strong {
   margin-top: 5px;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 13px;
 }
 
@@ -3832,7 +3837,7 @@ textarea::placeholder {
   height: 31px;
   border: 0;
   border-radius: 8px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
@@ -3884,7 +3889,7 @@ textarea::placeholder {
 }
 
 .document-summary > div > i {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-style: normal;
 }
 
@@ -3894,7 +3899,7 @@ textarea::placeholder {
 }
 
 .audit-safe > span {
-  color: var(--navy-800);
+  color: var(--ink);
 }
 
 .audit-safe h3 {
@@ -3971,7 +3976,7 @@ button.metric-card {
   width: 36px;
   height: 36px;
   border-radius: 11px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
@@ -3982,7 +3987,7 @@ button.metric-card {
 }
 
 .metric-card > strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 24px;
   line-height: 1;
 }
@@ -4008,7 +4013,7 @@ button.metric-card {
 }
 
 .metric-gold .metric-icon {
-  color: var(--gold-700);
+  color: var(--gold-strong);
   background: var(--gold-100);
 }
 
@@ -4017,7 +4022,7 @@ button.metric-card {
 }
 
 .metric-navy .metric-icon {
-  color: var(--navy-800);
+  color: var(--ink);
   background: var(--info-100);
 }
 
@@ -4053,7 +4058,7 @@ button.metric-card {
 }
 
 .table-tabs button.active {
-  color: var(--navy-950);
+  color: var(--ink);
   background: var(--stone-100);
 }
 
@@ -4075,7 +4080,7 @@ button.metric-card {
 
 .data-table th {
   padding: 10px 12px;
-  color: var(--stone-500);
+  color: var(--text-muted);
   background: var(--stone-50);
   text-align: start;
   font-size: 11.5px;
@@ -4116,7 +4121,7 @@ button.metric-card {
 }
 
 .data-table td:nth-child(3) strong {
-  color: var(--navy-950);
+  color: var(--ink);
 }
 
 .data-table td:nth-child(3) small {
@@ -4129,7 +4134,7 @@ button.metric-card {
   height: 27px;
   border: 0;
   border-radius: 7px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
@@ -4139,7 +4144,7 @@ button.metric-card {
 }
 
 .sla-ok {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-weight: 800;
 }
 
@@ -4180,7 +4185,7 @@ button.metric-card {
 .case-breadcrumb button {
   padding: 0;
   border: 0;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   background: transparent;
 }
 
@@ -4193,7 +4198,7 @@ button.metric-card {
 
 .case-heading h1 {
   margin: 0 0 3px;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 20px;
 }
 
@@ -4218,7 +4223,7 @@ button.metric-card {
 }
 
 .case-sla strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 13.5px;
 }
 
@@ -4251,7 +4256,7 @@ button.metric-card {
 }
 
 .case-tabs button.active {
-  color: var(--navy-950);
+  color: var(--ink);
 }
 
 .case-tabs button.active::after {
@@ -4339,7 +4344,7 @@ button.metric-card {
 }
 
 .summary-facts strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 12px;
 }
 
@@ -4356,14 +4361,14 @@ button.metric-card {
   width: 39px;
   height: 39px;
   border-radius: 11px;
-  color: var(--navy-800);
+  color: var(--ink);
   background: var(--info-100);
 }
 
 .family-summary header button {
   padding: 5px;
   border: 0;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   background: transparent;
   font-size: 11.5px;
   font-weight: 800;
@@ -4383,7 +4388,7 @@ button.metric-card {
   height: 35px;
   border: 2px solid white;
   border-radius: 50%;
-  color: var(--navy-800);
+  color: var(--ink);
   background: var(--info-100);
   box-shadow: 0 0 0 1px var(--stone-200);
   font-size: 11.5px;
@@ -4452,7 +4457,7 @@ button.metric-card {
   width: 26px;
   height: 26px;
   border-radius: 8px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
@@ -4504,7 +4509,7 @@ button.metric-card {
   justify-content: space-between;
   padding: 13px;
   border-bottom: 1px solid var(--gold-100);
-  color: var(--gold-700);
+  color: var(--gold-strong);
   background: var(--gold-50);
   font-size: 12px;
   font-weight: 900;
@@ -4523,7 +4528,7 @@ button.metric-card {
   height: 31px;
   flex: 0 0 auto;
   border-radius: 9px;
-  color: var(--gold-700);
+  color: var(--gold-strong);
   background: var(--gold-100);
 }
 
@@ -4532,7 +4537,7 @@ button.metric-card {
 }
 
 .ai-answer strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 12.5px;
 }
 
@@ -4585,7 +4590,7 @@ button.metric-card {
 
 .question-chips button.active,
 .question-chips button:hover {
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   border-color: var(--emerald-500);
   background: var(--emerald-50);
 }
@@ -4595,7 +4600,7 @@ button.metric-card {
   padding: 9px;
   border: 0;
   border-top: 1px solid var(--stone-150);
-  color: var(--stone-500);
+  color: var(--text-muted);
   background: var(--stone-50);
   font-size: 11px;
 }
@@ -4644,7 +4649,7 @@ button.metric-card {
 
 .rules-summary header button {
   border: 0;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   background: transparent;
   font-size: 11.5px;
 }
@@ -4661,7 +4666,7 @@ button.metric-card {
 }
 
 .rule-score strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 20px;
 }
 
@@ -4685,7 +4690,7 @@ button.metric-card {
   width: 24px;
   height: 24px;
   border-radius: 7px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
   font-style: normal;
 }
@@ -4843,7 +4848,7 @@ button.metric-card {
   width: 26px;
   height: 26px;
   border-radius: 8px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
@@ -4936,7 +4941,7 @@ button.metric-card {
 }
 
 .document-sidebar > button > i {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-style: normal;
 }
 
@@ -5008,7 +5013,7 @@ button.metric-card {
   margin: 0 auto 15px;
   border: 2px solid var(--gold-600);
   border-radius: 50%;
-  color: var(--gold-700);
+  color: var(--gold-strong);
   font-size: 27px;
 }
 
@@ -5087,7 +5092,7 @@ button.metric-card {
 .extracted-fields b {
   grid-row: 1 / span 2;
   grid-column: 2;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-size: 11.5px;
 }
 
@@ -5166,7 +5171,7 @@ button.metric-card {
 }
 
 .eligibility-score strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 18px;
 }
 
@@ -5201,7 +5206,7 @@ button.metric-card {
   width: 29px;
   height: 29px;
   border-radius: 8px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
@@ -5233,12 +5238,12 @@ button.metric-card {
   padding: 7px;
   border-radius: 7px;
   background: var(--stone-50);
-  color: var(--stone-500);
+  color: var(--text-muted);
   font-size: 11px;
 }
 
 .rule-meta b {
-  color: var(--navy-950);
+  color: var(--ink);
 }
 
 .rule-explanation {
@@ -5315,19 +5320,19 @@ button.metric-card {
   width: 28px;
   height: 28px;
   border-radius: 9px;
-  color: var(--navy-800);
+  color: var(--ink);
   background: var(--info-100);
   font-size: 12px;
   font-weight: 900;
 }
 
 .source-citizen {
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
 .source-committee {
-  color: var(--gold-700);
+  color: var(--gold-strong);
   background: var(--gold-100);
 }
 
@@ -5470,7 +5475,7 @@ button.metric-card {
   width: 29px;
   height: 29px;
   border-radius: 8px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
@@ -5538,7 +5543,7 @@ button.metric-card {
 .communication-composer textarea {
   width: 100%;
   padding: 10px 12px;
-  color: var(--navy-900);
+  color: var(--ink);
   border: 1px solid var(--stone-250);
   border-radius: 10px;
   outline: none;
@@ -5580,7 +5585,7 @@ button.metric-card {
 
 .communication-templates button {
   padding: 7px 9px;
-  color: var(--emerald-800);
+  color: var(--accent-strong);
   border: 1px solid #c8ded7;
   border-radius: 999px;
   background: var(--surface);
@@ -5596,7 +5601,7 @@ button.metric-card {
 
 .task-list button {
   border: 0;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   background: transparent;
   font-size: 11.5px;
   font-weight: 800;
@@ -5615,7 +5620,7 @@ button.metric-card {
 }
 
 .profile-detail-grid > article > span {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
 }
 
 .profile-detail-grid h3 {
@@ -5651,7 +5656,7 @@ button.metric-card {
   margin-top: 15px;
   padding: 0;
   border: 0;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   background: transparent;
   font-size: 11.5px;
   font-weight: 800;
@@ -5721,7 +5726,7 @@ button.metric-card {
   width: 43px;
   height: 43px;
   border-radius: 12px;
-  color: var(--gold-700);
+  color: var(--gold-strong);
   background: var(--gold-100);
   font-size: 19px;
 }
@@ -5751,7 +5756,7 @@ button.metric-card {
 
 .faq summary {
   padding: 13px 0;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 12.5px;
   font-weight: 800;
   cursor: pointer;
@@ -5797,7 +5802,7 @@ button.metric-card {
   width: 37px;
   height: 37px;
   border-radius: 11px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
@@ -5878,7 +5883,7 @@ button.metric-card {
   height: 26px;
   border: 0;
   border-radius: 7px;
-  color: var(--navy-800);
+  color: var(--ink);
   background: var(--info-100);
 }
 
@@ -5945,7 +5950,7 @@ button.metric-card {
 
 .manager-alerts > div > button {
   border: 0;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   background: transparent;
   font-size: 11.5px;
   font-weight: 800;
@@ -5972,7 +5977,7 @@ button.metric-card {
 .compact-filter select {
   border: 0;
   outline: 0;
-  color: var(--navy-900);
+  color: var(--ink);
   background: transparent;
   font-size: 12.5px;
   font-weight: 800;
@@ -6006,7 +6011,7 @@ button.metric-card {
 }
 
 .manager-notification-summary strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 23px;
 }
 
@@ -6087,7 +6092,7 @@ button.metric-card {
 }
 
 .manager-notification-list strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 13px;
 }
 
@@ -6103,7 +6108,7 @@ button.metric-card {
 }
 
 .manager-notification-list i {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-size: 12px;
   font-style: normal;
   font-weight: 800;
@@ -6198,7 +6203,7 @@ button.metric-card {
 
 .previous-meetings button {
   border: 0;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   background: transparent;
   font-size: 11.5px;
 }
@@ -6285,8 +6290,8 @@ button.metric-card {
   width: 30px;
   height: 30px;
   border-radius: 9px;
-  color: var(--navy-950);
-  background: #7ee8c7;
+  color: var(--accent-ink);
+  background: var(--accent-strong);
 }
 
 .quorum-box > div {
@@ -6381,7 +6386,7 @@ button.metric-card {
 }
 
 .agenda-panel button > b {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
 }
 
 .case-pack {
@@ -6398,7 +6403,7 @@ button.metric-card {
 
 .case-pack-header h2 {
   margin: 6px 0 2px;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 17px;
 }
 
@@ -6528,7 +6533,7 @@ button.metric-card {
 }
 
 .pack-document > i {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-style: normal;
 }
 
@@ -6604,7 +6609,7 @@ button.metric-card {
 }
 
 .my-vote button.selected.approve {
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   border-color: var(--emerald-500);
   background: var(--emerald-50);
 }
@@ -6738,7 +6743,7 @@ button.metric-card {
   border: 1px solid var(--stone-200);
   border-radius: 9px;
   outline: 0;
-  color: var(--navy-900);
+  color: var(--ink);
   background: var(--surface);
   font-size: 12px;
   font-weight: 800;
@@ -6754,7 +6759,7 @@ button.metric-card {
   padding: 7px 10px;
   border: 1px solid var(--stone-200);
   border-radius: 9px;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   background: var(--surface);
   font-size: 12px;
   font-weight: 900;
@@ -6772,7 +6777,7 @@ button.metric-card {
 }
 
 .executive-filter-summary > span {
-  color: var(--emerald-600);
+  color: var(--accent-on-tint);
   font-size: 11px;
 }
 
@@ -6784,7 +6789,7 @@ button.metric-card {
 }
 
 .executive-filter-summary strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 12px;
 }
 
@@ -6921,7 +6926,7 @@ button.metric-card {
 
 .chart-insight > span {
   grid-row: 1 / span 2;
-  color: var(--gold-700);
+  color: var(--gold-strong);
   font-size: 11.5px;
   font-weight: 900;
 }
@@ -6974,8 +6979,8 @@ button.metric-card {
 
 .revenue-chart button:hover,
 .revenue-chart button.active {
-  color: var(--navy-950);
-  background: var(--gold-50);
+  color: #1a1205;
+  background: #f7f0de;
 }
 
 .revenue-chart button > span {
@@ -7118,7 +7123,7 @@ button.metric-card {
 }
 
 .governorate-table button > strong:last-child {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-size: 11.5px;
 }
 
@@ -7209,7 +7214,7 @@ button.metric-card {
 }
 
 .finance-numbers strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 17px;
 }
 
@@ -7344,7 +7349,7 @@ button.metric-card {
 }
 
 .invoice-total {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 14px !important;
 }
 
@@ -7410,7 +7415,7 @@ button.metric-card {
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
@@ -7509,7 +7514,7 @@ button.metric-card {
 }
 
 .outcome-successful {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
 }
 
 .outcome-failed {
@@ -7574,22 +7579,22 @@ button.metric-card {
   height: 30px;
   border: 1px solid var(--stone-200);
   border-radius: 8px;
-  color: var(--stone-500);
+  color: var(--text-muted);
   background: var(--stone-50);
   font-size: 11px;
   font-weight: 800;
 }
 
 .version-pipeline span.done {
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   border-color: var(--emerald-100);
   background: var(--emerald-50);
 }
 
 .version-pipeline span.active {
-  color: var(--navy-950);
+  color: #12211d;
   border-color: var(--gold-500);
-  background: var(--gold-50);
+  background: #f7f0de;
 }
 
 .version-pipeline i {
@@ -7630,7 +7635,7 @@ button.metric-card {
   width: 41px;
   height: 41px;
   border-radius: 12px;
-  color: var(--navy-800);
+  color: var(--ink);
   background: var(--info-100);
   font-size: 18px;
 }
@@ -7649,7 +7654,7 @@ button.metric-card {
 }
 
 .studio-module-grid > button > i {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-style: normal;
 }
 
@@ -7760,7 +7765,7 @@ button.metric-card {
   width: 26px;
   height: 26px;
   border-radius: 7px;
-  color: var(--navy-800);
+  color: var(--ink);
   background: var(--info-100);
 }
 
@@ -7813,7 +7818,7 @@ button.metric-card {
   position: absolute;
   top: 29px;
   inset-inline-end: -26px;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-size: 17px;
 }
 
@@ -7832,7 +7837,7 @@ button.metric-card {
   width: 27px;
   height: 27px;
   border-radius: 8px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
@@ -7939,7 +7944,7 @@ button.metric-card {
 .condition-builder button {
   padding: 0;
   border: 0;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   background: transparent;
   font-size: 11px;
 }
@@ -8056,7 +8061,7 @@ button.metric-card {
   min-height: 42px;
   border: 1px dashed var(--emerald-500);
   border-radius: 9px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-50);
   font-size: 11.5px;
   font-weight: 800;
@@ -8144,7 +8149,7 @@ button.metric-card {
 .rule-expression span {
   padding: 4px 7px;
   border-radius: 5px;
-  color: var(--navy-800);
+  color: var(--ink);
   background: var(--info-100);
 }
 
@@ -8154,7 +8159,7 @@ button.metric-card {
 }
 
 .rule-expression strong {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
 }
 
 .rule-builder-list > article > p {
@@ -8319,7 +8324,7 @@ button.metric-card {
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  color: var(--navy-800);
+  color: var(--ink);
   background: var(--info-100);
 }
 
@@ -8365,7 +8370,7 @@ button.metric-card {
 
 .integration-card footer button {
   border: 0;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   background: transparent;
   font-size: 11px;
   font-weight: 800;
@@ -8419,19 +8424,19 @@ button.metric-card {
 }
 
 .version-stage > header .active {
-  color: var(--navy-950);
+  color: var(--ink);
   font-weight: 800;
 }
 
 .version-stage > header .active i {
-  color: var(--navy-950);
+  color: #12211d;
   border-color: var(--gold-500);
-  background: var(--gold-100);
+  background: #efe2c6;
   box-shadow: 0 0 0 4px var(--gold-50);
 }
 
 .version-stage > header .done i {
-  color: white;
+  color: #12211d;
   border-color: var(--emerald-500);
   background: var(--emerald-500);
 }
@@ -8497,7 +8502,7 @@ button.metric-card {
 }
 
 .version-compare .after {
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
@@ -8532,13 +8537,13 @@ button.metric-card {
 }
 
 .verification-result.pending .verification-icon {
-  background: var(--warning);
+  background: #9c5f10;
   box-shadow: 0 0 0 10px var(--warning-100);
 }
 
 .verification-result > h1 {
   margin: 15px 0 5px;
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 30px;
 }
 
@@ -8572,7 +8577,7 @@ button.metric-card {
 }
 
 .decision-document header strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 13.5px;
 }
 
@@ -8582,7 +8587,7 @@ button.metric-card {
 }
 
 .decision-document .decision-seal {
-  color: var(--gold-700);
+  color: var(--gold-strong);
   border: 2px solid var(--gold-500);
   background: transparent;
 }
@@ -8593,7 +8598,7 @@ button.metric-card {
 }
 
 .decision-title span {
-  color: var(--gold-700);
+  color: var(--gold-strong);
   font-size: 12px;
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -8601,7 +8606,7 @@ button.metric-card {
 
 .decision-title h2 {
   margin: 9px 0 4px;
-  color: var(--navy-950);
+  color: var(--ink);
   font-family: Georgia, "Times New Roman", serif;
   font-size: 27px;
 }
@@ -8623,8 +8628,8 @@ button.metric-card {
   margin: 17px auto;
   padding: 12px 18px;
   border: 2px solid var(--gold-500);
-  color: var(--navy-950);
-  background: var(--gold-50);
+  color: #1a1205;
+  background: #f7f0de;
   text-align: center;
   font-size: 15px;
 }
@@ -8688,7 +8693,7 @@ button.metric-card {
 }
 
 .decision-document footer strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 13px;
 }
 
@@ -8751,7 +8756,7 @@ button.metric-card {
 }
 
 .resilience-status-banner strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 14px;
 }
 
@@ -8827,7 +8832,7 @@ button.metric-card {
 }
 
 .resilience-list > button strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 12.5px;
 }
 
@@ -8851,18 +8856,18 @@ button.metric-card {
 }
 
 .resilience-state.state-healthy {
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
 .resilience-state.state-failed {
-  color: var(--danger-700);
+  color: var(--danger);
   background: var(--danger-100);
 }
 
 .resilience-state.state-delayed,
 .resilience-state.state-degraded {
-  color: var(--gold-800);
+  color: var(--gold-strong);
   background: var(--gold-100);
 }
 
@@ -8888,7 +8893,7 @@ button.metric-card {
 }
 
 .impact-number-grid strong {
-  color: var(--navy-950);
+  color: var(--ink);
   font-size: 17px;
 }
 
@@ -8911,8 +8916,8 @@ button.metric-card {
   margin: 3px 0 12px;
   padding: 12px;
   border-radius: 10px;
-  color: var(--navy-900);
-  background: var(--emerald-50);
+  color: #12211d;
+  background: #f1faf7;
 }
 
 .executive-action-note > span {
@@ -8972,13 +8977,13 @@ button.metric-card {
   height: 36px;
   place-items: center;
   border-radius: 10px;
-  color: var(--navy-800);
+  color: var(--ink);
   background: var(--navy-100);
 }
 
 .resilience-governance p {
   margin: 3px 0 0;
-  color: var(--stone-500);
+  color: var(--text-muted);
   font-size: 12px;
 }
 
@@ -9056,7 +9061,7 @@ button.metric-card {
     padding: 0;
     border: 1px solid var(--stone-200);
     border-radius: 9px;
-    color: var(--navy-900);
+    color: var(--ink);
     background: var(--surface);
   }
 
@@ -9658,7 +9663,7 @@ button.metric-card {
 }
 
 .compliance-pass {
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
@@ -9760,7 +9765,7 @@ button.metric-card {
 }
 
 .compliance-gate.clear > span {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   background: var(--surface);
 }
 
@@ -9790,7 +9795,7 @@ button.metric-card {
 .compliance-summary > button strong {
   grid-column: 2;
   grid-row: 1 / span 2;
-  color: var(--navy-900);
+  color: var(--ink);
   font-size: 23px;
 }
 
@@ -9829,7 +9834,7 @@ button.metric-card {
 .compliance-control-list > header button {
   padding: 0;
   border: 0;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   background: transparent;
   font-size: 11.5px;
   font-weight: 800;
@@ -9994,7 +9999,7 @@ button.metric-card {
   padding: 11px;
   border: 1px solid #bee4d6;
   border-radius: 9px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-50);
   font-size: 11.5px;
   font-weight: 800;
@@ -10022,8 +10027,8 @@ button.metric-card {
   height: 27px;
   flex: 0 0 auto;
   border-radius: 8px;
-  color: white;
-  background: var(--warning);
+  color: #ffffff;
+  background: #9c5f10;
   font-weight: 900;
 }
 
@@ -10041,7 +10046,7 @@ button.metric-card {
 .compliance-drawer-block button {
   padding: 0;
   border: 0;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   background: transparent;
   font-size: 11.5px;
   font-weight: 800;
@@ -10092,7 +10097,7 @@ button.metric-card {
 }
 
 .committee-compliance-card.clear > div > span {
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
@@ -10226,7 +10231,7 @@ button.metric-card {
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
   font-weight: 900;
 }
@@ -10310,7 +10315,7 @@ button.metric-card {
 
 .overview-gate-flow .pass i {
   border-color: var(--emerald-500);
-  color: var(--emerald-700);
+  color: var(--accent-strong);
 }
 
 .overview-gate-flow .blocked i {
@@ -10354,7 +10359,7 @@ button.metric-card {
 .legal-clause-grid footer button {
   padding: 0;
   border: 0;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   background: transparent;
   font-size: 11.5px;
   font-weight: 800;
@@ -10465,7 +10470,7 @@ button.metric-card {
 }
 
 .catalog-list b {
-  color: var(--navy-800);
+  color: var(--ink);
   font-size: 11.5px;
 }
 
@@ -10554,7 +10559,7 @@ button.metric-card {
 }
 
 .legal-clause-grid article > header span {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-size: 12px;
   font-weight: 900;
 }
@@ -10660,7 +10665,7 @@ button.metric-card {
 .sla-tracker-grid article > button {
   padding: 0;
   border: 0;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   background: transparent;
   font-size: 11.5px;
   font-weight: 800;
@@ -10688,7 +10693,7 @@ button.metric-card {
   width: 42px;
   height: 42px;
   border-radius: 11px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
   font-size: 18px;
 }
@@ -10731,18 +10736,18 @@ button.metric-card {
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  color: var(--stone-500);
+  color: var(--text-muted);
   background: var(--stone-200);
   font-style: normal;
 }
 
 .version-timeline article.active i {
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
 .version-timeline article span {
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   font-size: 11.5px;
   font-weight: 900;
 }
@@ -10774,8 +10779,8 @@ button.metric-card {
   height: 30px;
   flex: 0 0 auto;
   border-radius: 8px;
-  color: white;
-  background: var(--warning);
+  color: #ffffff;
+  background: #9c5f10;
   font-weight: 900;
 }
 
@@ -10908,7 +10913,7 @@ button.metric-card {
   height: 28px;
   flex: 0 0 auto;
   border-radius: 8px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
 }
 
@@ -11007,7 +11012,7 @@ button.metric-card {
 
 .citizen-assistant-layout > aside > button.active {
   border-color: var(--emerald-500);
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-50);
 }
 
@@ -11265,7 +11270,7 @@ button.metric-card {
   height: 34px;
   flex: 0 0 auto;
   border-radius: 10px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
   font-size: 16px;
 }
@@ -11314,8 +11319,8 @@ button.metric-card {
   height: 26px;
   flex: 0 0 auto;
   border-radius: 50%;
-  color: var(--emerald-700);
-  background: #dff3ec;
+  color: var(--accent-on-tint);
+  background: var(--success-bg);
   font-size: 12.5px;
   font-weight: 900;
 }
@@ -11405,7 +11410,7 @@ button.metric-card {
   border: 1px solid #cbddec;
   border-radius: 7px;
   color: var(--info);
-  background: #f0f7fc;
+  background: var(--info-bg);
   font-size: 11.5px;
   font-weight: 850;
 }
@@ -11423,14 +11428,14 @@ button.metric-card {
   padding: 7px 8px;
   border-radius: 7px;
   color: var(--gold-strong);
-  background: #fff6e5;
+  background: var(--warning-bg);
   font-size: 11.5px;
   line-height: 1.65;
 }
 
 .assistant-mode-note.llm {
-  color: var(--accent-strong);
-  background: #eaf8f3;
+  color: var(--accent-on-tint);
+  background: var(--success-bg);
 }
 
 .assistant-mode-note > span {
@@ -11458,7 +11463,7 @@ button.metric-card {
 
 .assistant-feedback-row button.active {
   border-color: var(--emerald-500);
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-50);
 }
 
@@ -11501,7 +11506,7 @@ button.metric-card {
   border: 1px solid #efc8c4;
   border-radius: 9px;
   color: var(--danger);
-  background: #fff3f2;
+  background: var(--danger-bg);
   font-size: 12px;
 }
 
@@ -11598,7 +11603,7 @@ button.metric-card {
   height: 31px;
   flex: 0 0 auto;
   border-radius: 9px;
-  color: var(--emerald-700);
+  color: var(--accent-on-tint);
   background: var(--emerald-100);
   font-size: 14px;
   font-weight: 900;
@@ -11639,7 +11644,7 @@ button.metric-card {
 
 .assistant-suggestions > button:hover {
   border-color: var(--emerald-400);
-  color: var(--emerald-800);
+  color: var(--accent-on-tint);
   background: var(--emerald-50);
 }
 
@@ -11649,7 +11654,7 @@ button.metric-card {
   width: 26px;
   height: 26px;
   border-radius: 7px;
-  color: var(--emerald-700);
+  color: var(--accent-strong);
   background: var(--surface);
   font-size: 11.5px;
 }
@@ -11697,7 +11702,7 @@ button.metric-card {
   padding: 8px;
   border: 1px solid var(--emerald-300);
   border-radius: 8px;
-  color: var(--emerald-800);
+  color: var(--accent-on-tint);
   background: var(--emerald-50);
   font-size: 12px;
   font-weight: 900;
@@ -11796,7 +11801,7 @@ button.metric-card {
 }
 
 .legal-source-drawer > section span {
-  color: var(--emerald-800);
+  color: var(--accent-strong);
   font-size: 13px;
   font-weight: 900;
 }
@@ -11815,7 +11820,7 @@ button.metric-card {
   padding: 11px;
   border-radius: 9px;
   color: var(--gold-strong);
-  background: #fff7e6;
+  background: var(--warning-bg);
   font-size: 12px;
   line-height: 1.8;
 }
