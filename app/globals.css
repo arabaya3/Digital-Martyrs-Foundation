@@ -3,21 +3,21 @@
 
 :root {
   /* ---- brand ramp (handoff spec) ---- */
-  --navy-950: #061726;
-  --navy-900: #0b2438;
+  --navy-950: #071b2e;
+  --navy-900: #0b263d;
   --navy-800: #123653;
   --navy-700: #1d4a6c;
   --navy-600: #2b5f86;
   --navy-100: #dbe6ef;
   --emerald-900: #04513f;
   --emerald-800: #055a46;
-  --emerald-700: #066b54;
-  --emerald-600: #0a8b6f;
-  --emerald-500: #1cae8c;
+  --emerald-700: #08755f;
+  --emerald-600: #0b8b70;
+  --emerald-500: #18a887;
   --emerald-400: #46c2a4;
   --emerald-300: #86d8c2;
-  --emerald-100: #e4f3ee;
-  --emerald-50: #f1faf7;
+  --emerald-100: #dff4ee;
+  --emerald-50: #effaf7;
   --gold-800: #614817;
   --gold-700: #7a5a1e;
   --gold-600: #946e28;
@@ -25,19 +25,19 @@
   --gold-400: #cfab6b;
   --gold-300: #dfc696;
   --gold-100: #efe2c6;
-  --gold-50: #f7f0de;
-  --stone-950: #0f1f1a;
-  --stone-800: #2b3532;
-  --stone-700: #45514d;
-  --stone-600: #586863;
-  --stone-500: #74807c;
-  --stone-400: #a3aca9;
-  --stone-300: #c8cfcc;
+  --gold-50: #f9f3e6;
+  --stone-950: #12211d;
+  --stone-800: #303a38;
+  --stone-700: #4b5754;
+  --stone-600: #68736f;
+  --stone-500: #7e8885;
+  --stone-400: #aab2af;
+  --stone-300: #ccd2d0;
   --stone-250: #d9dedc;
-  --stone-200: #e0e6e3;
-  --stone-150: #e7ecea;
-  --stone-100: #eff3f1;
-  --stone-50: #f6f9f7;
+  --stone-200: #e2e6e4;
+  --stone-150: #ebeeed;
+  --stone-100: #f2f4f3;
+  --stone-50: #f8f9f8;
   --white: #fff;
   --danger-700: #8f2c36;
 
@@ -47,12 +47,12 @@
   --info: #276eb4;
   --info-bg: #e3effb;
   --info-100: #e3effb;
-  --success: #08745d;
+  --success: #0b8b70;
   --success-bg: #dff4ee;
-  --warning: #9c5f10;
+  --warning: #bd7313;
   --warning-bg: #fceed7;
   --warning-100: #fceed7;
-  --danger: #bb3a47;
+  --danger: #bd3b48;
   --danger-bg: #fae4e6;
   --danger-100: #fae4e6;
   --neutral: #4b5754;
@@ -60,6 +60,14 @@
   --gold: #7a5a1e;
   --gold-bg: #efe2c6;
   --gold-strong: #7a5a1e;
+
+  /* Tone text sitting on its OWN tint. The brand tones above are the
+     reference values and stay untouched; these are one step darker so the
+     chips clear WCAG AA, which the same handoff requires. */
+  --success-fg: #0a7c64;
+  --warning-fg: #9b5e10;
+  --danger-fg: #bb3a47;
+  --muted-on-tint: #67726e;
 
   /* ---- surfaces (light) ---- */
   --bg: #e9eeec;
@@ -87,6 +95,7 @@
   --brand: #0b2438;
   --brand-strong: #061726;
   --brand-ink: #eaf1f0;
+  --brand-accent: var(--gold-500);
   --accent: #0a8b6f;
   --accent-strong: #066b54;
   --accent-ink: #ffffff;
@@ -95,6 +104,7 @@
      Those tints invert between themes, so this needs its own value per theme —
      --accent-strong is unreadable on the dark tint, --accent on the light one. */
   --accent-on-tint: #066b54;
+  --accent-text: #066b54;
   --focus: rgba(10, 139, 111, 0.4);
 
   /* ---- type ---- */
@@ -171,10 +181,11 @@
   --brand-ink: #eaf1f0;
   --accent: #1cae8c;
   /* one step lighter than the handoff value to clear AA on --surface */
-  --accent-strong: #179479;
+  --accent-strong: #0f9074;
   --accent-ink: #04140f;
   --accent-weak: rgba(28, 174, 140, 0.15);
   --accent-on-tint: #46c2a4;
+  --accent-text: #1cae8c;
   --focus: rgba(28, 174, 140, 0.45);
 
   --info: #7bb4ec;
@@ -184,6 +195,10 @@
   --neutral: #c4ccc9;
   --gold: #d8b56a;
   --gold-strong: #d8b56a;
+  --success-fg: var(--success);
+  --warning-fg: var(--warning);
+  --danger-fg: var(--danger);
+  --muted-on-tint: var(--text-muted);
   --info-bg: rgba(39, 110, 180, 0.18);
   --success-bg: rgba(28, 174, 140, 0.16);
   --warning-bg: rgba(189, 115, 19, 0.18);
@@ -212,6 +227,9 @@
   --stone-50: #12201d;
   --white: #0a1d2e;
   --navy-100: #22354a;
+  --sh-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --sh-md: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --sh-lg: 0 30px 70px rgba(0, 0, 0, 0.6);
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -864,12 +882,12 @@ textarea::placeholder {
 }
 
 .status-warning {
-  color: var(--warning);
+  color: var(--warning-fg);
   background: var(--warning-100);
 }
 
 .status-danger {
-  color: var(--danger);
+  color: var(--danger-fg);
   background: var(--danger-100);
 }
 
@@ -1666,7 +1684,7 @@ textarea::placeholder {
   width: 460px;
   height: 460px;
   top: 15%;
-  left: 50%;
+  inset-inline-start: 50%;
   border: 1px solid rgba(255, 255, 255, 0.11);
   border-radius: 50%;
   transform: translateX(-50%);
@@ -1974,8 +1992,9 @@ textarea::placeholder {
   padding: 8px 11px;
   border: 1px solid var(--stone-300);
   border-radius: 9px;
-  color: var(--stone-600);
-  background: rgba(255, 255, 255, 0.92);
+  color: var(--text-muted);
+  /* Theme-aware: a hardcoded white plate left the inverted text at 4.19:1. */
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
   box-shadow: var(--shadow-sm);
   font-size: 12px;
   font-weight: 800;
@@ -2078,7 +2097,7 @@ textarea::placeholder {
   margin-top: 16px;
   padding: 12px;
   border-radius: 10px;
-  color: var(--stone-600);
+  color: var(--muted-on-tint);
   background: var(--stone-100);
   font-size: 12px;
 }
@@ -2087,7 +2106,8 @@ textarea::placeholder {
   position: fixed;
   z-index: 150;
   bottom: 24px;
-  left: 50%;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -2639,7 +2659,7 @@ textarea::placeholder {
   height: 100%;
   border-radius: 5px;
   background: var(--emerald-500);
-  transition: width 400ms ease;
+  transition: width var(--dur3) var(--ease-out);
 }
 
 .action-callout {
@@ -2865,7 +2885,7 @@ textarea::placeholder {
   width: 27px;
   height: 27px;
   border-radius: 8px;
-  color: var(--stone-600);
+  color: var(--muted-on-tint);
   background: var(--stone-100);
 }
 
@@ -2976,8 +2996,8 @@ textarea::placeholder {
 
 .wizard-stepper li.done i {
   color: var(--accent-ink);
-  border-color: var(--accent);
-  background: var(--accent);
+  border-color: var(--accent-strong);
+  background: var(--accent-strong);
 }
 
 .wizard-layout {
@@ -3247,7 +3267,7 @@ textarea::placeholder {
   width: 37px;
   height: 41px;
   border-radius: 8px;
-  color: var(--danger);
+  color: var(--danger-fg);
   background: var(--danger-100);
   font-size: 11.5px;
   font-weight: 900;
@@ -3458,7 +3478,7 @@ textarea::placeholder {
   margin-top: 14px;
   padding: 10px 12px;
   border-radius: 9px;
-  color: var(--danger);
+  color: var(--danger-fg);
   background: var(--danger-100);
   font-size: 12px;
   font-weight: 700;
@@ -4004,7 +4024,7 @@ button.metric-card {
 }
 
 .metric-red .metric-icon {
-  color: var(--danger);
+  color: var(--danger-fg);
   background: var(--danger-100);
 }
 
@@ -4462,7 +4482,7 @@ button.metric-card {
 }
 
 .eligibility-row.rule-warning > span {
-  color: var(--warning);
+  color: var(--warning-fg);
   background: var(--warning-100);
 }
 
@@ -4696,7 +4716,7 @@ button.metric-card {
 }
 
 .rule-mini.rule-warning i {
-  color: var(--warning);
+  color: var(--warning-fg);
   background: var(--warning-100);
 }
 
@@ -4727,7 +4747,7 @@ button.metric-card {
   height: 29px;
   flex: 0 0 auto;
   border-radius: 9px;
-  color: var(--warning);
+  color: var(--warning-fg);
   background: var(--warning-100);
 }
 
@@ -4800,7 +4820,7 @@ button.metric-card {
   margin-top: 13px;
   padding: 10px;
   border-radius: 9px;
-  color: var(--stone-600);
+  color: var(--muted-on-tint);
   background: var(--stone-100);
   font-size: 11.5px;
 }
@@ -4998,7 +5018,7 @@ button.metric-card {
 .doc-watermark {
   position: absolute;
   top: 45%;
-  left: 10%;
+  inset-inline-start: 10%;
   color: rgba(193, 63, 76, 0.08);
   font-size: 40px;
   font-weight: 900;
@@ -5211,7 +5231,7 @@ button.metric-card {
 }
 
 .rule-card.rule-warning > header > span {
-  color: var(--warning);
+  color: var(--warning-fg);
   background: var(--warning-100);
 }
 
@@ -5337,7 +5357,7 @@ button.metric-card {
 }
 
 .source-payment {
-  color: var(--warning);
+  color: var(--warning-fg);
   background: var(--warning-100);
 }
 
@@ -5435,7 +5455,7 @@ button.metric-card {
   width: 67%;
   height: 2px;
   top: -1px;
-  left: 16.5%;
+  inset-inline-start: 16.5%;
   background: var(--stone-300);
 }
 
@@ -5566,7 +5586,7 @@ button.metric-card {
 }
 
 .communication-composer input:read-only {
-  color: var(--stone-600);
+  color: var(--muted-on-tint);
   background: var(--stone-100);
 }
 
@@ -5585,7 +5605,7 @@ button.metric-card {
 
 .communication-templates button {
   padding: 7px 9px;
-  color: var(--accent-strong);
+  color: var(--accent-text);
   border: 1px solid #c8ded7;
   border-radius: 999px;
   background: var(--surface);
@@ -6077,12 +6097,12 @@ button.metric-card {
 }
 
 .manager-notification-list > button.notification-critical > span {
-  color: var(--danger);
+  color: var(--danger-fg);
   background: var(--danger-100);
 }
 
 .manager-notification-list > button.notification-warning > span {
-  color: var(--warning);
+  color: var(--warning-fg);
   background: var(--warning-100);
 }
 
@@ -6366,7 +6386,7 @@ button.metric-card {
   width: 26px;
   height: 26px;
   border-radius: 7px;
-  color: var(--stone-600);
+  color: var(--muted-on-tint);
   background: var(--stone-100);
   font-style: normal;
   font-size: 11px;
@@ -6615,7 +6635,7 @@ button.metric-card {
 }
 
 .my-vote button.selected.reject {
-  color: var(--danger);
+  color: var(--danger-fg);
   border-color: var(--danger);
   background: var(--danger-100);
 }
@@ -6626,7 +6646,7 @@ button.metric-card {
   padding: 8px;
   border: 1px dashed var(--stone-300);
   border-radius: 8px;
-  color: var(--stone-600);
+  color: var(--muted-on-tint);
   background: var(--stone-50);
   font-size: 11px;
 }
@@ -6759,7 +6779,7 @@ button.metric-card {
   padding: 7px 10px;
   border: 1px solid var(--stone-200);
   border-radius: 9px;
-  color: var(--accent-strong);
+  color: var(--accent-text);
   background: var(--surface);
   font-size: 12px;
   font-weight: 900;
@@ -6887,7 +6907,7 @@ button.metric-card {
   border-radius: 5px 5px 0 0;
   background: linear-gradient(var(--emerald-500), var(--emerald-700));
   opacity: 0.8;
-  transition: height 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: height var(--dur3) var(--ease-out);
 }
 
 .chart-bars b {
@@ -6895,11 +6915,12 @@ button.metric-card {
   z-index: 2;
   width: 8px;
   height: 8px;
-  left: 50%;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
   border: 2px solid white;
   border-radius: 50%;
   background: var(--gold-500);
-  transition: bottom 420ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: bottom var(--dur3) var(--ease-out);
   box-shadow: 0 0 0 2px var(--gold-500);
   transform: translateX(-50%);
 }
@@ -7004,7 +7025,7 @@ button.metric-card {
   background: linear-gradient(var(--gold-500), var(--gold-700));
   opacity: 0.76;
   transition:
-    height 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    height var(--dur3) var(--ease-out),
     opacity 180ms ease,
     box-shadow 180ms ease;
 }
@@ -7091,7 +7112,7 @@ button.metric-card {
   width: 24px;
   height: 24px;
   border-radius: 7px;
-  color: var(--stone-600);
+  color: var(--muted-on-tint);
   background: var(--stone-100);
   font-size: 11px;
 }
@@ -7262,7 +7283,7 @@ button.metric-card {
   width: 30px;
   height: 30px;
   border-radius: 9px;
-  color: var(--warning);
+  color: var(--warning-fg);
   background: var(--warning-100);
 }
 
@@ -7289,7 +7310,7 @@ button.metric-card {
   padding: 12px 14px;
   border: 1px solid var(--warning-100);
   border-radius: 10px;
-  color: var(--warning);
+  color: var(--warning-fg);
   background: var(--warning-bg);
   font-size: 12px;
 }
@@ -7953,7 +7974,7 @@ button.metric-card {
   margin-top: 14px;
   padding: 10px;
   border-radius: 8px;
-  color: var(--warning);
+  color: var(--warning-fg);
   background: var(--warning-100);
   font-size: 11px;
   line-height: 1.6;
@@ -8497,7 +8518,7 @@ button.metric-card {
 }
 
 .version-compare .before {
-  color: var(--danger);
+  color: var(--danger-fg);
   background: var(--danger-100);
 }
 
@@ -8861,7 +8882,7 @@ button.metric-card {
 }
 
 .resilience-state.state-failed {
-  color: var(--danger);
+  color: var(--danger-fg);
   background: var(--danger-100);
 }
 
@@ -9668,17 +9689,17 @@ button.metric-card {
 }
 
 .compliance-violation {
-  color: var(--danger);
+  color: var(--danger-fg);
   background: var(--danger-100);
 }
 
 .compliance-needs_review {
-  color: var(--warning);
+  color: var(--warning-fg);
   background: var(--warning-100);
 }
 
 .compliance-not_applicable {
-  color: var(--stone-600);
+  color: var(--muted-on-tint);
   background: var(--stone-100);
 }
 
@@ -9755,7 +9776,7 @@ button.metric-card {
 }
 
 .compliance-gate.blocked > span {
-  color: var(--warning);
+  color: var(--warning-fg);
   background: var(--surface);
 }
 
@@ -9765,7 +9786,7 @@ button.metric-card {
 }
 
 .compliance-gate.clear > span {
-  color: var(--accent-strong);
+  color: var(--accent-text);
   background: var(--surface);
 }
 
@@ -10006,7 +10027,7 @@ button.metric-card {
 }
 
 .referral-checks > .referral-blocker > span {
-  color: var(--warning);
+  color: var(--warning-fg);
   background: var(--warning-100);
 }
 
@@ -10106,7 +10127,7 @@ button.metric-card {
 }
 
 .committee-compliance-card.blocked > div > span {
-  color: var(--warning);
+  color: var(--warning-fg);
   background: var(--warning-100);
 }
 
@@ -10237,7 +10258,7 @@ button.metric-card {
 }
 
 .compliance-kpis article.attention > span {
-  color: var(--warning);
+  color: var(--warning-fg);
   background: var(--warning-100);
 }
 
@@ -10320,7 +10341,7 @@ button.metric-card {
 
 .overview-gate-flow .blocked i {
   border-color: var(--warning);
-  color: var(--warning);
+  color: var(--warning-fg);
   background: var(--warning-100);
 }
 
@@ -10866,7 +10887,7 @@ button.metric-card {
   gap: 8px;
   padding: 9px;
   border-radius: 8px;
-  color: var(--stone-600);
+  color: var(--muted-on-tint);
   background: var(--stone-100);
   font-size: 11.5px;
 }
@@ -11505,7 +11526,7 @@ button.metric-card {
   padding: 9px;
   border: 1px solid #efc8c4;
   border-radius: 9px;
-  color: var(--danger);
+  color: var(--danger-fg);
   background: var(--danger-bg);
   font-size: 12px;
 }
@@ -11654,7 +11675,7 @@ button.metric-card {
   width: 26px;
   height: 26px;
   border-radius: 7px;
-  color: var(--accent-strong);
+  color: var(--accent-text);
   background: var(--surface);
   font-size: 11.5px;
 }
@@ -12719,4 +12740,13 @@ button.metric-card {
     grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 4px;
   }
+}
+
+.sign-blocked-note {
+  display: block;
+  margin-block-start: var(--s2);
+  color: var(--text-muted);
+  font-size: 11.5px;
+  line-height: 1.6;
+  text-align: center;
 }

@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* palette */
+  --navy-950:#071b2e; --navy-900:#0b263d; --navy-800:#123653; --navy-700:#1d4a6c; --navy-600:#2b5f86;
+  --emerald-700:#08755f; --emerald-600:#0b8b70; --emerald-500:#18a887; --emerald-100:#dff4ee; --emerald-50:#effaf7;
+  --gold-700:#7a5a1e; --gold-600:#946e28; --gold-500:#b98d3f; --gold-100:#efe2c6; --gold-50:#f9f3e6;
+  --stone-950:#12211d; --stone-800:#303a38; --stone-700:#4b5754; --stone-600:#68736f; --stone-500:#7e8885;
+  --stone-400:#aab2af; --stone-300:#ccd2d0; --stone-200:#e2e6e4; --stone-150:#ebeeed; --stone-100:#f2f4f3; --stone-50:#f8f9f8; --white:#fff;
+  --info:#276eb4; --info-bg:#e3effb; --success:#0b8b70; --success-bg:#dff4ee; --warning:#bd7313; --warning-bg:#fceed7;
+  --danger:#bd3b48; --danger-bg:#fae4e6; --neutral:#4b5754; --neutral-bg:#eaefed; --gold:#7a5a1e; --gold-bg:#efe2c6;
+  /* semantic surfaces (light) */
+  --bg:#e9eeec; --app-grad:radial-gradient(1300px 680px at 100% -12%, #f3f7f5 0, #e7edea 62%);
+  --surface:#ffffff; --surface-2:#f4f7f5; --surface-3:#e9efec; --overlay:rgba(6,20,34,.46);
+  --border:#e0e6e3; --border-strong:#cfd6d2; --hairline:#eaeeec;
+  --text:#0f1f1a; --text-muted:#586863; --text-subtle:#8a938f; --text-invert:#f4f8f6;
+  --brand:#0b2438; --brand-strong:#061726; --brand-ink:#eaf1f0; --brand-accent:var(--gold-500);
+  --accent:#0a8b6f; --accent-strong:#066b54; --accent-ink:#ffffff; --accent-weak:#e4f3ee;
+  --focus:rgba(10,139,111,.4);
+  /* type */
+  --font-ar:"IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif; --font-en:"IBM Plex Sans","Segoe UI",Arial,sans-serif; --font:var(--font-ar);
+  --lh:1.75; --lh-tight:1.4;
+  /* spacing */
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:20px; --s6:24px; --s7:32px; --s8:40px; --s9:48px; --s10:64px;
+  /* radii */
+  --r-xs:6px; --r-sm:10px; --r:14px; --r-lg:20px; --r-xl:26px; --r-pill:999px;
+  /* elevation */
+  --sh-sm:0 1px 2px rgba(7,27,46,.06), 0 2px 8px rgba(7,27,46,.05);
+  --sh-md:0 8px 24px rgba(7,27,46,.09), 0 2px 6px rgba(7,27,46,.05);
+  --sh-lg:0 24px 64px rgba(7,27,46,.16), 0 6px 16px rgba(7,27,46,.08);
+  --ring:inset 0 0 0 1px var(--border);
+  /* motion */
+  --ease:cubic-bezier(.2,.7,.2,1); --ease-out:cubic-bezier(.16,1,.3,1); --dur1:120ms; --dur2:220ms; --dur3:340ms;
+}
+[data-theme="dark"]{
+  --bg:#040d16; --app-grad:radial-gradient(1300px 680px at 100% -12%, #0a1e31 0, #040c15 62%);
+  --surface:#0a1d2e; --surface-2:#0d2436; --surface-3:#112c40; --overlay:rgba(0,0,0,.64);
+  --border:rgba(255,255,255,.09); --border-strong:rgba(255,255,255,.17); --hairline:rgba(255,255,255,.055);
+  --text:#eaf2f0; --text-muted:#9fb0ab; --text-subtle:#728380; --text-invert:#061726;
+  --brand:#081d2e; --brand-strong:#04101b; --brand-ink:#eaf1f0;
+  --accent:#1cae8c; --accent-strong:#0f9074; --accent-ink:#04140f; --accent-weak:rgba(28,174,140,.15);
+  --info-bg:rgba(39,110,180,.18); --success-bg:rgba(28,174,140,.16); --warning-bg:rgba(189,115,19,.18);
+  --danger-bg:rgba(189,59,72,.2); --neutral-bg:rgba(255,255,255,.06); --gold-bg:rgba(185,141,63,.18);
+  --info:#7bb4ec; --success:#5bd6b5; --warning:#e6a94a; --danger:#ef8a94; --neutral:#c4ccc9; --gold:#d8b56a;
+  --sh-sm:0 1px 2px rgba(0,0,0,.4); --sh-md:0 10px 30px rgba(0,0,0,.5); --sh-lg:0 30px 70px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+[dir="ltr"]{--font:var(--font-en);--lh:1.55}
+[dir="rtl"]{--font:var(--font-ar);--lh:1.75}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+::selection{background:var(--accent-weak);color:var(--accent-strong)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:6px}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:99px;border:3px solid var(--bg)}
+input,textarea,select{color:var(--text)}
+input::placeholder,textarea::placeholder{color:var(--text-subtle)}
+a{color:var(--accent-strong);text-decoration:none}
+a:hover{color:var(--accent)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
+@keyframes barGrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes screenIn{from{opacity:0;transform:translateY(16px) scale(.986)}to{opacity:1;transform:none}}
+@keyframes navPulse{from{transform:scaleY(0);opacity:0}to{transform:scaleY(1);opacity:1}}
+.enter{animation:screenIn 300ms var(--ease-out) both}
+.screen{animation:screenIn 300ms var(--ease-out) both}
+.stagger>*{animation:fadeUp var(--dur3) var(--ease-out) both}
+.stagger>*:nth-child(1){animation-delay:.04s}.stagger>*:nth-child(2){animation-delay:.09s}
+.stagger>*:nth-child(3){animation-delay:.14s}.stagger>*:nth-child(4){animation-delay:.19s}
+.stagger>*:nth-child(5){animation-delay:.24s}.stagger>*:nth-child(6){animation-delay:.29s}
+.nav-btn{position:relative;transition:background var(--dur2) var(--ease),color var(--dur2)}
+.nav-btn .nav-ind{position:absolute;inset-inline-start:0;inset-block:8px;width:3px;border-radius:99px;background:var(--gold-500);transform-origin:center;animation:navPulse var(--dur2) var(--ease-out) both}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
+}
+</style>
+</helmet>
+<div dir="{{ dir }}" data-lang="{{ language }}" style="min-height:100vh;background:var(--app-grad);font-family:var(--font);line-height:var(--lh)">
+  <div style="display:grid;grid-template-columns:var(--sidebar-w, 264px) 1fr;min-height:100vh" class="shell-grid">
+
+    <!-- SIDEBAR -->
+    <aside style="position:sticky;top:0;align-self:start;height:100vh;display:flex;flex-direction:column;gap:var(--s4);padding:var(--s5) var(--s4);background:var(--brand);color:var(--brand-ink);border-inline-end:1px solid var(--border);z-index:20" class="sidebar-el">
+      <div style="display:flex;align-items:center;gap:var(--s3);padding-inline:var(--s1)">
+        <span style="position:relative;flex:0 0 auto;width:42px;height:42px;border-radius:12px;background:linear-gradient(160deg,#0e2f4c,#071b2e);box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);display:grid;place-items:center" aria-hidden="true">
+          <span style="display:block;width:7px;height:22px;background:var(--gold-500);border-radius:7px 7px 2px 2px;box-shadow:0 0 12px rgba(213,164,62,.5)"></span>
+        </span>
+        <span style="display:grid;gap:2px">
+          <strong style="font-size:14px;font-weight:700;color:#fff">{{ c.foundation }}</strong>
+          <small style="font-size:10.5px;color:rgba(234,241,240,.6);letter-spacing:.2px">{{ c.platform }}</small>
+        </span>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:var(--s3);padding:var(--s3);border-radius:var(--r-sm);background:rgba(213,164,62,.12);border:1px solid rgba(213,164,62,.28)">
+        <span style="width:8px;height:8px;border-radius:99px;background:var(--gold-500);box-shadow:0 0 0 4px rgba(213,164,62,.18);flex:0 0 auto"></span>
+        <div style="display:grid;gap:1px">
+          <strong style="font-size:11.5px;color:var(--gold-100)">{{ c.demo }}</strong>
+          <small style="font-size:9.5px;color:rgba(234,241,240,.55);line-height:1.4">{{ c.prototype }}</small>
+        </div>
+      </div>
+
+      <nav aria-label="{{ c.mainNav }}" style="display:flex;flex-direction:column;gap:2px;overflow-y:auto;flex:1;margin-inline:calc(var(--s2) * -1);padding-inline:var(--s2)">
+        <sc-for list="{{ nav }}" as="item" hint-placeholder-count="7">
+          <button class="nav-btn" onClick="{{ item.go }}" aria-current="{{ item.current }}" style="{{ item.style }}" style-hover="background:rgba(255,255,255,.08);color:#fff">
+            <sc-if value="{{ item.active }}" hint-placeholder-val=""><span class="nav-ind" aria-hidden="true"></span></sc-if>
+            <span aria-hidden="true" style="width:22px;text-align:center;font-size:15px;opacity:.9;transition:transform var(--dur2) var(--ease);{{ item.flip }}">{{ item.icon }}</span>
+            <span style="flex:1;text-align:start">{{ item.label }}</span>
+            <sc-if value="{{ item.badge }}" hint-placeholder-val="">
+              <b style="min-width:18px;height:18px;padding:0 5px;border-radius:99px;background:var(--gold-500);color:#1a1205;font-size:10.5px;font-weight:700;display:grid;place-items:center">{{ item.badge }}</b>
+            </sc-if>
+          </button>
+        </sc-for>
+      </nav>
+
+      <button onClick="{{ openPersona }}" style="display:flex;align-items:center;gap:var(--s3);padding:var(--s3);border-radius:var(--r-sm);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);text-align:start;transition:background var(--dur2) var(--ease)" style-hover="background:rgba(255,255,255,.1)">
+        <span style="width:34px;height:34px;border-radius:10px;background:var(--gold-500);color:#1a1205;display:grid;place-items:center;font-weight:700;font-size:12px;flex:0 0 auto">{{ persona.initials }}</span>
+        <span style="display:grid;gap:1px;flex:1;min-width:0">
+          <strong style="font-size:12.5px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ persona.name }}</strong>
+          <small style="font-size:10px;color:rgba(234,241,240,.55)">{{ persona.label }}</small>
+        </span>
+        <i style="font-style:normal;color:rgba(234,241,240,.5)">⌄</i>
+      </button>
+    </aside>
+
+    <!-- MAIN COLUMN -->
+    <div style="display:flex;flex-direction:column;min-width:0">
+      <!-- TOPBAR -->
+      <header style="position:sticky;top:0;z-index:15;display:flex;align-items:center;gap:var(--s4);padding:var(--s3) var(--s6);background:color-mix(in srgb, var(--surface) 82%, transparent);backdrop-filter:blur(14px);border-block-end:1px solid var(--border)">
+        <button onClick="{{ toggleMobile }}" class="mobile-only-btn" aria-label="{{ c.menu }}" style="display:none;width:40px;height:40px;border-radius:10px;border:1px solid var(--border);background:var(--surface)">☰</button>
+        <label style="display:flex;align-items:center;gap:var(--s3);flex:1;max-width:520px;padding:0 var(--s4);height:42px;border-radius:var(--r-pill);background:var(--surface-2);border:1px solid var(--border)">
+          <span aria-hidden="true" style="color:var(--text-subtle)">⌕</span>
+          <input placeholder="{{ c.search }}" style="flex:1;border:0;background:transparent;outline:none;font-size:13px" aria-label="{{ c.search }}">
+          <kbd style="font-family:var(--font-en);font-size:10px;color:var(--text-subtle);border:1px solid var(--border);border-radius:6px;padding:2px 6px">Ctrl K</kbd>
+        </label>
+        <div style="display:flex;align-items:center;gap:var(--s2);margin-inline-start:auto">
+          <button onClick="{{ toggleTheme }}" aria-label="{{ c.theme }}" title="{{ c.theme }}" style="width:40px;height:40px;border-radius:10px;border:1px solid var(--border);background:var(--surface);font-size:15px">{{ themeIcon }}</button>
+          <button onClick="{{ toggleLang }}" style="height:40px;padding:0 var(--s4);border-radius:10px;border:1px solid var(--border);background:var(--surface);font-weight:600;font-size:12.5px;letter-spacing:.3px">{{ langLabel }}</button>
+          <button onClick="{{ goNotifications }}" aria-label="{{ c.notifications }}" style="position:relative;width:40px;height:40px;border-radius:10px;border:1px solid var(--border);background:var(--surface);font-size:15px">
+            <span aria-hidden="true">◔</span>
+            <i style="position:absolute;inset-block-start:-6px;inset-inline-end:-6px;min-width:18px;height:18px;padding:0 4px;border-radius:99px;background:var(--danger);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;font-style:normal">{{ notifCount }}</i>
+          </button>
+          <button onClick="{{ openPersona }}" style="display:flex;align-items:center;gap:var(--s2);height:40px;padding:0 var(--s3) 0 var(--s2);border-radius:var(--r-pill);border:1px solid var(--border);background:var(--surface)">
+            <span style="width:28px;height:28px;border-radius:99px;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;font-size:11px;font-weight:700">{{ persona.initials }}</span>
+            <span style="font-size:12.5px;font-weight:600">{{ c.switchRole }}</span>
+            <b style="font-style:normal;color:var(--text-subtle);font-size:11px">⌄</b>
+          </button>
+        </div>
+      </header>
+
+      <!-- SCREEN OUTLET -->
+      <main style="flex:1;padding:var(--s7) var(--s7) var(--s10);max-width:1400px;width:100%;margin-inline:auto">
+        <div class="enter" key="{{ screenKey }}">
+
+          <!-- ===== CITIZEN DASHBOARD ===== -->
+          <sc-if value="{{ showCitizen }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid;gap:var(--s7)" class="stagger">
+              <header style="display:flex;flex-wrap:wrap;gap:var(--s4);align-items:flex-end;justify-content:space-between">
+                <div style="display:grid;gap:var(--s2)">
+                  <span style="font-size:11.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-subtle)">{{ citizen.date }}</span>
+                  <h1 style="margin:0;font-size:28px;font-weight:700;letter-spacing:-.01em;line-height:1.25">{{ citizen.welcome }}</h1>
+                  <p style="margin:0;color:var(--text-muted);font-size:14px;max-width:64ch">{{ citizen.sub }}</p>
+                </div>
+                <button onClick="{{ goWizard }}" style="{{ btnPrimary }}">{{ citizen.startService }}</button>
+              </header>
+
+              <div style="display:grid;grid-template-columns:1.7fr 1fr;gap:var(--s5)" class="citizen-overview">
+                <article style="{{ card }};display:grid;gap:var(--s5);padding:var(--s6)">
+                  <header style="display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s4)">
+                    <div style="display:grid;gap:var(--s1)">
+                      <span style="{{ eyebrow }}">{{ citizen.activeLabel }}</span>
+                      <h2 style="margin:0;font-size:19px;font-weight:700">{{ citizen.caseTitle }}</h2>
+                      <small dir="ltr" style="color:var(--text-subtle);font-family:var(--font-en);font-size:12px">MF-2026-000184</small>
+                    </div>
+                    <span style="{{ badgeGold }}"><i style="width:7px;height:7px;border-radius:99px;background:currentColor;display:inline-block;opacity:.7"></i>{{ citizen.statusLabel }}</span>
+                  </header>
+                  <div style="height:8px;border-radius:99px;background:var(--surface-3);overflow:hidden">
+                    <i style="display:block;height:100%;width:62%;border-radius:99px;background:linear-gradient(90deg,var(--accent),var(--accent-strong));transition:width var(--dur3) var(--ease-out)"></i>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:var(--s4);padding:var(--s4);border-radius:var(--r);background:var(--accent-weak);border:1px solid color-mix(in srgb,var(--accent) 22%,transparent)">
+                    <span style="width:36px;height:36px;border-radius:10px;background:var(--surface);color:var(--accent-strong);display:grid;place-items:center;font-size:16px;flex:0 0 auto">→</span>
+                    <div style="display:grid;gap:2px;flex:1">
+                      <small style="{{ eyebrow }}">{{ citizen.nextActionLabel }}</small>
+                      <strong style="font-size:14px">{{ citizen.nextAction }}</strong>
+                    </div>
+                    <button onClick="{{ goWizard }}" style="{{ btnGhost }}">{{ citizen.openApp }}</button>
+                  </div>
+                  <footer style="display:flex;flex-wrap:wrap;gap:var(--s4);color:var(--text-subtle);font-size:12px;padding-block-start:var(--s3);border-block-start:1px solid var(--hairline)">
+                    <span>◷ {{ citizen.sla }}</span><span>{{ citizen.updated }}</span>
+                  </footer>
+                </article>
+
+                <aside style="{{ card }};display:grid;gap:var(--s4);padding:var(--s6)">
+                  <header style="display:flex;align-items:center;gap:var(--s3)">
+                    <span style="width:48px;height:48px;border-radius:14px;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;font-weight:700">زع</span>
+                    <div style="display:grid;gap:1px;flex:1"><strong style="font-size:14px">{{ citizen.name }}</strong><small dir="ltr" style="color:var(--text-subtle);font-size:11px;font-family:var(--font-en)">BEN-10024</small></div>
+                    <b style="font-size:20px;font-weight:700;color:var(--accent-strong)">{{ citizen.profilePct }}</b>
+                  </header>
+                  <div style="height:6px;border-radius:99px;background:var(--surface-3);overflow:hidden"><i style="display:block;height:100%;width:92%;background:var(--accent);border-radius:99px"></i></div>
+                  <p style="margin:0;color:var(--text-muted);font-size:12.5px;line-height:1.6">{{ citizen.profileNote }}</p>
+                  <button onClick="{{ goProfile }}" style="{{ linkBtn }}">{{ citizen.completeProfile }} ←</button>
+                </aside>
+              </div>
+
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--s4)" class="quick-actions">
+                <sc-for list="{{ citizen.quickActions }}" as="qa" hint-placeholder-count="5">
+                  <button onClick="{{ qa.go }}" style="{{ card }};display:flex;align-items:center;gap:var(--s3);padding:var(--s4);text-align:start;transition:transform var(--dur2) var(--ease),box-shadow var(--dur2) var(--ease)" style-hover="transform:translateY(-2px);box-shadow:var(--sh-md)">
+                    <span style="width:38px;height:38px;border-radius:11px;background:var(--accent-weak);color:var(--accent-strong);display:grid;place-items:center;font-size:16px;flex:0 0 auto">{{ qa.icon }}</span>
+                    <strong style="flex:1;font-size:13px">{{ qa.label }}</strong>
+                    <i style="color:var(--text-subtle);font-style:normal">←</i>
+                  </button>
+                </sc-for>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:var(--s5)" class="citizen-overview">
+                <article style="{{ card }};padding:var(--s6);display:grid;gap:var(--s3)">
+                  <header style="display:flex;justify-content:space-between;align-items:center"><div style="display:grid;gap:2px"><span style="{{ eyebrow }}">{{ citizen.matchedLabel }}</span><h2 style="margin:0;font-size:16px">{{ citizen.matchedTitle }}</h2></div><button onClick="{{ goServices }}" style="{{ linkBtn }}">{{ c.viewAll }} ←</button></header>
+                  <sc-for list="{{ citizen.services }}" as="sv" hint-placeholder-count="3">
+                    <button onClick="{{ sv.go }}" style="display:flex;align-items:center;gap:var(--s3);padding:var(--s3);border-radius:var(--r-sm);border:1px solid var(--hairline);background:var(--surface-2);text-align:start;transition:border-color var(--dur2)" style-hover="border-color:var(--accent)">
+                      <span style="width:36px;height:36px;border-radius:10px;background:var(--surface);border:1px solid var(--border);color:var(--accent-strong);display:grid;place-items:center;font-size:15px">{{ sv.icon }}</span>
+                      <span style="flex:1;display:grid;gap:1px"><strong style="font-size:13px">{{ sv.title }}</strong><small style="color:var(--text-subtle);font-size:11px">{{ sv.meta }}</small></span>
+                      <i style="color:var(--text-subtle);font-style:normal">←</i>
+                    </button>
+                  </sc-for>
+                </article>
+                <article style="{{ card }};padding:var(--s6);display:grid;gap:var(--s2)">
+                  <header style="display:flex;justify-content:space-between;align-items:center"><div style="display:grid;gap:2px"><span style="{{ eyebrow }}">{{ citizen.latestLabel }}</span><h2 style="margin:0;font-size:16px">{{ c.notifications }}</h2></div><button onClick="{{ goNotifications }}" style="{{ linkBtn }}">{{ c.all }} ←</button></header>
+                  <sc-for list="{{ citizen.notifications }}" as="nt" hint-placeholder-count="4">
+                    <div style="display:flex;align-items:flex-start;gap:var(--s3);padding:var(--s3) var(--s2);border-block-end:1px solid var(--hairline)">
+                      <span style="{{ nt.dot }}">{{ nt.icon }}</span>
+                      <p style="margin:0;display:grid;gap:1px"><strong style="font-size:12.5px;font-weight:{{ nt.weight }}">{{ nt.title }}</strong><small style="color:var(--text-subtle);font-size:11px">{{ nt.at }}</small></p>
+                    </div>
+                  </sc-for>
+                </article>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ===== APPLICATION WIZARD ===== -->
+          <sc-if value="{{ showWizard }}" hint-placeholder-val="">
+            <div style="display:grid;gap:var(--s6);max-width:1100px;margin-inline:auto">
+              <button onClick="{{ goCitizen }}" style="{{ backLink }}">{{ wiz.back }}</button>
+              <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:var(--s4)">
+                <div style="display:grid;gap:var(--s2)"><span style="{{ eyebrow }}">{{ wiz.eyebrow }}</span><h1 style="margin:0;font-size:26px;font-weight:700">{{ wiz.title }}</h1><p style="margin:0;color:var(--text-subtle);font-size:12.5px" dir="auto">{{ wiz.draftId }}</p></div>
+                <span style="{{ badgeNeutral }}">● {{ wiz.autosave }}</span>
+              </div>
+
+              <ol style="display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s2);list-style:none;margin:0;padding:0;counter-reset:step" class="wizard-stepper">
+                <sc-for list="{{ wiz.steps }}" as="st" hint-placeholder-count="5">
+                  <li style="{{ st.wrap }}">
+                    <span style="display:flex;align-items:center;gap:var(--s2)">
+                      <i style="{{ st.dot }}">{{ st.mark }}</i>
+                      <span style="font-size:11.5px;font-weight:600;color:{{ st.textColor }}">{{ st.label }}</span>
+                    </span>
+                    <span style="height:3px;border-radius:99px;background:{{ st.bar }};transition:background var(--dur3) var(--ease)"></span>
+                  </li>
+                </sc-for>
+              </ol>
+
+              <div style="display:grid;grid-template-columns:1fr 300px;gap:var(--s5);align-items:start" class="wizard-layout">
+                <section style="{{ card }};padding:var(--s7);display:grid;gap:var(--s5);min-height:420px">
+                  <header style="display:flex;gap:var(--s4);align-items:flex-start">
+                    <span style="width:40px;height:40px;border-radius:12px;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;font-weight:700;font-size:16px;flex:0 0 auto">{{ wiz.stepNum }}</span>
+                    <div style="display:grid;gap:2px"><h2 style="margin:0;font-size:18px">{{ wiz.stepTitle }}</h2><p style="margin:0;color:var(--text-muted);font-size:13px;line-height:1.6">{{ wiz.stepDesc }}</p></div>
+                  </header>
+
+                  <div class="enter" key="{{ wizardStep }}" style="display:grid;gap:var(--s4)">
+                    <!-- step 1 -->
+                    <sc-if value="{{ wiz.s1 }}" hint-placeholder-val="{{ true }}">
+                      <div style="display:flex;gap:var(--s3);align-items:center;padding:var(--s4);border-radius:var(--r);background:var(--success-bg);border:1px solid color-mix(in srgb,var(--success) 26%,transparent)">
+                        <span style="width:30px;height:30px;border-radius:99px;background:var(--success);color:#fff;display:grid;place-items:center;flex:0 0 auto">✓</span>
+                        <div style="display:grid;gap:1px"><strong style="font-size:13px;color:var(--success)">{{ wiz.verifiedTitle }}</strong><small style="color:var(--text-muted);font-size:11.5px">{{ wiz.verifiedSub }}</small></div>
+                      </div>
+                      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)">
+                        <sc-for list="{{ wiz.beneficiaryFields }}" as="f" hint-placeholder-count="4">
+                          <label style="display:grid;gap:6px"><span style="font-size:12px;color:var(--text-muted);font-weight:600">{{ f.label }}</span><span style="display:flex;align-items:center;gap:var(--s2);height:44px;padding:0 var(--s3);border-radius:var(--r-sm);background:var(--surface-2);border:1px solid var(--border);font-size:13px"><i style="color:var(--success);font-style:normal">✓</i><span dir="{{ f.dir }}">{{ f.value }}</span></span></label>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                    <!-- step 2 -->
+                    <sc-if value="{{ wiz.s2 }}" hint-placeholder-val="">
+                      <div style="display:grid;gap:var(--s3)">
+                        <sc-for list="{{ wiz.members }}" as="m" hint-placeholder-count="2">
+                          <button onClick="{{ m.select }}" style="{{ m.style }}">
+                            <span style="width:40px;height:40px;border-radius:11px;background:var(--accent-weak);color:var(--accent-strong);display:grid;place-items:center;font-weight:700;flex:0 0 auto">{{ m.initials }}</span>
+                            <span style="flex:1;display:grid;gap:1px;text-align:start"><strong style="font-size:14px">{{ m.name }}</strong><small style="color:var(--text-subtle);font-size:11.5px">{{ m.meta }}</small></span>
+                            <i style="font-style:normal;color:{{ m.markColor }};font-size:18px">{{ m.mark }}</i>
+                          </button>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                    <!-- step 3 -->
+                    <sc-if value="{{ wiz.s3 }}" hint-placeholder-val="">
+                      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)">
+                        <label style="display:grid;gap:6px"><span style="font-size:12px;color:var(--text-muted);font-weight:600">{{ wiz.instLabel }} *</span><input value="{{ wiz.university }}" onInput="{{ wiz.setUniversity }}" style="{{ input }}"><small style="color:var(--text-subtle);font-size:11px">{{ wiz.instHint }}</small></label>
+                        <label style="display:grid;gap:6px"><span style="font-size:12px;color:var(--text-muted);font-weight:600">{{ wiz.yearLabel }} *</span><select value="{{ wiz.year }}" onChange="{{ wiz.setYear }}" style="{{ input }}"><option value="">{{ wiz.selectYear }}</option><option value="2025-2026">2025–2026</option><option value="2026-2027">2026–2027</option></select></label>
+                        <label style="display:grid;gap:6px"><span style="font-size:12px;color:var(--text-muted);font-weight:600">{{ wiz.collegeLabel }}</span><span style="{{ readField }}">{{ wiz.college }}</span></label>
+                        <label style="display:grid;gap:6px"><span style="font-size:12px;color:var(--text-muted);font-weight:600">{{ wiz.stageLabel }}</span><span style="{{ readField }}">{{ wiz.stage }}</span></label>
+                      </div>
+                      <div style="display:flex;gap:var(--s3);align-items:flex-start;padding:var(--s4);border-radius:var(--r);background:var(--info-bg);border:1px solid color-mix(in srgb,var(--info) 24%,transparent)"><span style="color:var(--info);font-size:16px">✦</span><div style="display:grid;gap:1px"><strong style="font-size:12.5px;color:var(--info)">{{ wiz.condTitle }}</strong><p style="margin:0;color:var(--text-muted);font-size:12px">{{ wiz.condDesc }}</p></div></div>
+                    </sc-if>
+                    <!-- step 4 -->
+                    <sc-if value="{{ wiz.s4 }}" hint-placeholder-val="">
+                      <div style="display:grid;gap:var(--s2)">
+                        <sc-for list="{{ wiz.documents }}" as="d" hint-placeholder-count="2">
+                          <div style="display:flex;align-items:center;gap:var(--s3);padding:var(--s3);border-radius:var(--r-sm);border:1px solid var(--hairline);background:var(--surface-2)">
+                            <span style="{{ fileTag }}">PDF</span>
+                            <p style="margin:0;flex:1;display:grid;gap:1px"><strong style="font-size:12.5px">{{ d.title }}</strong><small style="color:var(--text-subtle);font-size:11px">{{ d.meta }}</small></p>
+                            <span style="{{ d.badge }}">{{ d.status }}</span>
+                          </div>
+                        </sc-for>
+                      </div>
+                      <button onClick="{{ wiz.upload }}" style="{{ wiz.dropStyle }}">
+                        <span style="font-size:26px;color:var(--accent-strong)">{{ wiz.dropIcon }}</span>
+                        <strong style="font-size:14px">{{ wiz.dropTitle }}</strong>
+                        <small style="color:var(--text-subtle);font-size:11.5px;text-align:center;max-width:44ch">{{ wiz.dropHint }}</small>
+                      </button>
+                      <div style="{{ card }};padding:var(--s4);display:grid;gap:var(--s2);border-inline-start:3px solid var(--accent)">
+                        <header style="display:flex;justify-content:space-between;align-items:center"><span style="{{ eyebrow }};color:var(--accent-strong)">✦ {{ wiz.aiLabel }}</span><span style="{{ wiz.aiBadge }}">{{ wiz.aiStatus }}</span></header>
+                        <strong style="font-size:13px">{{ wiz.aiTitle }}</strong>
+                        <p style="margin:0;color:var(--text-muted);font-size:11.5px">{{ wiz.aiDesc }}</p>
+                      </div>
+                    </sc-if>
+                    <!-- step 5 -->
+                    <sc-if value="{{ wiz.s5 }}" hint-placeholder-val="">
+                      <div style="display:grid;gap:var(--s2)">
+                        <sc-for list="{{ wiz.review }}" as="r" hint-placeholder-count="4">
+                          <div style="display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s4);border-radius:var(--r-sm);background:var(--surface-2);border:1px solid var(--hairline)"><span style="font-size:12px;color:var(--text-subtle);min-width:120px">{{ r.label }}</span><strong style="flex:1;font-size:13px">{{ r.value }}</strong><button onClick="{{ r.edit }}" style="{{ linkBtn }}">{{ wiz.editLabel }}</button></div>
+                        </sc-for>
+                      </div>
+                      <div style="display:flex;gap:var(--s3);align-items:flex-start;padding:var(--s4);border-radius:var(--r);background:var(--success-bg);border:1px solid color-mix(in srgb,var(--success) 26%,transparent)"><span style="width:30px;height:30px;border-radius:99px;background:var(--success);color:#fff;display:grid;place-items:center;flex:0 0 auto">✓</span><div style="display:grid;gap:1px"><strong style="font-size:13px;color:var(--success)">{{ wiz.reviewTitle }}</strong><p style="margin:0;color:var(--text-muted);font-size:12px;line-height:1.6">{{ wiz.reviewDesc }}</p></div></div>
+                      <label style="display:flex;gap:var(--s3);align-items:flex-start;padding:var(--s4);border-radius:var(--r);border:1px solid var(--border);cursor:pointer"><input type="checkbox" checked="{{ wiz.consent }}" onChange="{{ wiz.setConsent }}" style="margin-block-start:3px;width:18px;height:18px;accent-color:var(--accent-strong)"><span style="display:grid;gap:2px"><strong style="font-size:13px">{{ wiz.consentTitle }}</strong><small style="color:var(--text-subtle);font-size:11.5px;line-height:1.6">{{ wiz.consentDesc }}</small></span></label>
+                    </sc-if>
+                  </div>
+
+                  <sc-if value="{{ wiz.hasErrors }}" hint-placeholder-val="">
+                    <div role="alert" style="display:grid;gap:4px;padding:var(--s3) var(--s4);border-radius:var(--r-sm);background:var(--danger-bg);border:1px solid color-mix(in srgb,var(--danger) 30%,transparent)">
+                      <sc-for list="{{ wiz.errors }}" as="e" hint-placeholder-count="1"><p style="margin:0;color:var(--danger);font-size:12.5px">! {{ e.text }}</p></sc-for>
+                    </div>
+                  </sc-if>
+
+                  <footer style="display:flex;align-items:center;justify-content:space-between;gap:var(--s4);padding-block-start:var(--s4);border-block-start:1px solid var(--hairline)">
+                    <button onClick="{{ wiz.prev }}" disabled="{{ wiz.prevDisabled }}" style="{{ btnSecondary }}">{{ wiz.prevLabel }}</button>
+                    <span style="font-size:12px;color:var(--text-subtle)">{{ wiz.stepCounter }}</span>
+                    <button onClick="{{ wiz.next }}" style="{{ btnPrimary }}">{{ wiz.nextLabel }} ←</button>
+                  </footer>
+                </section>
+
+                <aside style="{{ card }};padding:var(--s5);display:grid;gap:var(--s3);position:sticky;top:88px">
+                  <span style="width:34px;height:34px;border-radius:10px;background:var(--accent-weak);color:var(--accent-strong);display:grid;place-items:center;font-size:16px">?</span>
+                  <h3 style="margin:0;font-size:14px">{{ wiz.helpTitle }}</h3>
+                  <p style="margin:0;color:var(--text-muted);font-size:12px;line-height:1.7">{{ wiz.helpBody }}</p>
+                  <hr style="border:0;border-block-start:1px solid var(--hairline);margin:var(--s2) 0">
+                  <b style="font-size:12px;color:var(--accent-strong)">✦ {{ wiz.helpAssist }}</b>
+                  <p style="margin:0;color:var(--text-muted);font-size:12px;line-height:1.7">{{ wiz.helpAssistBody }}</p>
+                </aside>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ===== COMMITTEE DECISION (signature) ===== -->
+          <sc-if value="{{ showCommittee }}" hint-placeholder-val="">
+            <div style="display:grid;gap:var(--s5)">
+              <header style="display:flex;flex-wrap:wrap;gap:var(--s5);align-items:center;justify-content:space-between;padding:var(--s5) var(--s6);border-radius:var(--r-lg);background:linear-gradient(150deg,var(--brand),var(--brand-strong));color:var(--brand-ink);box-shadow:var(--sh-md)">
+                <div style="display:grid;gap:var(--s2)">
+                  <div style="display:flex;align-items:center;gap:var(--s3);font-size:12px"><button onClick="{{ cm.back }}" style="color:rgba(234,241,240,.7);background:none;border:0">{{ cm.meetings }}</button><span style="opacity:.4">/</span><b dir="ltr" style="font-family:var(--font-en)">EDU-2026-07</b></div>
+                  <span style="display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:1px;color:var(--gold-500)"><i style="width:7px;height:7px;border-radius:99px;background:var(--gold-500);box-shadow:0 0 0 4px rgba(213,164,62,.25);display:inline-block"></i>{{ cm.inSession }}</span>
+                  <h1 style="margin:0;font-size:22px;font-weight:700;color:#fff">{{ cm.title }}</h1>
+                  <p style="margin:0;font-size:12.5px;color:rgba(234,241,240,.65)">{{ cm.meta }}</p>
+                </div>
+                <div style="{{ cm.quorumBox }}">
+                  <span style="width:36px;height:36px;border-radius:11px;background:rgba(255,255,255,.14);display:grid;place-items:center;font-size:18px;flex:0 0 auto">{{ cm.quorumIcon }}</span>
+                  <div style="display:grid;gap:1px"><strong style="font-size:14px;color:#fff">{{ cm.quorumLabel }}</strong><small style="font-size:11px;color:rgba(234,241,240,.65)">{{ cm.quorumSub }}</small></div>
+                </div>
+              </header>
+
+              <div style="display:grid;grid-template-columns:220px 1fr 340px;gap:var(--s5);align-items:start" class="committee-grid">
+                <!-- agenda -->
+                <aside style="{{ card }};padding:var(--s5);display:grid;gap:var(--s3);position:sticky;top:88px">
+                  <header style="display:grid;gap:2px"><span style="{{ eyebrow }}">{{ cm.agenda }}</span><h2 style="margin:0;font-size:15px;display:flex;gap:6px;align-items:center">{{ cm.cases }} <b style="min-width:20px;height:20px;border-radius:6px;background:var(--accent-weak);color:var(--accent-strong);display:grid;place-items:center;font-size:11px">1</b></h2></header>
+                  <div style="display:flex;align-items:center;gap:10px;padding:12px;border-radius:var(--r-sm);background:var(--accent-weak);border:1px solid color-mix(in srgb,var(--accent) 24%,transparent)">
+                    <i style="width:24px;height:24px;border-radius:7px;background:var(--accent-strong);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:700;font-style:normal">1</i>
+                    <span style="display:grid;gap:1px"><strong dir="ltr" style="font-size:12.5px;font-family:var(--font-en)">MF-2026-000184</strong><small style="font-size:11px;color:var(--text-muted)">{{ cm.caseSub }}</small></span>
+                  </div>
+                </aside>
+
+                <!-- case pack -->
+                <main style="display:grid;gap:var(--s4)">
+                  <section style="display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s4)">
+                    <div style="display:grid;gap:var(--s2)"><span style="{{ badgeGold }}">{{ cm.casePos }}</span><h2 style="margin:0;font-size:19px">{{ cm.caseTitle }}</h2><p dir="ltr" style="margin:0;color:var(--text-subtle);font-size:12px;font-family:var(--font-en)">MF-2026-000184</p></div>
+                    <span style="{{ badgeGold }}">{{ cm.status }}</span>
+                  </section>
+
+                  <section style="{{ card }};padding:var(--s5);display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:var(--s4)">
+                    <div style="display:flex;gap:var(--s3);align-items:center"><span style="width:48px;height:48px;border-radius:13px;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;font-weight:700">زع</span><p style="margin:0;display:grid;gap:1px"><small style="{{ eyebrow }}">{{ cm.beneficiary }}</small><strong style="font-size:14px">{{ cm.benName }}</strong><span style="font-size:11.5px;color:var(--text-subtle)">{{ cm.benMeta }}</span></p></div>
+                    <div style="display:grid;gap:1px;align-content:start"><small style="{{ eyebrow }}">{{ cm.student }}</small><strong style="font-size:14px">{{ cm.studentName }}</strong><span style="font-size:11.5px;color:var(--text-subtle)">{{ cm.studentMeta }}</span></div>
+                    <div style="display:grid;gap:1px;align-content:start"><small style="{{ eyebrow }}">{{ cm.eligibility }}</small><strong style="font-size:14px">{{ cm.eligValue }}</strong><span style="font-size:11.5px;color:var(--text-subtle)">{{ cm.eligMeta }}</span></div>
+                  </section>
+
+                  <section style="{{ card }};padding:var(--s5);display:grid;gap:var(--s3)">
+                    <header style="display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s3)"><div style="display:grid;gap:2px"><span style="{{ eyebrow }}">{{ cm.recoLabel }}</span><h3 style="margin:0;font-size:15px">{{ cm.recoTitle }}</h3></div><span style="{{ badgeSuccess }}">✓ {{ cm.staffConfirmed }}</span></header>
+                    <p style="margin:0;color:var(--text-muted);font-size:13px;line-height:1.7">{{ cm.recoBody }}</p>
+                    <footer style="display:flex;gap:var(--s2);flex-wrap:wrap;padding-block-start:var(--s2);border-block-start:1px solid var(--hairline)">
+                      <sc-for list="{{ cm.refs }}" as="r" hint-placeholder-count="3"><span style="font-family:var(--font-en);font-size:10.5px;font-weight:600;padding:4px 9px;border-radius:6px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-muted)">{{ r.id }}</span></sc-for>
+                    </footer>
+                  </section>
+
+                  <!-- compliance gate -->
+                  <section style="display:flex;justify-content:space-between;align-items:center;gap:var(--s4);padding:var(--s5);border-radius:var(--r-lg);background:{{ cm.gateBg }};border:1px solid {{ cm.gateBorder }}">
+                    <div style="display:flex;gap:var(--s3);align-items:center">
+                      <span style="width:44px;height:44px;border-radius:12px;background:{{ cm.gateIconBg }};color:#fff;display:grid;place-items:center;font-size:20px;flex:0 0 auto">{{ cm.gateIcon }}</span>
+                      <p style="margin:0;display:grid;gap:2px"><small style="{{ eyebrow }}">{{ cm.gateLabel }}</small><strong style="font-size:14px;color:{{ cm.gateFg }}">{{ cm.gateStatus }}</strong><em style="font-family:var(--font-en);font-size:11px;font-style:normal;color:var(--text-subtle)">{{ cm.gateCitation }}</em></p>
+                    </div>
+                    <button onClick="{{ cm.rerun }}" style="{{ btnGhost }}">↻ {{ cm.rerun_l }}</button>
+                  </section>
+
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)">
+                    <article style="{{ card }};padding:var(--s5);display:grid;gap:var(--s2)"><h3 style="margin:0;font-size:14px">{{ cm.evidenceTitle }}</h3>
+                      <sc-for list="{{ cm.evidence }}" as="d" hint-placeholder-count="2"><div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:var(--r-sm);background:var(--surface-2);border:1px solid var(--hairline)"><span style="{{ fileTag }}">PDF</span><p style="margin:0;flex:1;display:grid;gap:1px"><strong style="font-size:12px">{{ d.title }}</strong><small style="font-size:10.5px;color:var(--text-subtle)">{{ d.meta }}</small></p><i style="color:var(--success);font-style:normal">✓</i></div></sc-for>
+                    </article>
+                    <article style="{{ card }};padding:var(--s5);display:grid;gap:var(--s2)"><h3 style="margin:0;font-size:14px">{{ cm.notesTitle }}</h3>
+                      <textarea value="{{ cm.notes }}" onInput="{{ cm.setNotes }}" placeholder="{{ cm.notesPlaceholder }}" style="min-height:120px;padding:var(--s3);border-radius:var(--r-sm);background:var(--surface-2);border:1px solid var(--border);font-size:12.5px;resize:vertical;outline:none;line-height:1.7"></textarea>
+                      <small style="font-size:10.5px;color:var(--text-subtle)">{{ cm.notesHint }}</small>
+                    </article>
+                  </div>
+                </main>
+
+                <!-- vote panel -->
+                <aside style="{{ card }};padding:var(--s5);display:grid;gap:var(--s4);position:sticky;top:88px">
+                  <header style="display:grid;gap:2px"><span style="{{ eyebrow }}">{{ cm.voteLabel }}</span><h2 style="margin:0;font-size:15px">{{ cm.members }}</h2></header>
+                  <div style="display:grid;gap:var(--s2)">
+                    <sc-for list="{{ cm.memberList }}" as="m" hint-placeholder-count="3">
+                      <div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:var(--r-sm);background:{{ m.rowBg }};border:1px solid var(--hairline)">
+                        <span style="width:32px;height:32px;border-radius:9px;background:var(--surface-3);color:var(--text-muted);display:grid;place-items:center;font-size:11px;font-weight:700;flex:0 0 auto">{{ m.initials }}</span>
+                        <p style="margin:0;flex:1;display:grid;gap:1px"><strong style="font-size:12px">{{ m.name }}</strong><small style="font-size:10.5px;color:var(--text-subtle)">{{ m.role }}</small></p>
+                        <span style="{{ m.badge }}">{{ m.voteLabel }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+
+                  <section style="display:grid;gap:var(--s2);padding:var(--s4);border-radius:var(--r);background:var(--surface-2);border:1px solid var(--border)">
+                    <span style="{{ eyebrow }}">{{ cm.chairVote }}</span>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                      <button onClick="{{ cm.voteApprove }}" style="{{ cm.approveBtn }}">✓ {{ cm.approve }}</button>
+                      <button onClick="{{ cm.voteReject }}" style="{{ cm.rejectBtn }}">× {{ cm.reject }}</button>
+                      <button onClick="{{ cm.voteAbstain }}" style="{{ cm.plainBtn }}">○ {{ cm.abstain }}</button>
+                      <button onClick="{{ cm.voteMore }}" style="{{ cm.plainBtn }}">↩ {{ cm.moreInfo }}</button>
+                    </div>
+                  </section>
+
+                  <button onClick="{{ cm.simulate }}" style="height:40px;border-radius:var(--r-sm);border:1px dashed var(--border-strong);background:var(--surface-2);color:var(--text-muted);font-size:12px;font-weight:600">{{ cm.simulateLabel }}</button>
+
+                  <section style="display:grid;gap:6px">
+                    <header style="display:flex;justify-content:space-between;align-items:baseline"><span style="{{ eyebrow }}">{{ cm.liveResult }}</span><strong style="font-size:18px;color:var(--accent-strong)">{{ cm.resultRatio }}</strong></header>
+                    <div style="height:8px;border-radius:99px;background:var(--surface-3);overflow:hidden"><i style="display:block;height:100%;width:{{ cm.resultPct }};background:linear-gradient(90deg,var(--accent),var(--accent-strong));border-radius:99px;transition:width var(--dur3) var(--ease-out)"></i></div>
+                    <p style="margin:0;font-size:11px;color:var(--text-subtle)">{{ cm.resultNote }}</p>
+                  </section>
+
+                  <label style="display:grid;gap:6px"><span style="font-size:12px;font-weight:600;color:var(--text-muted)">{{ cm.rationaleLabel }} *</span><textarea value="{{ cm.reason }}" onInput="{{ cm.setReason }}" style="min-height:74px;padding:var(--s3);border-radius:var(--r-sm);background:var(--surface);border:1px solid var(--border);font-size:12.5px;resize:vertical;outline:none;line-height:1.7"></textarea></label>
+
+                  <div style="display:grid;gap:6px;padding:var(--s3);border-radius:var(--r-sm);background:var(--surface-2)">
+                    <sc-for list="{{ cm.checks }}" as="ck" hint-placeholder-count="4"><span style="display:flex;align-items:center;gap:8px;font-size:11.5px;color:{{ ck.color }}"><i style="font-style:normal">{{ ck.mark }}</i>{{ ck.label }}</span></sc-for>
+                  </div>
+
+                  <button onClick="{{ cm.sign }}" disabled="{{ cm.signed }}" style="{{ cm.signStyle }}">{{ cm.signLabel }} ◇</button>
+                  <small style="font-size:10.5px;color:var(--text-subtle);text-align:center">{{ cm.signNote }}</small>
+                </aside>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ===== EXECUTIVE DASHBOARD ===== -->
+          <sc-if value="{{ showExecutive }}" hint-placeholder-val="">
+            <div style="display:grid;gap:var(--s6)" class="stagger">
+              <header style="display:flex;flex-wrap:wrap;gap:var(--s4);align-items:flex-end;justify-content:space-between">
+                <div style="display:grid;gap:var(--s2)"><span style="{{ eyebrow }}">{{ ex.eyebrow }}</span><h1 style="margin:0;font-size:26px;font-weight:700;letter-spacing:-.01em">{{ ex.title }}</h1><p style="margin:0;color:var(--text-muted);font-size:13.5px;max-width:70ch">{{ ex.sub }}</p></div>
+                <div style="display:flex;gap:var(--s3);flex-wrap:wrap;align-items:flex-end">
+                  <sc-for list="{{ ex.filters }}" as="fl" hint-placeholder-count="3"><label style="display:grid;gap:4px"><span style="font-size:10.5px;font-weight:600;color:var(--text-subtle)">{{ fl.label }}</span><select value="{{ fl.value }}" onChange="{{ fl.onChange }}" style="height:40px;padding:0 var(--s3);border-radius:var(--r-sm);background:var(--surface);border:1px solid var(--border);font-size:12.5px;min-width:130px"><sc-for list="{{ fl.options }}" as="op" hint-placeholder-count="3"><option value="{{ op.id }}">{{ op.label }}</option></sc-for></select></label></sc-for>
+                  <button onClick="{{ ex.reset }}" style="{{ btnGhost }};height:40px">↻ {{ ex.resetLabel }}</button>
+                </div>
+              </header>
+
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--s4)">
+                <sc-for list="{{ ex.kpis }}" as="k" hint-placeholder-count="6">
+                  <article style="{{ card }};padding:var(--s5);display:grid;gap:var(--s2);position:relative;overflow:hidden">
+                    <span style="width:36px;height:36px;border-radius:10px;background:{{ k.iconBg }};color:{{ k.iconFg }};display:grid;place-items:center;font-size:16px">{{ k.icon }}</span>
+                    <span style="font-size:11.5px;color:var(--text-muted)">{{ k.label }}</span>
+                    <strong style="font-size:24px;font-weight:700;letter-spacing:-.01em">{{ k.value }}</strong>
+                    <span style="font-size:11px;color:var(--text-subtle)">{{ k.trend }}</span>
+                  </article>
+                </sc-for>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:var(--s5)" class="exec-story">
+                <article style="{{ card }};padding:var(--s6);display:grid;gap:var(--s4)">
+                  <header style="display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s3)"><div style="display:grid;gap:2px"><span style="{{ eyebrow }}">{{ ex.trendLabel }}</span><h2 style="margin:0;font-size:16px">{{ ex.trendTitle }}</h2></div><div style="display:flex;gap:var(--s3);font-size:11px;color:var(--text-muted)"><span style="display:flex;align-items:center;gap:5px"><i style="width:9px;height:9px;border-radius:2px;background:var(--accent);display:inline-block"></i>{{ ex.legendVol }}</span><span style="display:flex;align-items:center;gap:5px"><i style="width:9px;height:9px;border-radius:2px;background:var(--gold-500);display:inline-block"></i>{{ ex.legendComp }}</span></div></header>
+                  <div style="display:grid;grid-template-columns:auto 1fr;gap:var(--s3);height:220px">
+                    <div style="display:flex;flex-direction:column;justify-content:space-between;font-size:10px;color:var(--text-subtle);text-align:end;padding-block:2px"><span>100%</span><span>75%</span><span>50%</span><span>25%</span><span>0%</span></div>
+                    <div style="display:flex;align-items:flex-end;gap:6px;border-inline-start:1px solid var(--hairline);border-block-end:1px solid var(--hairline);padding:0 4px 0 4px;position:relative">
+                      <sc-for list="{{ ex.bars }}" as="b" hint-placeholder-count="12"><div style="flex:1;position:relative;height:100%;display:flex;align-items:flex-end"><i style="width:100%;height:{{ b.h }};background:linear-gradient(180deg,var(--accent),var(--accent-strong));border-radius:5px 5px 0 0;transform-origin:bottom;animation:barGrow var(--dur3) var(--ease-out) both"></i><b style="position:absolute;inset-inline:0;bottom:{{ b.comp }};height:6px;display:grid;place-items:center"><span style="width:7px;height:7px;border-radius:99px;background:var(--gold-500);box-shadow:0 0 0 2px var(--surface)"></span></b></div></sc-for>
+                    </div>
+                  </div>
+                  <footer style="display:flex;gap:var(--s3);align-items:flex-start;padding:var(--s3);border-radius:var(--r-sm);background:var(--surface-2)"><span style="color:var(--accent-strong);font-size:14px">✦</span><p style="margin:0;font-size:11.5px;color:var(--text-muted);line-height:1.6">{{ ex.insight }}</p></footer>
+                </article>
+
+                <article style="{{ card }};padding:var(--s6);display:grid;gap:var(--s4)">
+                  <header style="display:flex;justify-content:space-between;align-items:flex-start"><div style="display:grid;gap:2px"><span style="{{ eyebrow }}">{{ ex.revLabel }}</span><h2 style="margin:0;font-size:16px">{{ ex.revTitle }}</h2></div><span style="{{ badgeGold }}">{{ ex.reconciled }}</span></header>
+                  <div style="display:flex;align-items:flex-end;gap:5px;height:150px" role="list">
+                    <sc-for list="{{ ex.revenue }}" as="rv" hint-placeholder-count="12"><button onClick="{{ rv.select }}" style="flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px;background:none;border:0;position:relative" role="listitem"><span style="font-size:9px;color:{{ rv.txt }};font-weight:600">{{ rv.m }}</span><i style="width:100%;height:{{ rv.h }};background:{{ rv.bar }};border-radius:4px 4px 0 0;transition:background var(--dur2)"></i><b style="font-size:8.5px;color:var(--text-subtle);font-style:normal">{{ rv.label }}</b></button></sc-for>
+                  </div>
+                  <div style="display:flex;gap:var(--s4);padding:var(--s3);border-radius:var(--r-sm);background:var(--surface-2)"><span style="color:var(--gold);font-size:16px">◈</span><div style="display:grid;gap:1px;flex:1"><small style="font-size:10.5px;color:var(--text-subtle)">{{ ex.selMonthLabel }}</small><strong style="font-size:14px">{{ ex.selRevenue }}</strong></div><div style="display:grid;gap:1px"><small style="font-size:10.5px;color:var(--text-subtle)">{{ ex.selTxLabel }}</small><strong style="font-size:14px">{{ ex.selTx }}</strong></div></div>
+                  <p style="margin:0;font-size:10.5px;color:var(--text-subtle);line-height:1.6">{{ ex.revDisclaimer }}</p>
+                </article>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:var(--s5)" class="exec-story">
+                <article style="{{ card }};padding:var(--s6);display:grid;gap:var(--s3)">
+                  <header style="display:flex;justify-content:space-between;align-items:center"><div style="display:grid;gap:2px"><span style="{{ eyebrow }}">{{ ex.geoLabel }}</span><h2 style="margin:0;font-size:15px">{{ ex.geoTitle }}</h2></div></header>
+                  <sc-for list="{{ ex.governorates }}" as="g" hint-placeholder-count="5"><div style="display:grid;grid-template-columns:20px 1.4fr 1fr auto;gap:var(--s3);align-items:center"><b style="font-size:11px;color:var(--text-subtle);font-weight:700">{{ g.rank }}</b><span style="display:grid;gap:1px"><strong style="font-size:12.5px">{{ g.name }}</strong><small style="font-size:10.5px;color:var(--text-subtle)">{{ g.volume }}</small></span><div style="height:6px;border-radius:99px;background:var(--surface-3);overflow:hidden"><i style="display:block;height:100%;width:{{ g.score }};background:var(--accent);border-radius:99px"></i></div><strong style="font-size:12px;color:var(--accent-strong)">{{ g.sla }}</strong></div></sc-for>
+                </article>
+                <article style="{{ card }};padding:var(--s6);display:grid;gap:var(--s4);justify-items:center">
+                  <header style="display:grid;gap:2px;justify-items:center;text-align:center"><span style="{{ eyebrow }}">{{ ex.channelLabel }}</span><h2 style="margin:0;font-size:15px">{{ ex.channelTitle }}</h2></header>
+                  <div style="{{ ex.donutStyle }}"><span style="display:grid;place-items:center;text-align:center"><strong style="font-size:22px">{{ ex.digitalShare }}</strong><small style="font-size:10px;color:var(--text-muted)">{{ ex.digitalLabel }}</small></span></div>
+                  <ul style="list-style:none;margin:0;padding:0;display:grid;gap:8px;width:100%">
+                    <sc-for list="{{ ex.channels }}" as="ch" hint-placeholder-count="3"><li style="display:flex;align-items:center;gap:8px;font-size:12px"><i style="width:9px;height:9px;border-radius:2px;background:{{ ch.color }};display:inline-block"></i><span style="flex:1;color:var(--text-muted)">{{ ch.label }}</span><b style="font-weight:700">{{ ch.pct }}</b></li></sc-for>
+                  </ul>
+                </article>
+                <article style="{{ card }};padding:var(--s6);display:grid;gap:var(--s3)">
+                  <header style="display:grid;gap:2px"><span style="{{ eyebrow }}">{{ ex.alertLabel }}</span><h2 style="margin:0;font-size:15px">{{ ex.alertTitle }}</h2></header>
+                  <sc-for list="{{ ex.alerts }}" as="al" hint-placeholder-count="3"><button onClick="{{ al.go }}" style="display:flex;align-items:center;gap:10px;padding:12px;border-radius:var(--r-sm);border:1px solid var(--hairline);background:var(--surface-2);text-align:start"><span style="width:30px;height:30px;border-radius:8px;background:{{ al.iconBg }};color:{{ al.iconFg }};display:grid;place-items:center;flex:0 0 auto">{{ al.icon }}</span><p style="margin:0;flex:1;display:grid;gap:1px"><strong style="font-size:12px">{{ al.title }}</strong><small style="font-size:10.5px;color:var(--text-subtle)">{{ al.sub }}</small></p><span style="{{ al.badge }}">{{ al.tag }}</span></button></sc-for>
+                </article>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ===== STAFF INBOX ===== -->
+          <sc-if value="{{ showStaff }}" hint-placeholder-val="">
+            <div style="display:grid;gap:var(--s6)" class="stagger">
+              <header style="display:flex;flex-wrap:wrap;gap:var(--s4);align-items:flex-end;justify-content:space-between">
+                <div style="display:grid;gap:var(--s2)"><span style="{{ eyebrow }}">{{ sf.eyebrow }}</span><h1 style="margin:0;font-size:24px;font-weight:700">{{ sf.title }}</h1><p style="margin:0;color:var(--text-muted);font-size:13.5px;max-width:66ch">{{ sf.sub }}</p></div>
+                <div style="display:flex;gap:var(--s2)"><button onClick="{{ sf.density }}" style="{{ btnSecondary }}">{{ sf.densityLabel }} ⚙</button><button onClick="{{ sf.claim }}" style="{{ btnPrimary }}">{{ sf.claimLabel }} ←</button></div>
+              </header>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--s4)">
+                <sc-for list="{{ sf.metrics }}" as="k" hint-placeholder-count="4"><article style="{{ card }};padding:var(--s5);display:grid;gap:var(--s2)"><span style="width:36px;height:36px;border-radius:10px;background:{{ k.iconBg }};color:{{ k.iconFg }};display:grid;place-items:center;font-size:16px">{{ k.icon }}</span><span style="font-size:11.5px;color:var(--text-muted)">{{ k.label }}</span><strong style="font-size:24px;font-weight:700">{{ k.value }}</strong><span style="font-size:11px;color:var(--text-subtle)">{{ k.trend }}</span></article></sc-for>
+              </div>
+              <section style="{{ card }};overflow:hidden">
+                <header style="display:flex;justify-content:space-between;align-items:center;gap:var(--s4);padding:var(--s4) var(--s5);border-block-end:1px solid var(--hairline)">
+                  <div style="display:flex;gap:var(--s2)"><sc-for list="{{ sf.tabs }}" as="tb" hint-placeholder-count="3"><button onClick="{{ tb.go }}" style="{{ tb.style }}">{{ tb.label }} <b style="font-size:10.5px;opacity:.7">{{ tb.count }}</b></button></sc-for></div>
+                  <div style="display:flex;gap:var(--s2)"><button onClick="{{ sf.sort }}" aria-label="{{ sf.sortLabel }}" style="width:36px;height:36px;border-radius:9px;border:1px solid var(--border);background:var(--surface)">⇅</button></div>
+                </header>
+                <div style="overflow-x:auto">
+                  <table style="width:100%;border-collapse:collapse;font-size:12.5px;min-width:760px">
+                    <thead><tr style="text-align:start">
+                      <sc-for list="{{ sf.columns }}" as="col" hint-placeholder-count="7"><th style="padding:12px var(--s4);text-align:start;font-size:10.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--text-subtle);border-block-end:1px solid var(--hairline);white-space:nowrap">{{ col.t }}</th></sc-for>
+                    </tr></thead>
+                    <tbody>
+                      <sc-for list="{{ sf.rows }}" as="r" hint-placeholder-count="2">
+                        <tr onClick="{{ r.open }}" style="cursor:pointer;transition:background var(--dur2)" style-hover="background:var(--surface-2)">
+                          <td style="padding:14px var(--s4);border-block-end:1px solid var(--hairline)"><div style="display:flex;flex-direction:column;gap:4px"><strong dir="ltr" style="font-family:var(--font-en);font-size:12px">{{ r.id }}</strong><span style="{{ r.tagBadge }}">{{ r.tag }}</span></div></td>
+                          <td style="padding:14px var(--s4);border-block-end:1px solid var(--hairline)"><div style="display:grid;gap:1px"><strong style="font-size:12.5px">{{ r.citizen }}</strong><small style="font-size:10.5px;color:var(--text-subtle)">{{ r.service }}</small></div></td>
+                          <td style="padding:14px var(--s4);border-block-end:1px solid var(--hairline)"><span style="{{ r.statusBadge }}">{{ r.status }}</span></td>
+                          <td style="padding:14px var(--s4);border-block-end:1px solid var(--hairline);color:var(--text-muted)">{{ r.gov }}</td>
+                          <td style="padding:14px var(--s4);border-block-end:1px solid var(--hairline);color:var(--text-muted)">{{ r.age }}</td>
+                          <td style="padding:14px var(--s4);border-block-end:1px solid var(--hairline)"><span style="display:inline-flex;align-items:center;gap:4px;font-size:11.5px;color:{{ r.slaColor }}">◷ {{ r.sla }}</span></td>
+                          <td style="padding:14px var(--s4);border-block-end:1px solid var(--hairline)"><span style="{{ r.riskBadge }}">{{ r.risk }}</span></td>
+                          <td style="padding:14px var(--s4);border-block-end:1px solid var(--hairline);text-align:center;color:var(--accent-strong)">←</td>
+                        </tr>
+                      </sc-for>
+                    </tbody>
+                  </table>
+                </div>
+                <footer style="padding:var(--s3) var(--s5);border-block-start:1px solid var(--hairline);display:flex;justify-content:space-between;font-size:11.5px;color:var(--text-subtle)"><span>{{ sf.footer }}</span><span>1 / 1</span></footer>
+              </section>
+            </div>
+          </sc-if>
+
+          <!-- ===== STAFF CASE WORKSPACE ===== -->
+          <sc-if value="{{ showStaffCase }}" hint-placeholder-val="">
+            <div style="display:grid;gap:var(--s5)">
+              <header style="{{ card }};padding:var(--s5) var(--s6);display:grid;gap:var(--s4);position:sticky;top:72px;z-index:10">
+                <div style="display:flex;align-items:center;gap:var(--s3);font-size:12px"><button onClick="{{ sc.back }}" style="color:var(--text-muted);background:none;border:0">{{ sc.inbox }}</button><span style="opacity:.4">/</span><b dir="ltr" style="font-family:var(--font-en)">MF-2026-000184</b></div>
+                <div style="display:flex;flex-wrap:wrap;gap:var(--s4);align-items:center;justify-content:space-between">
+                  <div style="display:grid;gap:2px"><h1 style="margin:0;font-size:20px">{{ sc.title }}</h1><p style="margin:0;font-size:12.5px;color:var(--text-muted);display:flex;gap:8px;align-items:center"><strong>{{ sc.citizen }}</strong><span>·</span>{{ sc.gov }}<span>·</span>{{ sc.priority }}</p></div>
+                  <span style="{{ badgeGold }}">{{ sc.status }}</span>
+                  <div style="display:flex;gap:var(--s2);align-items:center;padding:8px 14px;border-radius:var(--r-sm);background:var(--warning-bg);color:var(--warning)"><span style="font-size:11px;font-weight:700">◷ {{ sc.slaLabel }}</span><strong style="font-size:14px">{{ sc.slaValue }}</strong></div>
+                  <div style="display:flex;gap:var(--s2)"><button onClick="{{ sc.return }}" style="{{ btnSecondary }}">{{ sc.returnLabel }}</button><button onClick="{{ sc.refer }}" style="{{ btnPrimary }}">{{ sc.referLabel }} ←</button></div>
+                </div>
+              </header>
+              <div style="display:flex;gap:var(--s2);overflow-x:auto;padding-block-end:var(--s1)"><sc-for list="{{ sc.tabs }}" as="tb" hint-placeholder-count="6"><button onClick="{{ tb.go }}" style="{{ tb.style }}">{{ tb.label }}</button></sc-for></div>
+              <div style="display:grid;grid-template-columns:1fr 320px;gap:var(--s5);align-items:start" class="case-grid">
+                <main style="display:grid;gap:var(--s4)">
+                  <section style="{{ card }};padding:var(--s6);display:grid;gap:var(--s4)">
+                    <header style="display:flex;gap:var(--s3);align-items:center"><span style="width:52px;height:52px;border-radius:14px;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;font-weight:700">زع</span><div style="display:grid;gap:1px;flex:1"><span style="{{ eyebrow }}">{{ sc.ben360 }}</span><h2 style="margin:0;font-size:16px">{{ sc.citizen }}</h2><small dir="ltr" style="font-family:var(--font-en);font-size:11px;color:var(--text-subtle)">BEN-10024 · {{ sc.verified }}</small></div><span style="{{ badgeSuccess }}">✓ {{ sc.verifiedShort }}</span></header>
+                    <p style="margin:0;color:var(--text-muted);font-size:13px;line-height:1.7">{{ sc.detail }}</p>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--s3)">
+                      <sc-for list="{{ sc.facts }}" as="f" hint-placeholder-count="4"><div style="padding:var(--s3);border-radius:var(--r-sm);background:var(--surface-2);border:1px solid var(--hairline);display:grid;gap:2px"><small style="font-size:10.5px;color:var(--text-subtle)">{{ f.label }}</small><strong style="font-size:14px">{{ f.value }}</strong></div></sc-for>
+                    </div>
+                  </section>
+                  <section style="{{ card }};padding:var(--s6);display:grid;gap:var(--s3)"><span style="{{ eyebrow }}">{{ sc.checklistLabel }}</span>
+                    <sc-for list="{{ sc.documents }}" as="d" hint-placeholder-count="4"><div style="display:flex;align-items:center;gap:10px;padding:10px;border-radius:var(--r-sm);background:var(--surface-2);border:1px solid var(--hairline)"><span style="{{ fileTag }}">PDF</span><p style="margin:0;flex:1;display:grid;gap:1px"><strong style="font-size:12.5px">{{ d.title }}</strong><small style="font-size:10.5px;color:var(--text-subtle)">{{ d.meta }}</small></p><i style="color:var(--success);font-style:normal">✓</i></div></sc-for>
+                  </section>
+                </main>
+                <aside style="display:grid;gap:var(--s4);position:sticky;top:72px">
+                  <section style="{{ card }};padding:var(--s5);display:grid;gap:var(--s3);border-inline-start:3px solid var(--accent)">
+                    <header style="display:flex;justify-content:space-between;align-items:center"><span style="{{ eyebrow }};color:var(--accent-strong)">✦ {{ sc.aiLabel }}</span><span style="{{ badge_info }}">RAG + LLM</span></header>
+                    <div style="display:flex;gap:10px;align-items:flex-start"><span style="width:28px;height:28px;border-radius:8px;background:var(--accent-weak);color:var(--accent-strong);display:grid;place-items:center;flex:0 0 auto">✦</span><div style="display:grid;gap:3px"><strong style="font-size:12.5px">{{ sc.aiTitle }}</strong><p style="margin:0;font-size:11px;color:var(--text-muted);line-height:1.6">{{ sc.aiBody }}</p></div></div>
+                    <div style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ sc.chips }}" as="ch" hint-placeholder-count="3"><button onClick="{{ ch.go }}" style="padding:6px 11px;border-radius:99px;border:1px solid var(--border);background:var(--surface-2);font-size:11px;color:var(--text-muted)">{{ ch.label }}</button></sc-for></div>
+                    <button onClick="{{ sc.openAssistant }}" style="{{ btnPrimary }};width:100%;justify-content:center">{{ sc.openAssistantLabel }} ←</button>
+                  </section>
+                  <section style="{{ card }};padding:var(--s5);display:grid;gap:var(--s2)">
+                    <header style="display:flex;justify-content:space-between;align-items:center"><span style="{{ eyebrow }}">{{ sc.eligLabel }}</span><button onClick="{{ sc.openElig }}" style="{{ linkBtn }}">{{ sc.details }} ←</button></header>
+                    <div style="display:flex;align-items:baseline;gap:6px"><strong style="font-size:24px;font-weight:700;color:var(--accent-strong)">3/4</strong><span style="font-size:11.5px;color:var(--text-muted)">{{ sc.rulesPassed }}</span></div>
+                    <sc-for list="{{ sc.rules }}" as="ru" hint-placeholder-count="4"><div style="display:flex;align-items:center;gap:8px;font-size:11.5px"><i style="width:18px;height:18px;border-radius:6px;background:{{ ru.bg }};color:{{ ru.fg }};display:grid;place-items:center;font-size:9px;font-style:normal;flex:0 0 auto">{{ ru.mark }}</i>{{ ru.label }}</div></sc-for>
+                  </section>
+                </aside>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ===== COMPLIANCE PANEL ===== -->
+          <sc-if value="{{ showCompliance }}" hint-placeholder-val="">
+            <div style="display:grid;gap:var(--s6)" class="stagger">
+              <header style="display:flex;flex-wrap:wrap;gap:var(--s4);align-items:flex-start;justify-content:space-between">
+                <div style="display:grid;gap:var(--s2)"><span style="{{ eyebrow }}">{{ cp.eyebrow }}</span><h1 style="margin:0;font-size:24px;font-weight:700;letter-spacing:-.01em">{{ cp.title }}</h1><p style="margin:0;color:var(--text-muted);font-size:13.5px;max-width:70ch">{{ cp.sub }}</p></div>
+                <div style="display:grid;gap:2px;text-align:end;padding:var(--s4);border-radius:var(--r);background:var(--gold-bg);border:1px solid color-mix(in srgb,var(--gold) 30%,transparent)"><span style="font-family:var(--font-en);font-weight:700;font-size:13px;color:var(--gold)">MF-LAW-2016.2</span><strong style="font-size:12px">{{ cp.versionLabel }}</strong><small style="font-size:10.5px;color:var(--text-muted)">{{ cp.versionNote }}</small></div>
+              </header>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--s4)">
+                <sc-for list="{{ cp.kpis }}" as="k" hint-placeholder-count="4"><article style="{{ card }};padding:var(--s5);display:grid;gap:6px"><span style="width:34px;height:34px;border-radius:9px;background:{{ k.iconBg }};color:{{ k.iconFg }};display:grid;place-items:center;font-size:15px">{{ k.icon }}</span><small style="font-size:11px;color:var(--text-muted)">{{ k.label }}</small><strong style="font-size:22px;font-weight:700">{{ k.value }}</strong><em style="font-size:10.5px;font-style:normal;color:var(--text-subtle)">{{ k.note }}</em></article></sc-for>
+              </div>
+              <div style="display:grid;grid-template-columns:340px 1fr;gap:var(--s5);align-items:start" class="compliance-grid">
+                <div style="{{ card }};padding:var(--s4);display:grid;gap:6px;max-height:560px;overflow-y:auto">
+                  <header style="display:flex;justify-content:space-between;align-items:center;padding:0 var(--s2) var(--s2)"><strong style="font-size:13px">{{ cp.controlsLabel }}</strong></header>
+                  <sc-for list="{{ cp.controls }}" as="ct" hint-placeholder-count="6">
+                    <button onClick="{{ ct.select }}" style="{{ ct.style }}">
+                      <span style="{{ ct.pill }}"><i style="font-style:normal">{{ ct.icon }}</i>{{ ct.statusLabel }}</span>
+                      <span style="flex:1;display:grid;gap:1px;text-align:start"><b style="font-size:12px;font-weight:600">{{ ct.name }}</b><small dir="ltr" style="font-family:var(--font-en);font-size:10px;color:var(--text-subtle)">{{ ct.id }} · {{ ct.severity }}</small></span>
+                      <i style="color:var(--text-subtle);font-style:normal">←</i>
+                    </button>
+                  </sc-for>
+                </div>
+                <article style="{{ card }};padding:var(--s6);display:grid;gap:var(--s4);align-content:start">
+                  <header style="display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s3)"><div style="display:grid;gap:2px"><span style="{{ eyebrow }};font-family:var(--font-en)">{{ cp.selId }}</span><h2 style="margin:0;font-size:18px">{{ cp.selName }}</h2></div><span style="{{ cp.selPill }}"><i style="font-style:normal">{{ cp.selIcon }}</i>{{ cp.selStatus }}</span></header>
+                  <p style="margin:0;color:var(--text-muted);font-size:13px;line-height:1.7">{{ cp.selDesc }}</p>
+                  <div style="display:grid;gap:var(--s3)">
+                    <sc-for list="{{ cp.evidence }}" as="ev" hint-placeholder-count="3"><div style="display:grid;gap:3px;padding:var(--s3);border-radius:var(--r-sm);background:var(--surface-2);border:1px solid var(--hairline)"><span style="font-size:10.5px;color:var(--text-subtle);font-weight:600">{{ ev.label }}</span><strong style="font-size:12.5px;font-weight:500" dir="{{ ev.dir }}">{{ ev.value }}</strong></div></sc-for>
+                  </div>
+                  <div style="display:grid;gap:6px">
+                    <span style="{{ eyebrow }}">{{ cp.citationsLabel }}</span>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap">
+                      <sc-for list="{{ cp.citations }}" as="cit" hint-placeholder-count="2">
+                        <span style="display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border-radius:var(--r-sm);background:var(--gold-bg);border:1px solid color-mix(in srgb,var(--gold) 34%,transparent)"><b style="color:var(--gold);font-size:13px">§</b><span style="display:grid;gap:1px"><strong style="font-size:11.5px;color:var(--gold-700)">{{ cit.article }}</strong><small style="font-family:var(--font-en);font-size:10px;color:var(--text-muted)">{{ cit.pages }}</small></span></span>
+                      </sc-for>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ===== MANAGER DASHBOARD ===== -->
+          <sc-if value="{{ showManager }}" hint-placeholder-val="">
+            <div style="display:grid;gap:var(--s6)" class="stagger">
+              <header style="display:flex;flex-wrap:wrap;gap:var(--s4);align-items:flex-end;justify-content:space-between">
+                <div style="display:grid;gap:var(--s2)"><span style="{{ eyebrow }}">{{ mg.eyebrow }}</span><h1 style="margin:0;font-size:24px;font-weight:700">{{ mg.title }}</h1><p style="margin:0;color:var(--text-muted);font-size:13.5px">{{ mg.sub }}</p></div>
+                <button onClick="{{ mg.reassign }}" style="{{ btnPrimary }}">{{ mg.reassignLabel }} ↔</button>
+              </header>
+              <section style="{{ card }};padding:var(--s6);display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:var(--s5);align-items:center">
+                <div style="display:flex;gap:var(--s3);align-items:center"><span style="width:14px;height:14px;border-radius:99px;background:var(--success);box-shadow:0 0 0 5px var(--success-bg);flex:0 0 auto"></span><div style="display:grid;gap:1px"><small style="{{ eyebrow }}">{{ mg.statusLabel }}</small><strong style="font-size:15px">{{ mg.statusValue }}</strong><p style="margin:0;font-size:11.5px;color:var(--text-muted)">{{ mg.statusNote }}</p></div></div>
+                <sc-for list="{{ mg.facts }}" as="f" hint-placeholder-count="3"><div style="display:grid;gap:2px;padding-inline-start:var(--s4);border-inline-start:1px solid var(--hairline)"><span style="font-size:11px;color:var(--text-subtle)">{{ f.label }}</span><strong style="font-size:20px;font-weight:700">{{ f.value }}</strong><small style="font-size:10.5px;color:var(--text-subtle)">{{ f.note }}</small></div></sc-for>
+              </section>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:var(--s4)">
+                <sc-for list="{{ mg.metrics }}" as="k" hint-placeholder-count="5"><article style="{{ card }};padding:var(--s5);display:grid;gap:6px"><span style="width:34px;height:34px;border-radius:9px;background:{{ k.iconBg }};color:{{ k.iconFg }};display:grid;place-items:center;font-size:15px">{{ k.icon }}</span><small style="font-size:11px;color:var(--text-muted)">{{ k.label }}</small><strong style="font-size:22px;font-weight:700">{{ k.value }}</strong><em style="font-size:10.5px;font-style:normal;color:var(--text-subtle)">{{ k.trend }}</em></article></sc-for>
+              </div>
+              <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:var(--s5)">
+                <article style="{{ card }};padding:var(--s6);display:grid;gap:var(--s3)">
+                  <header style="display:flex;justify-content:space-between;align-items:center"><div style="display:grid;gap:2px"><span style="{{ eyebrow }}">{{ mg.staffLabel }}</span><h2 style="margin:0;font-size:15px">{{ mg.staffTitle }}</h2></div><span style="{{ badge_info }}">{{ mg.staffCount }}</span></header>
+                  <sc-for list="{{ mg.staff }}" as="st" hint-placeholder-count="4"><div style="display:flex;align-items:center;gap:10px"><span style="width:34px;height:34px;border-radius:9px;background:var(--surface-3);color:var(--text-muted);display:grid;place-items:center;font-size:11px;font-weight:700;flex:0 0 auto">{{ st.initials }}</span><p style="margin:0;flex:1;min-width:0;display:grid;gap:1px"><strong style="font-size:12.5px">{{ st.name }}</strong><small style="font-size:10.5px;color:var(--text-subtle);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ st.meta }}</small></p><div style="width:70px;height:6px;border-radius:99px;background:var(--surface-3);overflow:hidden;flex:0 0 auto"><i style="display:block;height:100%;width:{{ st.load }};background:var(--accent);border-radius:99px"></i></div><span style="{{ st.badge }}">{{ st.status }}</span></div></sc-for>
+                </article>
+                <article style="{{ card }};padding:var(--s6);display:grid;gap:var(--s3)">
+                  <header style="display:grid;gap:2px"><span style="{{ eyebrow }}">{{ mg.oversightLabel }}</span><h2 style="margin:0;font-size:15px">{{ mg.oversightTitle }}</h2></header>
+                  <sc-for list="{{ mg.tasks }}" as="tk" hint-placeholder-count="3"><div style="display:flex;align-items:center;gap:10px;padding:11px;border-radius:var(--r-sm);background:var(--surface-2);border:1px solid var(--hairline)"><span style="width:30px;height:30px;border-radius:8px;background:var(--surface-3);color:var(--text-muted);display:grid;place-items:center;font-size:11px;font-weight:700;flex:0 0 auto">{{ tk.initials }}</span><p style="margin:0;flex:1;display:grid;gap:1px"><strong style="font-size:12px">{{ tk.title }}</strong><small style="font-size:10.5px;color:var(--text-subtle)">{{ tk.meta }}</small></p><button onClick="{{ tk.nudge }}" style="{{ tk.btnStyle }}">{{ tk.action }}</button></div></sc-for>
+                </article>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ===== STUDIO ===== -->
+          <sc-if value="{{ showStudio }}" hint-placeholder-val="">
+            <div style="display:grid;gap:var(--s6)" class="stagger">
+              <div style="display:flex;gap:var(--s3);align-items:center;padding:var(--s4) var(--s5);border-radius:var(--r);background:var(--warning-bg);border:1px solid color-mix(in srgb,var(--warning) 28%,transparent)"><span style="font-size:18px;color:var(--warning)">⚿</span><div style="display:grid;gap:1px"><strong style="font-size:13px;color:var(--warning)">{{ so.warnTitle }}</strong><span style="font-size:11.5px;color:var(--text-muted)">{{ so.warnBody }}</span></div></div>
+              <header style="display:flex;flex-wrap:wrap;gap:var(--s4);align-items:flex-end;justify-content:space-between">
+                <div style="display:grid;gap:var(--s2)"><span style="{{ eyebrow }}">{{ so.eyebrow }}</span><h1 style="margin:0;font-size:24px;font-weight:700">{{ so.title }}</h1><p style="margin:0;color:var(--text-muted);font-size:13.5px;max-width:66ch">{{ so.sub }}</p></div>
+                <button onClick="{{ so.newVersion }}" style="{{ btnPrimary }}">{{ so.newVersionLabel }} +</button>
+              </header>
+              <section style="{{ card }};padding:var(--s6);display:flex;flex-wrap:wrap;gap:var(--s5);align-items:center">
+                <div style="width:56px;height:56px;border-radius:15px;background:var(--accent-weak);color:var(--accent-strong);display:grid;place-items:center;font-size:24px;flex:0 0 auto">◇</div>
+                <div style="display:grid;gap:4px;flex:1;min-width:200px"><span style="{{ badgeGold }}">EDU-GRANT · v2.4</span><h2 style="margin:0;font-size:17px">{{ so.serviceTitle }}</h2><p style="margin:0;font-size:12px;color:var(--text-muted)">{{ so.serviceMeta }}</p></div>
+                <div style="display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap">
+                  <sc-for list="{{ so.pipeline }}" as="p" hint-placeholder-count="5"><span style="display:flex;align-items:center;gap:6px"><span style="{{ p.style }}">{{ p.mark }} {{ p.label }}</span><sc-if value="{{ p.arrow }}" hint-placeholder-val=""><i style="color:var(--text-subtle);font-style:normal">→</i></sc-if></span></sc-for>
+                </div>
+              </section>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--s4)">
+                <sc-for list="{{ so.modules }}" as="m" hint-placeholder-count="6"><button onClick="{{ m.go }}" style="{{ card }};padding:var(--s5);display:grid;gap:var(--s3);text-align:start;transition:transform var(--dur2) var(--ease),box-shadow var(--dur2)" style-hover="transform:translateY(-2px);box-shadow:var(--sh-md)"><span style="width:40px;height:40px;border-radius:11px;background:var(--surface-2);border:1px solid var(--border);color:var(--accent-strong);display:grid;place-items:center;font-size:17px">{{ m.icon }}</span><strong style="font-size:14px">{{ m.title }}</strong><small style="font-size:11.5px;color:var(--text-muted);line-height:1.6">{{ m.meta }}</small></button></sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ===== GENERIC / OTHER ROUTES ===== -->
+          <sc-if value="{{ showGeneric }}" hint-placeholder-val="">
+            <div style="display:grid;gap:var(--s6)">
+              <header style="display:grid;gap:var(--s2)"><span style="{{ eyebrow }}">{{ gen.eyebrow }}</span><h1 style="margin:0;font-size:24px;font-weight:700">{{ gen.title }}</h1><p style="margin:0;color:var(--text-muted);font-size:13.5px;max-width:64ch">{{ gen.sub }}</p></header>
+              <div style="{{ card }};padding:var(--s10) var(--s6);display:grid;gap:var(--s4);justify-items:center;text-align:center">
+                <span style="width:64px;height:64px;border-radius:18px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-subtle);display:grid;place-items:center;font-size:26px">{{ gen.icon }}</span>
+                <div style="display:grid;gap:6px"><strong style="font-size:16px">{{ gen.emptyTitle }}</strong><p style="margin:0;color:var(--text-muted);font-size:13px;max-width:52ch">{{ gen.emptyBody }}</p></div>
+                <button onClick="{{ gen.action }}" style="{{ btnSecondary }}">{{ gen.actionLabel }}</button>
+              </div>
+            </div>
+          </sc-if>
+          {{ screenPlaceholder }}
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- PERSONA MODAL -->
+  <sc-if value="{{ personaOpen }}" hint-placeholder-val="">
+    <div role="presentation" onClick="{{ closePersona }}" style="position:fixed;inset:0;z-index:60;background:var(--overlay);backdrop-filter:blur(4px);display:grid;place-items:center;padding:var(--s6);animation:fadeIn var(--dur2) ease both">
+      <section role="dialog" aria-modal="true" aria-label="{{ persona.dialogTitle }}" onClick="{{ stop }}" style="{{ card }};width:min(640px,100%);padding:var(--s7);display:grid;gap:var(--s5);animation:scaleIn var(--dur2) var(--ease-out) both">
+        <header style="display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s4)"><div style="display:grid;gap:var(--s1)"><span style="{{ eyebrow }}">{{ persona.dialogEyebrow }}</span><h2 style="margin:0;font-size:19px">{{ persona.dialogTitle }}</h2></div><button onClick="{{ closePersona }}" aria-label="{{ c.close }}" style="width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--surface);font-size:18px">×</button></header>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)">
+          <sc-for list="{{ personaList }}" as="p" hint-placeholder-count="6">
+            <button onClick="{{ p.pick }}" style="{{ p.style }}">
+              <span style="width:40px;height:40px;border-radius:11px;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;font-weight:700;flex:0 0 auto">{{ p.initials }}</span>
+              <span style="flex:1;display:grid;gap:1px;text-align:start"><strong style="font-size:13px">{{ p.label }}</strong><b style="font-size:11.5px;color:var(--text-muted);font-weight:500">{{ p.name }}</b><small style="font-size:10.5px;color:var(--text-subtle);line-height:1.4">{{ p.desc }}</small></span>
+              <sc-if value="{{ p.selected }}" hint-placeholder-val=""><i style="color:var(--accent-strong);font-style:normal">✓</i></sc-if>
+            </button>
+          </sc-for>
+        </div>
+        <footer style="display:flex;gap:var(--s2);align-items:center;color:var(--text-subtle);font-size:11.5px;padding-block-start:var(--s3);border-block-start:1px solid var(--hairline)"><span>⚿ MFA</span>{{ persona.dialogFooter }}</footer>
+      </section>
+    </div>
+  </sc-if>
+
+  <!-- TOAST -->
+  <sc-if value="{{ toastVisible }}" hint-placeholder-val="">
+    <div role="status" aria-live="polite" style="position:fixed;inset-block-end:var(--s6);inset-inline-start:50%;transform:translateX(-50%);z-index:70;display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s5);border-radius:var(--r-pill);background:var(--brand-strong);color:var(--brand-ink);box-shadow:var(--sh-lg);font-size:13px;animation:fadeUp var(--dur2) var(--ease-out) both">
+      <span style="width:8px;height:8px;border-radius:99px;background:var(--accent);flex:0 0 auto"></span>{{ toastMessage }}
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:900},&quot;defaultLanguage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;ar&quot;,&quot;en&quot;],&quot;default&quot;:&quot;ar&quot;,&quot;tsType&quot;:&quot;\&quot;ar\&quot; | \&quot;en\&quot;&quot;,&quot;section&quot;:&quot;Defaults&quot;},&quot;defaultTheme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;\&quot;light\&quot; | \&quot;dark\&quot;&quot;,&quot;section&quot;:&quot;Defaults&quot;},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#276eb4&quot;,&quot;options&quot;:[&quot;#0b8b70&quot;,&quot;#08755f&quot;,&quot;#276eb4&quot;,&quot;#9c6e12&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Brand&quot;}}">
+const PERSONAS = [
+  { id:"citizen", initials:"زع", nameAr:"زينب علي حسن", nameEn:"Zainab Ali Hassan", labelAr:"مواطنة", labelEn:"Citizen", descAr:"واجهة بسيطة ومطمئنة لأصحاب الحق.", descEn:"Warm, simple, reassuring beneficiary experience.", home:"citizen" },
+  { id:"staff", initials:"أك", nameAr:"أحمد كريم محمود", nameEn:"Ahmed Kareem Mahmoud", labelAr:"موظف خدمة", labelEn:"Service employee", descAr:"مساحة كثيفة وسريعة لمراجعة الحالات.", descEn:"Dense, fast case-review workspace.", home:"staff" },
+  { id:"manager", initials:"سج", nameAr:"سارة جاسم علي", nameEn:"Sarah Jasim Ali", labelAr:"مدير مديرية", labelEn:"Directorate manager", descAr:"طوابير الموافقة والإشراف.", descEn:"Approval queues and oversight.", home:"manager" },
+  { id:"committee", initials:"من", nameAr:"د. مصطفى ناصر", nameEn:"Dr. Mustafa Nasser", labelAr:"عضو لجنة", labelEn:"Committee member", descAr:"مساحة تداول رسمية عالية المسؤولية.", descEn:"Formal, high-stakes deliberation.", home:"committee" },
+  { id:"executive", initials:"رم", nameAr:"مكتب رئيس المؤسسة", nameEn:"President Office", labelAr:"تنفيذي", labelEn:"Executive", descAr:"لوحات ومؤشرات كثيفة البيانات.", descEn:"Data-dense dashboards.", home:"executive" },
+  { id:"admin", initials:"من", nameAr:"مسؤول النظام", nameEn:"Platform admin", labelAr:"مسؤول المنصة", labelEn:"Administrator", descAr:"استوديو الإعداد والتكوين.", descEn:"Configuration studio.", home:"studio" },
+];
+const NAV = {
+  citizen:[["citizen","الرئيسية","Home","⌂",0],["services","الخدمات","Services","✦",0],["applications","طلباتي","Applications","▤",0],["documents","وثائقي","Documents","▧",0],["appointments","المواعيد","Appointments","◷",0],["payments","المدفوعات","Payments","◈",0],["notifications","الإشعارات","Notifications","●",3],["help","المساعدة","Help","?",0]],
+  staff:[["staff","مركز العمل","Workspace","⌂",0],["staff-case","الحالة النشطة","Active case","◫",0],["compliance","مركز الامتثال","Compliance","⚖",0],["notifications","الإشعارات","Notifications","●",3],["audit","سجل التدقيق","Audit log","⌁",0]],
+  manager:[["manager","لوحة المديرية","Directorate","⌂",0],["manager-tasks","المهام","Tasks","▤",4],["approvals","الموافقات","Approvals","✓",2],["notifications","الإشعارات","Notifications","●",3]],
+  committee:[["committee","الاجتماعات","Meetings","⌂",0],["committee-meeting","اجتماع التعليم","Education meeting","◉",1],["audit","سجل القرارات","Decision log","⌁",0],["notifications","الإشعارات","Notifications","●",3]],
+  executive:[["executive","اللوحة التنفيذية","Executive dashboard","⌂",0],["finance","الإدارة المالية","Financial management","◈",0],["administration","الأنظمة الإدارية","Administrative systems","▦",0],["resilience","استمرارية الأنظمة","System continuity","⌁",0],["notifications","الإشعارات","Notifications","●",3]],
+  admin:[["studio","الاستوديو","Studio","⌂",0],["compliance","الامتثال واللوائح","Compliance","⚖",0],["forms","منشئ النماذج","Form builder","▦",0],["workflow","مسار العمل","Workflow","⌁",0],["rules","قواعد الأهلية","Rules","◇",0],["versions","الإصدارات","Versions","≛",0],["audit","سجل التدقيق","Audit log","▤",0]],
+};
+const DIR_ICONS = new Set(["←","→","▤","◫","⌁","▦","✦","▧"]); // arrows/list glyphs that should mirror in LTR
+const HOME = { citizen:"citizen", staff:"staff", manager:"manager", committee:"committee", executive:"executive", admin:"studio" };
+
+class Component extends DCLogic {
+  state = {
+    language:"ar", theme:"light", persona:"citizen", route:"citizen",
+    personaOpen:false, toast:"", wizardStep:1,
+    wizardDraft:{ member:"maryam", university:"جامعة بغداد", universityEn:"University of Baghdad", year:"", uploaded:false, consent:false },
+    errors:[],
+    committee:{ chairVote:"", notes:"", reason:"", simulated:false, signed:false },
+    exec:{ transaction:"all", governorate:"all", period:"12m", revIndex:11 },
+  };
+  _toastTimer = null;
+
+  componentDidMount(){
+    const p=this.props||{};
+    const patch={};
+    if(p.defaultLanguage && p.defaultLanguage!==this.state.language) patch.language=p.defaultLanguage;
+    if(p.defaultTheme && p.defaultTheme!==this.state.theme) patch.theme=p.defaultTheme;
+    if(Object.keys(patch).length) this.setState(patch);
+    document.documentElement.dataset.theme = patch.theme || this.state.theme;
+    this.applyAccent(p.accentColor);
+  }
+  componentDidUpdate(prev){
+    if((prev.props||{}).accentColor !== (this.props||{}).accentColor) this.applyAccent((this.props||{}).accentColor);
+  }
+  applyAccent(hex){
+    if(!hex) { const el=document.getElementById("__accent-override"); if(el) el.remove(); return; }
+    let el=document.getElementById("__accent-override");
+    if(!el){ el=document.createElement("style"); el.id="__accent-override"; document.head.appendChild(el); }
+    // derive a slightly darker strong tone
+    el.textContent = `:root{--accent:${hex};--accent-strong:${hex};--accent-weak:color-mix(in srgb, ${hex} 14%, transparent);--focus:color-mix(in srgb, ${hex} 42%, transparent)}`;
+  }
+  ar(){ return this.state.language === "ar"; }
+  L(a,e){ return this.ar() ? a : e; }
+  showToast(a,e){
+    const msg = this.L(a,e);
+    this.setState({ toast: msg });
+    if (this._toastTimer) clearTimeout(this._toastTimer);
+    this._toastTimer = setTimeout(()=>this.setState({ toast:"" }), 2600);
+  }
+  navigate(route){ this.setState({ route }); window.scrollTo({ top:0, behavior:"smooth" }); }
+  setPersona(id){ const p = PERSONAS.find(x=>x.id===id); this.setState({ persona:id, route:HOME[id], personaOpen:false }); }
+
+  // ---- shared style strings ----
+  styles(){
+    return {
+      card:"background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--sh-sm)",
+      eyebrow:"font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-subtle)",
+      btnPrimary:"display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 22px;border-radius:var(--r-pill);background:var(--accent-strong);color:var(--accent-ink);font-weight:600;font-size:13.5px;white-space:nowrap;box-shadow:var(--sh-sm);transition:transform var(--dur2) var(--ease),background var(--dur2)",
+      btnSecondary:"display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;border-radius:var(--r-pill);background:var(--surface);border:1px solid var(--border);color:var(--text);font-weight:600;font-size:13px;white-space:nowrap",
+      btnGhost:"display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 16px;border-radius:var(--r-pill);background:var(--surface);border:1px solid var(--border);color:var(--accent-strong);font-weight:600;font-size:12.5px;white-space:nowrap",
+      btnGold:"display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 22px;border-radius:var(--r-pill);background:linear-gradient(160deg,var(--gold-500),var(--gold-600));color:#1a1205;font-weight:700;font-size:14px;box-shadow:0 6px 20px rgba(213,164,62,.3);width:100%",
+      linkBtn:"display:inline-flex;align-items:center;gap:4px;background:none;border:0;color:var(--accent-strong);font-weight:600;font-size:12.5px",
+      backLink:"display:inline-flex;align-items:center;gap:6px;color:var(--text-muted);font-size:13px;font-weight:600;background:none;border:0;width:fit-content",
+      input:"height:44px;padding:0 var(--s3);border-radius:var(--r-sm);background:var(--surface);border:1px solid var(--border);font-size:13px;outline:none;transition:border-color var(--dur2),box-shadow var(--dur2)",
+      readField:"display:flex;align-items:center;height:44px;padding:0 var(--s3);border-radius:var(--r-sm);background:var(--surface-2);border:1px solid var(--border);font-size:13px;color:var(--text-muted)",
+      fileTag:"display:grid;place-items:center;width:38px;height:38px;border-radius:9px;background:var(--danger-bg);color:var(--danger);font-size:9px;font-weight:700;flex:0 0 auto",
+      badgeGold:"display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:var(--r-pill);background:var(--gold-bg);color:var(--gold);font-size:11.5px;font-weight:700",
+      badgeNeutral:"display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:var(--r-pill);background:var(--neutral-bg);color:var(--neutral);font-size:11.5px;font-weight:700",
+      badgeSuccess:"display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:var(--r-pill);background:var(--success-bg);color:var(--success);font-size:11px;font-weight:700;white-space:nowrap",
+    };
+  }
+  badge(tone, text){
+    const map={ success:["var(--success-bg)","var(--success)"], info:["var(--info-bg)","var(--info)"], warning:["var(--warning-bg)","var(--warning)"], danger:["var(--danger-bg)","var(--danger)"], neutral:["var(--neutral-bg)","var(--neutral)"], gold:["var(--gold-bg)","var(--gold)"] };
+    const [bg,fg]=map[tone]||map.neutral;
+    return `display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:var(--r-pill);background:${bg};color:${fg};font-size:11px;font-weight:700;white-space:nowrap`;
+  }
+
+  navItems(){
+    const ar=this.ar(), ltr=!ar;
+    return (NAV[this.state.persona]||[]).map(([id,a,e,icon,badge])=>{
+      const active = this.state.route===id;
+      const base="position:relative;display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:10px;color:rgba(234,241,240,.72);font-size:13px;font-weight:500;text-align:start";
+      const style = active
+        ? base+";background:rgba(255,255,255,.10);color:#fff"
+        : base;
+      return { id, icon, label:this.L(a,e), badge:badge||"", current:active?"page":"false", active,
+        go:()=>this.navigate(id),
+        style,
+        flip: (ltr && DIR_ICONS.has(icon)) ? "transform:scaleX(-1)" : "" };
+    });
+  }
+
+  renderVals(){
+    const ar=this.ar(), s=this.styles(), st=this.state;
+    const persona = PERSONAS.find(p=>p.id===st.persona);
+    const c = {
+      foundation:this.L("مؤسسة الشهداء","Martyrs Foundation"),
+      platform:this.L("المنصة الرقمية الموحّدة","Unified Digital Platform"),
+      demo:this.L("وضع العرض التجريبي","Demo Mode"),
+      prototype:this.L("بيانات اصطناعية — ليس نظاماً إنتاجياً","Synthetic data — not production"),
+      mainNav:this.L("التنقل الرئيسي","Main navigation"),
+      search:this.L("ابحث في الخدمات والطلبات والوثائق…","Search services, cases and documents…"),
+      switchRole:this.L("تبديل الدور","Switch role"),
+      menu:this.L("القائمة","Menu"), close:this.L("إغلاق","Close"),
+      notifications:this.L("الإشعارات","Notifications"), theme:this.L("تبديل السمة","Toggle theme"),
+      viewAll:this.L("عرض الكل","View all"), all:this.L("الكل","All"),
+    };
+
+    // wizard derived
+    const wd=st.wizardDraft, step=st.wizardStep;
+    const stepLabels = ar ? ["بيانات المستفيدة","فرد الأسرة","بيانات الدراسة","الوثائق","المراجعة والإرسال"] : ["Beneficiary","Family member","Education","Documents","Review & submit"];
+    const arNum=["","١","٢","٣","٤","٥"];
+    const stepTitles=[["بيانات المستفيدة الموثّقة","Verified beneficiary data","تم جلب هذه البيانات من الملف التجريبي. الحقول الموثّقة للقراءة فقط.","Loaded from the demo profile. Verified fields are read-only."],
+      ["اختيار فرد الأسرة","Choose a family member","يظهر فقط أفراد الأسرة المرتبطون بملفك الموحّد.","Only members connected to your unified profile are shown."],
+      ["بيانات الدراسة","Education details","أدخلي بيانات الدراسة الحالية للطالبة مريم.","Enter Maryam’s current education details."],
+      ["الوثائق المطلوبة","Required documents","أعيدي استخدام الوثائق الموثّقة أو ارفعي ملفات محلية للمحاكاة.","Reuse verified documents or select local files."],
+      ["راجعي طلبك قبل الإرسال","Review before submission","لن يصل الطلب إلى أي موظف قبل اكتمال البيانات والوثائق.","The application won’t reach staff until everything is complete."]];
+    const stepBar=(i)=> step>i? "var(--accent)" : step===i? "var(--gold-500)" : "var(--surface-3)";
+    const stepDot=(i)=>{
+      const done=step>i, active=step===i;
+      const bg = done?"var(--accent)":active?"var(--gold-500)":"var(--surface-3)";
+      const col = (done||active)?"#fff":"var(--text-subtle)";
+      const cc = active? "#1a1205":col;
+      return `width:26px;height:26px;border-radius:99px;background:${bg};color:${cc};display:grid;place-items:center;font-size:12px;font-weight:700;flex:0 0 auto`;
+    };
+    const wiz = {
+      back:this.L("→ العودة إلى تفاصيل الخدمة","← Back to service details"),
+      eyebrow:this.L("طلب جديد","NEW APPLICATION"),
+      title:this.L("منحة تعليمية لأحد أفراد الأسرة","Family Education Grant"),
+      draftId:this.L("مسودة محفوظة تلقائياً · APP-DRAFT-184","Autosaved draft · APP-DRAFT-184"),
+      autosave:this.L("حفظ تلقائي","Autosave on"),
+      steps: stepLabels.map((label,idx)=>{ const i=idx+1; const active=step===i, done=step>i;
+        return { label, wrap:"display:grid;gap:6px", mark: done?"✓":String(i), dot:stepDot(i), bar:stepBar(i),
+          textColor: (active||done)?"var(--text)":"var(--text-subtle)" }; }),
+      stepNum: ar? arNum[step] : String(step),
+      stepTitle: this.L(stepTitles[step-1][0], stepTitles[step-1][1]),
+      stepDesc: this.L(stepTitles[step-1][2], stepTitles[step-1][3]),
+      s1:step===1, s2:step===2, s3:step===3, s4:step===4, s5:step===5,
+      verifiedTitle:this.L("تم التحقق من الملف","Profile verified"),
+      verifiedSub:this.L("المصدر: سجل المستفيد التجريبي · ٢٥ تموز ٢٠٢٦","Source: demo registry · 25 Jul 2026"),
+      beneficiaryFields:[
+        {label:this.L("الاسم الكامل","Full name"), value:this.L("زينب علي حسن","Zainab Ali Hassan"), dir:ar?"rtl":"ltr"},
+        {label:this.L("رقم المستفيد","Beneficiary number"), value:"BEN-10024", dir:"ltr"},
+        {label:this.L("المحافظة","Governorate"), value:this.L("بغداد","Baghdad"), dir:ar?"rtl":"ltr"},
+        {label:this.L("نوع الصفة","Beneficiary type"), value:this.L("فرد أسرة مسجل","Registered family member"), dir:ar?"rtl":"ltr"},
+      ],
+      members:[["maryam","مريم حيدر علي","Maryam Haider Ali","ابنة · طالبة جامعية","Daughter · University student","مح"],["ali","علي حيدر علي","Ali Haider Ali","ابن · طالب ثانوي","Son · Secondary student","عح"]].map(([id,na,ne,ma,me,ini])=>{
+        const sel=wd.member===id;
+        return { initials:ini, name:this.L(na,ne), meta:this.L(ma,me), mark:sel?"●":"○", markColor:sel?"var(--accent-strong)":"var(--text-subtle)",
+          select:()=>{ this.setState({ wizardDraft:{...wd, member:id} }); this.showToast("تم الحفظ تلقائياً","Autosaved"); },
+          style:`display:flex;align-items:center;gap:12px;padding:14px;border-radius:var(--r);border:1.5px solid ${sel?"var(--accent)":"var(--border)"};background:${sel?"var(--accent-weak)":"var(--surface)"};text-align:start;transition:border-color var(--dur2),background var(--dur2)` }; }),
+      instLabel:this.L("المؤسسة التعليمية","Education institution"),
+      instHint:this.L("سيُقارن الاسم مع التأييد المرفوع","Compared with the uploaded confirmation"),
+      university: ar? wd.university : wd.universityEn,
+      setUniversity:(ev)=>{ const v=ev.target.value; this.setState({ wizardDraft: ar?{...wd,university:v}:{...wd,universityEn:v} }); },
+      yearLabel:this.L("السنة الدراسية","Academic year"), selectYear:this.L("اختاري…","Select…"),
+      year:wd.year, setYear:(ev)=>this.setState({ wizardDraft:{...wd, year:ev.target.value} }),
+      collegeLabel:this.L("الكلية / القسم","College / department"), college:this.L("كلية العلوم — علوم الحياة","College of Science — Biology"),
+      stageLabel:this.L("المرحلة","Study stage"), stage:this.L("المرحلة الثانية","Second year"),
+      condTitle:this.L("حقل شرطي ظاهر","Conditional field shown"),
+      condDesc:this.L("ظهر حقل الجامعة لأن نوع الدراسة «جامعية».","The institution field is shown because study type is “University”."),
+      documents:[["هوية المستفيد","Beneficiary ID","موثّقة في المحفظة","Verified in wallet","success",ar?"موثّقة":"Verified"],["بطاقة الأسرة","Family card","FAM-4502","FAM-4502","success",ar?"موثّقة":"Verified"]].map(([ta,te,ma,me,tone,label])=>({ title:this.L(ta,te), meta:this.L(ma,me), badge:this.badge(tone), status:label })),
+      dropIcon: wd.uploaded?"✓":"↑",
+      dropTitle: wd.uploaded? this.L("تمت إضافة تأييد الاستمرار بالدراسة","Enrollment confirmation added") : this.L("أرفقي تأييد الاستمرار بالدراسة","Attach the enrollment confirmation"),
+      dropHint:this.L("PDF أو JPG أو PNG · حتى 1MB · يُحفظ في مخزن المشروع","PDF, JPG or PNG · up to 1MB · saved in project storage"),
+      dropStyle:`display:grid;justify-items:center;gap:8px;padding:var(--s6);border-radius:var(--r);border:2px dashed ${wd.uploaded?"var(--accent)":"var(--border-strong)"};background:${wd.uploaded?"var(--accent-weak)":"var(--surface-2)"};transition:border-color var(--dur2),background var(--dur2)`,
+      upload:()=>{ this.setState({ wizardDraft:{...wd, uploaded:!wd.uploaded} }); this.showToast(wd.uploaded?"تم حذف الملف":"تم رفع التأييد وحفظ الملف", wd.uploaded?"File removed":"Enrollment confirmation uploaded"); },
+      aiLabel:this.L("ذكاء اصطناعي محاكى","SIMULATED AI"),
+      aiBadge:this.badge(wd.uploaded?"success":"warning"),
+      aiStatus: wd.uploaded? this.L("المتطلبات مكتملة","Requirements complete") : this.L("تحتاج استكمالاً","Missing item"),
+      aiTitle: wd.uploaded? this.L("اكتملت الوثائق المطلوبة ويمكن متابعة الإرسال.","Required evidence is complete; submission can continue.") : this.L("تم تصنيف ٣ وثائق. ينقص تأييد الاستمرار بالدراسة.","Three documents classified. Enrollment confirmation missing."),
+      aiDesc:this.L("المصدر: متطلبات الخدمة EDU-DOC-2.3 · الثقة ٩٦٪ · القرار للموظف المختص.","Source: EDU-DOC-2.3 · 96% confidence · official review remains human."),
+      review:[[this.L("المستفيدة","Beneficiary"), this.L("زينب علي حسن","Zainab Ali Hassan"),1],[this.L("فرد الأسرة","Family member"), this.L("مريم حيدر علي","Maryam Haider Ali"),2],[this.L("المؤسسة التعليمية","Institution"), (ar?wd.university:wd.universityEn)||"—",3],[this.L("السنة الدراسية","Academic year"), wd.year||"—",3]].map(([label,value,go])=>({ label, value, edit:()=>this.setState({ wizardStep:go }) })),
+      reviewTitle: wd.uploaded? this.L("الطلب مكتمل وجاهز للإرسال","Application complete and ready") : this.L("الطلب غير مكتمل","Application incomplete"),
+      reviewDesc: wd.uploaded? this.L("تم إرفاق كل المتطلبات. عند الإرسال فقط ينتقل الطلب إلى صندوق الموظف.","All requirements attached. Only submission moves it into the staff inbox.") : this.L("ارجعي إلى خطوة الوثائق وأرفقي تأييد الاستمرار بالدراسة.","Return to Documents and attach the enrollment confirmation."),
+      consent:wd.consent, setConsent:(ev)=>this.setState({ wizardDraft:{...wd, consent:ev.target.checked} }),
+      consentTitle:this.L("أوافق على استخدام البيانات لهذا الطلب","I consent to using this data for this application"),
+      consentDesc:this.L("أقر بأن المعلومات اصطناعية ضمن عرض إثبات المفهوم، وأن الإرسال لا ينشئ استحقاقاً حقيقياً.","I acknowledge this is synthetic POC data and submission creates no real entitlement."),
+      hasErrors: st.errors.length>0, errors: st.errors.map(text=>({text})),
+      prevDisabled: step===1, prevLabel:this.L("السابق","Back"),
+      nextLabel: step===5? this.L("إرسال الطلب","Submit application") : this.L("حفظ ومتابعة","Save and continue"),
+      stepCounter: ar? `الخطوة ${arNum[step]} من ٥` : `Step ${step} of 5`,
+      prev:()=>this.setState({ wizardStep:Math.max(1,step-1), errors:[] }),
+      next:()=>this.wizardNext(),
+      helpTitle:this.L("مساعدة هذه الخطوة","Step guidance"),
+      helpBody:this.L("تُحفظ التغييرات في قاعدة المشروع وتبقى نسخة محلية احتياطية؛ الملفات في مخزن المشروع.","Changes save to the project database with a local backup; files use project storage."),
+      helpAssist:this.L("مساعد المتطلبات","Requirements assistant"),
+      helpAssistBody:this.L("يبقى الطلب لدى المواطن حتى تكتمل البيانات والوثائق، ثم ينتقل للموظف بعد الإرسال.","The application stays citizen-only until complete, then moves to staff after submission."),
+      editLabel:this.L("تعديل","Edit"),
+    };
+
+    // citizen dashboard derived
+    const citizen = {
+      date:this.L("الأحد، ٢٦ تموز ٢٠٢٦","Sunday, 26 July 2026"),
+      welcome:this.L("أهلاً زينب، كل شيء في مكان واحد.","Welcome Zainab. Everything in one place."),
+      sub:this.L("تصنيف الملف الأولي: ذوو شهيد. الخدمات أدناه مخصصة لهذا المسار.","Initial profile category: Martyr family. Services below match this track."),
+      startService:this.L("ابدأ خدمة جديدة +","Start a new service +"),
+      activeLabel:this.L("طلبك النشط","ACTIVE APPLICATION"),
+      caseTitle:this.L("المنحة التعليمية لأحد أفراد الأسرة","Family Education Grant"),
+      statusLabel:this.L("أمام اللجنة","Committee review"),
+      nextActionLabel:this.L("الإجراء التالي","NEXT ACTION"),
+      nextAction:this.L("لا يوجد إجراء مطلوب منك الآن","No action is required from you"),
+      openApp:this.L("فتح الطلب ←","Open application ←"),
+      sla:this.L("المهلة المتوقعة: ١٢ يوم عمل","Expected: 12 business days"),
+      updated:this.L("آخر تحديث ٢٦ تموز","Updated 26 Jul"),
+      name:this.L("زينب علي حسن","Zainab Ali Hassan"), profilePct:this.L("٩٢٪","92%"),
+      profileNote:this.L("ذوو شهيد · تصنيف أولي بانتظار تحقق الوثائق.","Martyr family · initial category pending evidence verification."),
+      completeProfile:this.L("إكمال الملف","Complete profile"),
+      matchedLabel:this.L("مقترحة حسب التصنيف","CATEGORY-MATCHED"), matchedTitle:this.L("خدمات ذوي الشهيد","Martyr family services"),
+      latestLabel:this.L("آخر المستجدات","LATEST"),
+      quickActions:[["♧","عرض الأسرة 360","Family 360"],["▧","محفظة الوثائق","Document wallet"],["◷","حجز موعد","Book appointment"],["◇","التحقق الأولي من الأهلية","Initial eligibility check"],["◈","دفع الرسوم عند وجودها","Pay fees when applicable"]].map(([icon,a,e])=>({ icon, label:this.L(a,e), go:()=>this.showToast("عرض تجريبي","Demo view") })),
+      services:[["◇","منحة تعليمية لأحد أفراد الأسرة","Family Education Grant","١٢ يوم عمل · 4 وثائق","12 business days · 4 docs"],["✦","رعاية صحية وعلاج","Healthcare & treatment","٧ أيام عمل · 5 وثائق","7 business days · 5 docs"],["▦","دعم سكني","Housing support","٢٠ يوم عمل · 6 وثائق","20 business days · 6 docs"]].map(([icon,ta,te,ma,me])=>({ icon, title:this.L(ta,te), meta:this.L(ma,me), go:()=>this.navigate("wizard") })),
+      notifications:[["● ","تم تقديم الطلب بنجاح","Application submitted","٢٦ تموز ٢٠٢٦","26 Jul 2026",false],["✉","بانتظار مراجعة الموظف","Awaiting staff review","٢٥ تموز ٢٠٢٦","25 Jul 2026",true],["▣","تم تحديث المحفظة","Wallet updated","٢٤ تموز ٢٠٢٦","24 Jul 2026",true],["●","موعد مؤكد","Appointment confirmed","٢٣ تموز ٢٠٢٦","23 Jul 2026",true]].map(([icon,ta,te,aa,ae,read])=>({ icon, title:this.L(ta,te), at:this.L(aa,ae), weight:read?"500":"700", dot:`width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-size:11px;flex:0 0 auto;background:${read?"var(--surface-3)":"var(--accent-weak)"};color:${read?"var(--text-subtle)":"var(--accent-strong)"}` })),
+    };
+
+    return {
+      ...s,
+      dir: ar?"rtl":"ltr", language:st.language,
+      themeIcon: st.theme==="dark"?"☀":"☾", langLabel: ar?"EN":"ع",
+      notifCount:"3",
+      c, persona:{ initials:persona.initials, name:this.L(persona.nameAr,persona.nameEn), label:this.L(persona.labelAr,persona.labelEn),
+        dialogEyebrow:this.L("تبديل فوري — يحفظ حالة العرض","Instant switch — demo state preserved"),
+        dialogTitle:this.L("اختر منظور المستخدم","Choose a user perspective"),
+        dialogFooter:this.L("محاكاة واجهة فقط. لا يوجد تحقق هوية أو صلاحيات إنتاجية.","Interface simulation only. No production identity or authorization.") },
+      nav:this.navItems(),
+      personaList: PERSONAS.map(p=>({ initials:p.initials, label:this.L(p.labelAr,p.labelEn), name:this.L(p.nameAr,p.nameEn), desc:this.L(p.descAr,p.descEn), selected:st.persona===p.id,
+        pick:()=>this.setPersona(p.id),
+        style:`display:flex;align-items:center;gap:12px;padding:14px;border-radius:var(--r);border:1.5px solid ${st.persona===p.id?"var(--accent)":"var(--border)"};background:${st.persona===p.id?"var(--accent-weak)":"var(--surface)"};text-align:start;transition:border-color var(--dur2),background var(--dur2)` })),
+      screenKey: st.route, screenPlaceholder:"",
+      showCitizen: st.route==="citizen",
+      showWizard: st.route==="wizard",
+      showCommittee: st.route==="committee" || st.route==="committee-meeting",
+      showExecutive: st.route==="executive",
+      showStaff: st.route==="staff",
+      showStaffCase: st.route==="staff-case",
+      showCompliance: st.route==="compliance",
+      showManager: st.route==="manager",
+      showStudio: ["studio","forms","workflow","rules","versions"].includes(st.route),
+      showGeneric: !["citizen","wizard","committee","committee-meeting","executive","staff","staff-case","compliance","manager","studio","forms","workflow","rules","versions"].includes(st.route),
+      cm: this.buildCommittee(), ex: this.buildExecutive(),
+      sf: this.buildStaff(), sc: this.buildStaffCase(), cp: this.buildCompliance(), mg: this.buildManager(), so: this.buildStudio(), gen: this.buildGeneric(),
+      badge_info: this.badge("info"),
+      citizen, wiz, wizardStep:step,
+      personaOpen:st.personaOpen,
+      toastVisible: !!st.toast, toastMessage: st.toast,
+      // handlers
+      toggleLang:()=>this.setState({ language: ar?"en":"ar" }),
+      toggleTheme:()=>{ const t=st.theme==="dark"?"light":"dark"; this.setState({ theme:t }); document.documentElement.dataset.theme=t; },
+      openPersona:()=>this.setState({ personaOpen:true }),
+      closePersona:()=>this.setState({ personaOpen:false }),
+      stop:(ev)=>ev.stopPropagation(),
+      toggleMobile:()=>{},
+      goNotifications:()=>this.showToast("مركز الإشعارات","Notification centre"),
+      goWizard:()=>this.navigate("wizard"),
+      goCitizen:()=>this.navigate("citizen"),
+      goServices:()=>this.showToast("دليل الخدمات","Service catalogue"),
+      goProfile:()=>this.showToast("الملف الشخصي","Profile"),
+    };
+  }
+
+  buildStaff(){
+    const s=this.styles();
+    const tabs=[["all","كل المهام","All tasks","2"],["new","جديدة","New","1"],["risk","خطر المهلة","SLA risk","1"]];
+    const cols=["رقم الطلب","المستفيد / الخدمة","الحالة","المحافظة","العمر","المهلة","المخاطر",""].map((a,i)=>({t:this.L(a,["Request ID","Beneficiary / service","Status","Governorate","Age","SLA","Risk",""][i])}));
+    const rows=[
+      { id:"MF-2026-000184", tag:this.L("قصة العرض","Demo story"), citizen:this.L("زينب علي حسن","Zainab Ali Hassan"), service:this.L("منحة تعليمية لأحد أفراد الأسرة","Family Education Grant"), status:this.L("مُقدّم","Submitted"), statusTone:"info", gov:this.L("بغداد","Baghdad"), age:this.L("٣ س","3h"), sla:this.L("ضمن المهلة","On track"), slaOk:true, risk:this.L("منخفض","Low"), riskTone:"success" },
+      { id:"MF-2026-000212", tag:this.L("طلب مفعّل","Enabled flow"), citizen:this.L("زينب علي حسن","Zainab Ali Hassan"), service:this.L("رعاية صحية وعلاج","Healthcare & treatment"), status:this.L("قيد المراجعة","Under review"), statusTone:"info", gov:this.L("بغداد","Baghdad"), age:this.L("الآن","Now"), sla:this.L("خطر","At risk"), slaOk:false, risk:this.L("وثيقة ناقصة","Missing doc"), riskTone:"warning" },
+    ];
+    const tabStyle=(active)=>`height:34px;padding:0 14px;border-radius:99px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:7px;border:1px solid ${active?"transparent":"var(--border)"};background:${active?"var(--brand)":"var(--surface)"};color:${active?"var(--brand-ink)":"var(--text-muted)"}`;
+    return {
+      eyebrow:this.L("مركز عمل الموظف","SERVICE WORKSPACE"),
+      title:this.L("صندوق المهام الموحّد","Unified task inbox"),
+      sub:this.L("طلبات مرتبة حسب الأولوية والمهلة والمخاطر، مع إجراء واضح لكل حالة.","Cases ordered by priority, SLA and risk, with a clear next action."),
+      density:()=>this.showToast("تم تغيير كثافة الجدول","Table density changed"), densityLabel:this.L("عرض مضغوط","Compact view"),
+      claim:()=>this.showToast("تم استلام المهمة وربطها بالموظف","Task claimed and assigned"), claimLabel:this.L("استلام المهمة التالية","Claim next task"),
+      metrics:[["▤","مهامي المفتوحة","My open tasks","2","٢ جديدة","2 new","var(--accent-weak)","var(--accent-strong)"],["◷","معرضة لتجاوز المهلة","At SLA risk","1","تحتاج اهتماماً","Needs attention","var(--danger-bg)","var(--danger)"],["↔","طلبات مكتملة جديدة","New complete","1","جاهزة للمراجعة","Ready for review","var(--gold-bg)","var(--gold)"],["✓","أُنجزت","Completed","1","","","rgba(11,38,61,.1)","var(--brand)"]].map(([icon,a,e,v,ta,te,bg,fg])=>({icon,label:this.L(a,e),value:v,trend:this.L(ta,te),iconBg:bg,iconFg:fg})),
+      tabs: tabs.map(([id,a,e,count])=>({ label:this.L(a,e), count, style:tabStyle(this.state.staffTab===id||(!this.state.staffTab&&id==="all")), go:()=>this.setState({ staffTab:id }) })),
+      sort:()=>this.showToast("تم عكس الترتيب","Sort reversed"), sortLabel:this.L("عكس الترتيب","Reverse sort"),
+      columns:cols,
+      rows: rows.map(r=>({ ...r, open:()=>this.navigate("staff-case"),
+        tagBadge:this.badge("gold"), statusBadge:this.badge(r.statusTone), riskBadge:this.badge(r.riskTone),
+        slaColor: r.slaOk?"var(--text-muted)":"var(--danger)" })),
+      footer:this.L("عرض ٢ من ٢ مهمة","Showing 2 of 2 tasks"),
+    };
+  }
+
+  buildStaffCase(){
+    const s=this.styles(), tab=this.state.caseTab||"overview";
+    const tabs=[["overview","نظرة عامة","Overview"],["beneficiary","المستفيد 360","Beneficiary 360"],["documents","الوثائق (٢)","Documents (2)"],["eligibility","الأهلية","Eligibility"],["compliance","امتثال الحالة","Case compliance"],["audit","التدقيق","Audit"]];
+    const tabStyle=(active)=>`height:36px;padding:0 16px;border-radius:99px;font-size:12.5px;font-weight:600;white-space:nowrap;border:1px solid ${active?"transparent":"var(--border)"};background:${active?"var(--accent-strong)":"var(--surface)"};color:${active?"var(--accent-ink)":"var(--text-muted)"}`;
+    const ruleRow=(ok,warn,a,e)=>({ mark: ok?"✓":warn?"!":"◇", bg: ok?"var(--success-bg)":warn?"var(--warning-bg)":"var(--neutral-bg)", fg: ok?"var(--success)":warn?"var(--warning)":"var(--neutral)", label:this.L(a,e) });
+    return {
+      back:()=>this.navigate("staff"), inbox:this.L("صندوق المهام","Inbox"),
+      title:this.L("منحة تعليمية لأحد أفراد الأسرة","Family Education Grant"),
+      citizen:this.L("زينب علي حسن","Zainab Ali Hassan"), gov:this.L("بغداد","Baghdad"), priority:this.L("أولوية مرتفعة","High priority"),
+      status:this.L("قيد المراجعة","Under review"),
+      slaLabel:this.L("المهلة","SLA"), slaValue:this.L("٨٠ ساعة","80 hrs"),
+      return:()=>this.showToast("إعادة المعاملة للمواطن","Return to citizen"), returnLabel:this.L("إعادة للمواطن","Return to citizen"),
+      refer:()=>this.showToast("مراجعة التوصية","Review recommendation"), referLabel:this.L("مراجعة التوصية","Review recommendation"),
+      tabs: tabs.map(([id,a,e])=>({ label:this.L(a,e), style:tabStyle(tab===id), go:()=>this.setState({ caseTab:id }) })),
+      ben360:this.L("المستفيد 360","BENEFICIARY 360"), verified:this.L("ملف موثّق","Verified profile"), verifiedShort:this.L("موثّق","Verified"),
+      detail:this.L("طلب منحة تعليمية للطالبة مريم حيدر علي، مقدّم من المستفيدة زينب علي حسن. البيانات موثّقة والوثائق مكتملة.","Education grant for student Maryam Haider Ali, submitted by beneficiary Zainab Ali Hassan. Data is verified and documents complete."),
+      facts:[["الحالة","Status","قيد المراجعة","Under review"],["الوثائق","Documents","4/4","4/4"],["المهلة المتبقية","SLA remaining","٨٠ ساعة","80 hrs"],["جودة البيانات","Data quality","96%","96%"]].map(([a,e,va,ve])=>({label:this.L(a,e),value:this.L(va,ve)})),
+      checklistLabel:this.L("قائمة اكتمال الطلب","COMPLETENESS CHECK"),
+      documents:[["هوية المستفيد","Beneficiary ID"],["بطاقة الأسرة","Family card"],["تأييد الدراسة","Enrollment confirmation"],["كشف الدرجات","Academic transcript"]].map(([a,e])=>({title:this.L(a,e),meta:this.L("وصلت مع تقديم المواطن","Received with citizen submission")})),
+      aiLabel:this.L("مساعد الحالة","CASE ASSISTANT"),
+      aiTitle:this.L("مساعد الموظف مرتبط بهذه الحالة","Staff assistant connected to this case"),
+      aiBody:this.L("يسحب المواد الأقرب من القانون، يقرأ نتائج ضوابط الامتثال، ويعرض السند والصفحة. كل محادثة موظف تُكتب في سجل التدقيق.","It retrieves the closest law, reads compliance results, and shows the source and page. Every staff query is audited."),
+      chips:[["لخّص الحالة","Summarize"],["الضوابط الحاجبة","Blocking controls"],["المراجع القانونية","Legal references"]].map(([a,e])=>({label:this.L(a,e),go:()=>this.showToast("مساعد الموظف","Staff assistant")})),
+      openAssistant:()=>this.showToast("فتح مساعد الموظف","Open staff assistant"), openAssistantLabel:this.L("فتح مساعد الموظف","Open staff assistant"),
+      eligLabel:this.L("ملخص الأهلية","ELIGIBILITY SUMMARY"), details:this.L("التفاصيل","Details"), openElig:()=>this.setState({ caseTab:"eligibility" }),
+      rulesPassed:this.L("قواعد مجتازة","rules passed"),
+      rules:[ruleRow(true,false,"حالة المستفيد موثّقة","Beneficiary status verified"),ruleRow(true,false,"صلة القرابة مؤكدة","Kinship confirmed"),ruleRow(true,false,"تأييد الاستمرار بالدراسة","Enrollment confirmed"),ruleRow(false,true,"تشابه سجل — مراجعة يدوية","Record similarity — manual")],
+    };
+  }
+
+  buildCompliance(){
+    const s=this.styles(), sel=this.state.selectedControl||"CTL-EXCLUSION-BAATH";
+    const statusMap={ pass:["ممتثل","Pass","✓","success"], violation:["مخالفة","Violation","!","danger"], needs_review:["يتطلب مراجعة","Needs review","◇","warning"], not_applicable:["غير منطبق","Not applicable","—","neutral"] };
+    const controls=[
+      ["CTL-EXCLUSION-BAATH","استبعاد المشمولين باجتثاث البعث","Ba'ath exclusion screening","blocking","pass","سجل الاستبعاد الوطني","National exclusion registry","لا تطابق في قوائم الاستبعاد لهذا الملف.","No match on exclusion lists for this file.","المادة 4","ص ٣–٤ / pp 3–4"],
+      ["CTL-COMMITTEE-QUORUM","اكتمال نصاب اللجنة قبل القرار","Committee quorum before decision","blocking","needs_review","حضور الأعضاء المؤهلين","Eligible member attendance","النصاب مكتمل ولكن يلزم تثبيت غياب عضو التعارض.","Quorum met; conflict member absence must be recorded.","المادة 9","ص ٧ / p 7"],
+      ["CTL-EDU-ELIG","أهلية المنحة التعليمية","Education grant eligibility","blocking","pass","بيانات الدراسة والتأييد","Education data and confirmation","تطابق بيانات الطالبة مع قاعدة EDU-ELIG-2.3.","Student data matches EDU-ELIG-2.3.","المادة 17/سابعاً","ص ١٢ / p 12"],
+      ["CTL-DOC-COMPLETE","اكتمال الوثائق المطلوبة","Required document completeness","blocking","pass","محفظة الوثائق","Document wallet","كل الوثائق المطلوبة موثّقة قبل الإحالة.","All required documents verified before referral.","المادة 6","ص ٥ / p 5"],
+      ["CTL-SLA-DECISION","التزام مهلة الحسم","Decision SLA adherence","advisory","pass","سجل المهلة","SLA log","المعاملة ضمن المهلة القانونية.","Case within the statutory window.","المادة 11","ص ٩ / p 9"],
+      ["CTL-QUOTA-EDU","حصة المقاعد التعليمية","Education seat quota","advisory","needs_review","مراقب الحصص","Quota monitor","النسبة الحالية ١٢٫٤٪ فوق الحد؛ تحتاج تدوين مصدر.","Current 12.4% above minimum; source note needed.","المادة 17/سابعاً","ص ١٣ / p 13"],
+    ];
+    const pill=(status)=>{ const [,, , tone]=statusMap[status]; const [bg,fg]=({success:["var(--success-bg)","var(--success)"],danger:["var(--danger-bg)","var(--danger)"],warning:["var(--warning-bg)","var(--warning)"],neutral:["var(--neutral-bg)","var(--neutral)"]})[tone]; return `display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;background:${bg};color:${fg};font-size:10.5px;font-weight:700;white-space:nowrap`; };
+    const selected=controls.find(c=>c[0]===sel)||controls[0];
+    const [sid,sna,sne,ssev,sstatus,seva,seve,sda,sde,sart,spg]=selected;
+    return {
+      eyebrow:this.L("مركز الامتثال واللوائح","COMPLIANCE & REGULATIONS CENTER"),
+      title:this.L("ضوابط قابلة للتتبع من المادة إلى المعاملة.","Traceable controls from legal article to case."),
+      sub:this.L("مؤشرات إثبات مفهوم مبنية على القانون المرفق، مع نتائج مفسرة ومراجعة بشرية إلزامية.","POC indicators based on the supplied law, with explained results and mandatory human review."),
+      versionLabel:this.L("نسخة العمل الحالية","Current working version"), versionNote:this.L("محاكاة · ليست فتوى أو قراراً","Simulation · not legal advice"),
+      kpis:[["✓","ضوابط مجتازة","Passed controls","4/6","لهذه الحالة","for this case","var(--success-bg)","var(--success)"],["◇","عناصر حاجبة","Blocking items","1","قبل الإحالة أو القرار","before referral","var(--warning-bg)","var(--warning)"],["◷","امتثال المدة","SLA compliance","94.6%","+2.1 pp","+2.1 pp","var(--info-bg)","var(--info)"],["▥","الحصة التعليمية","Education quota","12.4%","فوق حد 10%","above 10% min","var(--gold-bg)","var(--gold)"]].map(([icon,a,e,v,na,ne,bg,fg])=>({icon,label:this.L(a,e),value:v,note:this.L(na,ne),iconBg:bg,iconFg:fg})),
+      controlsLabel:this.L("نتائج الضوابط","Control results"),
+      controls: controls.map(c=>{ const [id,na,ne,sev,status]=c; const active=id===sel; const [sa,se,icon]=statusMap[status];
+        return { id, name:this.L(na,ne), statusLabel:this.L(sa,se), icon, pill:pill(status), severity:this.L(sev==="blocking"?"حاجب":"إرشادي", sev==="blocking"?"Blocking":"Advisory"),
+          select:()=>this.setState({ selectedControl:id }),
+          style:`display:flex;align-items:center;gap:10px;padding:11px;border-radius:var(--r-sm);border:1px solid ${active?"var(--accent)":"transparent"};background:${active?"var(--accent-weak)":"transparent"};text-align:start;transition:background var(--dur2)` }; }),
+      selId:sid, selName:this.L(sna,sne), selStatus:this.L(statusMap[sstatus][0],statusMap[sstatus][1]), selIcon:statusMap[sstatus][2], selPill:pill(sstatus),
+      selDesc:this.L(sda,sde),
+      evidence:[[this.L("الدليل المستخدم","Evidence used"),this.L(seva,seve),this.ar()?"rtl":"ltr"],[this.L("تفسير النتيجة","Result explanation"),this.L(sda,sde),this.ar()?"rtl":"ltr"],[this.L("نسخة الضابط","Control version"),"MF-LAW-2016.2","ltr"]].map(([label,value,dir])=>({label,value,dir})),
+      citationsLabel:this.L("الاستشهادات القانونية","LEGAL CITATIONS"),
+      citations:[{ article:sart, pages:spg }],
+    };
+  }
+
+  buildManager(){
+    const s=this.styles();
+    return {
+      eyebrow:this.L("مديرية بغداد","BAGHDAD DIRECTORATE"),
+      title:this.L("العمل المتوازن يحمي المهلة وجودة القرار.","Balanced work protects SLA and decision quality."),
+      sub:this.L("صورة تشغيلية لحظية لفريق المعاملات.","A live operational view of the service team."),
+      reassign:()=>this.showToast("وضع إعادة التوزيع","Reassignment mode"), reassignLabel:this.L("إعادة توزيع","Reassign work"),
+      statusLabel:this.L("حالة المديرية الآن","DIRECTORATE STATUS NOW"), statusValue:this.L("مستقرة وتحت السيطرة","Stable and controlled"),
+      statusNote:this.L("موظفان متاحان · قرار واحد عند المدير","2 staff available · 1 manager decision"),
+      facts:[["المعاملات النشطة","Active cases","42","٢ مرتبطة بسيناريو العرض","2 tied to the demo journey"],["الفريق المتاح","Available team","2/4","الحضور التشغيلي الحالي","Current availability"],["القرار التالي","Next decision","MF-…212","جاهز لمراجعة المدير","Ready for review"]].map(([a,e,v,na,ne])=>({label:this.L(a,e),value:v,note:this.L(na,ne)})),
+      metrics:[["▤","المهام المفتوحة","Open tasks","42","","","var(--accent-weak)","var(--accent-strong)"],["○","وارد جديد","New intake","1","جاهز للتوزيع","Ready","var(--gold-bg)","var(--gold)"],["◷","خطر المهلة","SLA risk","1","تحتاج متابعة","Follow-up","var(--danger-bg)","var(--danger)"],["✓","جودة الفريق","Team quality","95%","متوسط الموظفين","Staff avg","var(--info-bg)","var(--info)"],["◇","موافقاتي","My approvals","1","مرتبطة بصلاحيتي","My authority","rgba(11,38,61,.1)","var(--brand)"]].map(([icon,a,e,v,ta,te,bg,fg])=>({icon,label:this.L(a,e),value:v,trend:this.L(ta,te),iconBg:bg,iconFg:fg})),
+      staffLabel:this.L("الموظفون وحالة العمل","STAFF & WORK STATUS"), staffTitle:this.L("من متاح؟ ومن يحتاج تدخلاً؟","Who is available, who needs support?"), staffCount:this.L("٤ موظفين","4 employees"),
+      staff:[["أك","أحمد كريم","Ahmed Kareem","موظف معاملات أول · 12 مهمة · 94%","Senior officer · 12 tasks · 94%","84%","مشغول","Busy","info"],["نع","نور علي","Noor Ali","موظفة تدقيق · 9 مهام · 97%","Review officer · 9 tasks · 97%","63%","متاح","Available","success"],["مج","محمد جاسم","Mohammed Jasim","موظف خدمات · 14 مهمة · 88%","Service officer · 14 tasks · 88%","98%","يحتاج دعم","Needs support","warning"],["سف","سجى فاضل","Suja Fadhil","موظفة جودة · 7 مهام · 99%","Quality officer · 7 tasks · 99%","49%","متاح","Available","success"]].map(([ini,na,ne,ma,me,load,sa,se,tone])=>({initials:ini,name:this.L(na,ne),meta:this.L(ma,me),load,status:this.L(sa,se),badge:this.badge(tone)})),
+      oversightLabel:this.L("مهام غير مكتملة لدى الموظفين","INCOMPLETE STAFF TASKS"), oversightTitle:this.L("أين تأخر الفريق؟","Where is the team delayed?"),
+      tasks:[["أك","تأكيد ختم وثيقة","Verify document seal","أحمد كريم · متأخرة ساعتين","Ahmed · 2h overdue"],["مج","كتابة توصية مسببة","Write recommendation","محمد جاسم · خطر مهلة","Mohammed · SLA risk"],["نع","إغلاق ملاحظة جودة بيانات","Resolve data-quality note","نور علي · متبقي ٣ ساعات","Noor · 3h left"]].map(([ini,ta,te,ma,me])=>({initials:ini,title:this.L(ta,te),meta:this.L(ma,me),action:this.L("تنبيه","Notify"),btnStyle:"height:32px;padding:0 12px;border-radius:99px;border:1px solid var(--border);background:var(--surface);font-size:11.5px;font-weight:600;color:var(--accent-strong)",nudge:()=>this.showToast("تم تنبيه الموظف","Staff notified")})),
+    };
+  }
+
+  buildStudio(){
+    const s=this.styles();
+    const stages=[["done","✓","مسودة","Draft"],["done","✓","مراجعة","Review"],["active","","UAT","UAT"],["","","معتمد","Approved"],["","","منشور","Published"]];
+    return {
+      warnTitle:this.L("التعديل المباشر على الإنتاج محظور","Direct production editing is prohibited"),
+      warnBody:this.L("كل تغيير يمر بمراجعة قانونية وUAT واعتماد قبل النشر.","Every change passes legal review, UAT and approval before publish."),
+      eyebrow:this.L("استوديو الخدمات الرقمية","DIGITAL SERVICE STUDIO"),
+      title:this.L("صمّم الخدمة كمنتج مترابط، لا كشاشات منفصلة.","Design a connected service, not isolated screens."),
+      sub:this.L("البيانات والنموذج والقواعد والمسار والإشعار والإصدار في مساحة بصرية واحدة.","Metadata, form, rules, workflow, notifications and versions in one workspace."),
+      newVersion:()=>this.showToast("تم إنشاء نسخة مسودة جديدة","New draft version created"), newVersionLabel:this.L("نسخة خدمة جديدة","New service version"),
+      serviceTitle:this.L("منحة تعليمية لأحد أفراد الأسرة","Family Education Grant"),
+      serviceMeta:this.L("خدمة منشورة · العربية والإنجليزية · ١٢ يوم عمل · ٤ وثائق","Published · Arabic & English · 12 days · 4 documents"),
+      pipeline: stages.map(([state,mark,a,e],i)=>({ mark, label:this.L(a,e), arrow: i<stages.length-1,
+        style:`display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border-radius:99px;font-size:11px;font-weight:600;`+(state==="done"?"background:var(--success-bg);color:var(--success)":state==="active"?"background:var(--gold-bg);color:var(--gold)":"background:var(--surface-2);color:var(--text-subtle);border:1px solid var(--border)") })),
+      modules:[["▦","منشئ النموذج","Form builder","٥ أقسام · ٢١ حقلاً · ٣ شروط","5 sections · 21 fields · 3 conditions","forms"],["⌁","مسار العمل","Workflow designer","٩ عقد · حلقة استكمال واحدة","9 nodes · one completion loop","workflow"],["◇","قواعد الأهلية","Eligibility rules","٤ قواعد فعّالة · نسخة 2.3","4 active rules · version 2.3","rules"],["✉","قوالب الإشعار","Notification templates","عربي/إنجليزي · ٣ قنوات","AR/EN · 3 channels","studio"],["↔","التكاملات","Integrations","٧ محولات · ٤ سليمة","7 adapters · 4 healthy","studio"],["≛","الإصدارات والأثر","Versions & impact","v2.4 · قابلة للعودة","v2.4 · reversible","versions"]].map(([icon,a,e,ma,me,route])=>({icon,title:this.L(a,e),meta:this.L(ma,me),go:()=>this.navigate(route)})),
+    };
+  }
+
+  buildGeneric(){
+    const map={
+      services:["دليل الخدمات","Service catalogue","SERVICE CATALOGUE","استعرض الخدمات المتاحة","Browse available services","✦"],
+      applications:["طلباتي","My applications","MY APPLICATIONS","تابع حالة طلباتك","Track your applications","▤"],
+      documents:["محفظة الوثائق","Document wallet","DOCUMENT WALLET","وثائقك الموثّقة في مكان واحد","Your verified documents in one place","▧"],
+      appointments:["المواعيد","Appointments","APPOINTMENTS","احجز وتابع مواعيدك","Book and track appointments","◷"],
+      payments:["المدفوعات","Payments","PAYMENTS","الرسوم والمدفوعات عند وجودها","Fees and payments when applicable","◈"],
+      notifications:["الإشعارات","Notifications","NOTIFICATION CENTRE","كل تحديث مهم، بلا ضوضاء","Every update that matters, no noise","●"],
+      help:["المساعدة","Help","HELP","المساعد القانوني والخدمي","Legal and service assistant","?"],
+      audit:["سجل التدقيق","Audit log","AUDIT LOG","سلسلة أحداث غير قابلة للتعديل","An append-only event chain","⌁"],
+      "manager-tasks":["المهام","Manager tasks","MANAGER TASKS","قرارات ومتابعات المدير","Manager decisions and follow-ups","▤"],
+      approvals:["الموافقات","Approvals","APPROVALS","المعاملات التي تحتاج قرارك","Cases needing your decision","✓"],
+      finance:["الإدارة المالية","Financial management","FINANCIAL MANAGEMENT","الصناديق والإيرادات والتسويات","Funds, revenue and reconciliation","◈"],
+      administration:["الأنظمة الإدارية","Administrative systems","ADMINISTRATIVE SYSTEMS","الموارد البشرية والعمليات والأصول","HR, operations and assets","▦"],
+      resilience:["استمرارية الأنظمة","System continuity","SYSTEM CONTINUITY","صحة التكاملات والتعافي","Integration health and recovery","⌁"],
+    };
+    const m=map[this.state.route]||["الصفحة","Page","PAGE","","","▤"];
+    return { eyebrow:m[2], title:this.L(m[0],m[1]), sub:this.L(m[3],m[4]), icon:m[5],
+      emptyTitle:this.L("قسم قيد التصميم ضمن هذا العرض","This section is part of the redesign roadmap"),
+      emptyBody:this.L("النظام الكامل يتضمن هذه الشاشة بنفس نظام التصميم؛ الشاشات الأساسية جاهزة للاستعراض الآن.","The full platform includes this screen in the same design system; the signature screens are ready to explore now."),
+      action:()=>this.navigate(HOME[this.state.persona]), actionLabel:this.L("العودة للرئيسية","Back to home") };
+  }
+
+  buildCommittee(){
+    const ar=this.ar(), s=this.styles(), cm=this.state.committee;
+    const members=[
+      { id:"cm-1", ini:"من", na:"د. مصطفى ناصر", ne:"Dr. Mustafa Nasser", ra:"رئيس اللجنة", re:"Committee chair", present:true, conflict:false, chair:true },
+      { id:"cm-2", ini:"سع", na:"سامي عبد الله", ne:"Sami Abdullah", ra:"عضو — الشؤون القانونية", re:"Member — Legal", present:true, conflict:false },
+      { id:"cm-3", ini:"لح", na:"ليلى حسن", ne:"Layla Hassan", ra:"عضو — الخدمات", re:"Member — Services", present:true, conflict:false },
+      { id:"cm-4", ini:"كط", na:"كريم طالب", ne:"Kareem Talib", ra:"عضو — تعارض مصالح", re:"Member — Conflict", present:true, conflict:true },
+    ];
+    const voteOf=(m)=> m.chair ? cm.chairVote : (cm.simulated && (m.id==="cm-2"||m.id==="cm-3") ? "approve" : "");
+    const eligible=members.filter(m=>m.present && !m.conflict);
+    const quorum = eligible.length>=3;
+    const votes = eligible.map(voteOf).filter(Boolean);
+    const approveCount = eligible.filter(m=>voteOf(m)==="approve").length;
+    const blockers=0;
+    const ready = quorum && approveCount>=2 && cm.reason.trim().length>0 && blockers===0;
+    const voteBadge=(v)=>{ if(v==="approve") return this.badge("success"); if(v==="reject") return this.badge("warning"); if(v) return this.badge("info"); return this.badge("info"); };
+    const voteText=(m)=>{ const v=voteOf(m); if(m.conflict) return this.L("تعارض","Conflict"); if(!m.present) return this.L("غائب","Absent"); if(v==="approve") return this.L("موافق","Approve"); if(v==="reject") return this.L("رفض","Reject"); if(v==="abstain") return this.L("امتناع","Abstain"); if(v==="more-info") return this.L("معلومات","More info"); return this.L("حاضر","Present"); };
+    const setVote=(v)=>{ this.setState({ committee:{...cm, chairVote:v} }); this.showToast("تم تسجيل التصويت التجريبي","Demo vote recorded"); };
+    const chair=cm.chairVote;
+    const chip=(active,tone)=>{ const base="height:38px;border-radius:var(--r-sm);border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:5px;transition:all var(--dur2)";
+      if(active && tone==="approve") return base+";background:var(--success-bg);border-color:var(--success);color:var(--success)";
+      if(active && tone==="reject") return base+";background:var(--danger-bg);border-color:var(--danger);color:var(--danger)";
+      return base; };
+    const checks=[[quorum,this.L("النصاب مكتمل","Quorum met")],[approveCount>=2,this.L("موافقتان مؤهلتان على الأقل","At least two eligible approvals")],[cm.reason.trim().length>0,this.L("أسباب القرار مكتوبة","Decision rationale entered")],[blockers===0,this.L("بوابة الامتثال خالية","Compliance gate clear")]];
+    return {
+      back:this.L("الاجتماعات","Meetings"), meetings:this.L("الاجتماعات","Meetings"),
+      inSession:this.L("اجتماع جارٍ","IN SESSION"),
+      title:this.L("لجنة دعم التعليم — الاجتماع الدوري","Education Support Committee — Regular Meeting"),
+      meta:this.L("٢٦ تموز ٢٠٢٦ · ١١:٠٠ · قاعة اللجان ٢ · الرئيس: د. مصطفى ناصر","26 July 2026 · 11:00 · Committee Room 2 · Chair: Dr. Mustafa Nasser"),
+      quorumBox:`display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:var(--r);background:${quorum?"rgba(24,168,135,.16)":"rgba(193,63,76,.2)"};border:1px solid ${quorum?"rgba(24,168,135,.4)":"rgba(193,63,76,.45)"}`,
+      quorumIcon: quorum?"✓":"!",
+      quorumLabel: quorum? this.L("النصاب مكتمل","Quorum met") : this.L("النصاب غير مكتمل","No quorum"),
+      quorumSub: `${eligible.length}/3 ${this.L("مؤهلون للتصويت","eligible voters")}`,
+      agenda:this.L("جدول الأعمال","AGENDA"), cases:this.L("القضايا","Cases"),
+      caseSub:this.L("منحة تعليمية — زينب علي","Education grant — Zainab Ali"),
+      casePos:this.L("القضية ١ من ١","CASE 1 OF 1"),
+      caseTitle:this.L("طلب منحة تعليمية — مريم حيدر علي","Education Grant — Maryam Haider Ali"),
+      status:this.L("أمام اللجنة","Committee review"),
+      beneficiary:this.L("المستفيدة","BENEFICIARY"), benName:this.L("زينب علي حسن","Zainab Ali Hassan"), benMeta:this.L("بغداد · ملف موثّق","Baghdad · Verified profile"),
+      student:this.L("الطالبة","STUDENT"), studentName:this.L("مريم حيدر علي","Maryam Haider Ali"), studentMeta:this.L("جامعة بغداد — علوم الحياة","Univ. of Baghdad — Biology"),
+      eligibility:this.L("نتيجة الأهلية","ELIGIBILITY"), eligValue:this.L("٣/٤ مجتازة","3/4 passed"), eligMeta:this.L("قاعدة واحدة للمراجعة البشرية","One manual review"),
+      recoLabel:this.L("توصية الموظف — مراجعة بشرية","STAFF RECOMMENDATION — HUMAN REVIEW"),
+      recoTitle:this.L("الإحالة مع توصية بالموافقة","Referred with an approval recommendation"),
+      staffConfirmed:this.L("مؤكدة من الموظف","Staff confirmed"),
+      recoBody:this.L("اكتملت الوثائق وتمت مطابقة بيانات الأسرة والدراسة مع قواعد EDU-ELIG-2.3. أوصي بعرض الطلب على اللجنة للاعتماد.","Evidence is complete and family and education data match EDU-ELIG-2.3. Recommend committee consideration."),
+      refs:[{id:"LR-EDU-04"},{id:"LR-EDU-07"},{id:"LR-EDU-11"}],
+      gateBg: blockers? "var(--danger-bg)" : "var(--success-bg)",
+      gateBorder: blockers? "color-mix(in srgb,var(--danger) 30%,transparent)" : "color-mix(in srgb,var(--success) 26%,transparent)",
+      gateIconBg: blockers? "var(--danger)" : "var(--success)",
+      gateIcon: blockers? "!" : "✓",
+      gateFg: blockers? "var(--danger)" : "var(--success)",
+      gateLabel:this.L("بوابة الامتثال قبل القرار","PRE-DECISION COMPLIANCE GATE"),
+      gateStatus: blockers? this.L(`${blockers} عنصر حاجب`,`${blockers} blocking items`) : this.L("الضوابط الحاجبة مجتازة","Blocking controls passed"),
+      gateCitation:"Article 9 · CTL-COMMITTEE-QUORUM · MF-LAW-2016.2",
+      rerun:()=>this.showToast("تمت إعادة التقييم بنفس المدخلات والنسخة","Evaluation rerun with the same inputs"), rerun_l:this.L("إعادة التقييم","Rerun"),
+      evidenceTitle:this.L("الأدلة المكتملة","Complete evidence"),
+      evidence:[["تأييد الاستمرار بالدراسة","Enrollment confirmation","تأييد جامعي — ثقة 96%","University confirmation — 96%"],["هوية المستفيد","Beneficiary ID","موثّقة في المحفظة","Verified in wallet"]].map(([ta,te,ma,me])=>({title:this.L(ta,te),meta:this.L(ma,me)})),
+      notesTitle:this.L("ملاحظات المداولة","Discussion notes"),
+      notes:cm.notes, setNotes:(ev)=>this.setState({ committee:{...cm, notes:ev.target.value} }),
+      notesPlaceholder:this.L("تُسجل الملاحظات ضمن محضر الاجتماع…","Notes become part of the minutes…"),
+      notesHint:this.L("حفظ تلقائي في قاعدة الـPOC","Autosaved to the POC database"),
+      voteLabel:this.L("الحضور والتصويت","ATTENDANCE & VOTING"), members:this.L("أعضاء اللجنة","Committee members"),
+      memberList: members.map(m=>({ initials:m.ini, name:this.L(m.na,m.ne), role:this.L(m.ra,m.re),
+        rowBg: m.conflict? "var(--danger-bg)" : "var(--surface-2)",
+        badge: m.conflict? this.badge("danger") : (!m.present? this.badge("neutral") : voteBadge(voteOf(m))),
+        voteLabel: voteText(m) })),
+      chairVote:this.L("صوت رئيس اللجنة","CHAIR VOTE"),
+      approve:this.L("موافقة","Approve"), reject:this.L("رفض","Reject"), abstain:this.L("امتناع","Abstain"), moreInfo:this.L("معلومات إضافية","More info"),
+      approveBtn:chip(chair==="approve","approve"), rejectBtn:chip(chair==="reject","reject"), plainBtn:chip(false),
+      voteApprove:()=>setVote("approve"), voteReject:()=>setVote("reject"), voteAbstain:()=>setVote("abstain"), voteMore:()=>setVote("more-info"),
+      simulate:()=>{ this.setState({ committee:{...cm, simulated:true} }); this.showToast("تم تسجيل موافقة العضوين معاً","Both member approvals recorded"); },
+      simulateLabel:this.L("محاكاة تصويت عضوين بالموافقة","Simulate two member approvals"),
+      liveResult:this.L("النتيجة الحية","LIVE RESULT"), resultRatio:`${approveCount}/${votes.length||3}`,
+      resultPct:`${Math.max(approveCount/3,0.05)*100}%`,
+      resultNote:this.L(`${approveCount} موافقة · ${Math.max(votes.length-approveCount,0)} أصوات أخرى`,`${approveCount} approve · ${Math.max(votes.length-approveCount,0)} other`),
+      rationaleLabel:this.L("مسودة أسباب القرار","Decision rationale"),
+      reason:cm.reason, setReason:(ev)=>this.setState({ committee:{...cm, reason:ev.target.value} }),
+      checks: checks.map(([ok,label])=>({ mark: ok?"✓":"○", color: ok?"var(--success)":"var(--text-subtle)", label })),
+      signed: cm.signed, 
+      signStyle: cm.signed ? s.btnGold+";opacity:.65;filter:grayscale(.3)" : (ready? s.btnGold : s.btnGold+";opacity:.55"),
+      signLabel: cm.signed? this.L("✓ تم التوقيع والنشر","✓ Signed and published") : this.L("توقيع القرار ونشره","Sign and publish decision"),
+      sign:()=>{ if(cm.signed) return; if(!ready){ this.showToast("يتطلب الاعتماد نصاباً وصوتين بالموافقة وسبباً مكتوباً وبوابة امتثال خالية.","Signature requires quorum, two approvals, a written rationale and a clear gate."); return; } this.setState({ committee:{...cm, signed:true} }); this.showToast("تم توقيع القرار ونشره للمواطن","Decision signed and published to the citizen"); },
+      signNote:this.L("توقيع إلكتروني محاكى — لا قيمة قانونية له.","Simulated electronic signature — no legal validity."),
+    };
+  }
+
+  buildExecutive(){
+    const ar=this.ar(), ex=this.state.exec;
+    const monthsAr=["ت٢٥","ك١","ك٢","شب","آذ","نيس","أيا","حز","تم","آب","أيل","تش"];
+    const monthsEn=["Sep","Oct","Nov","Dec","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug"];
+    const mult = (ex.transaction==="all"?1:0.62) * (ex.governorate==="all"?1:0.55);
+    const periodLen = ex.period==="12m"?12:ex.period==="6m"?6:ex.period==="3m"?3:1;
+    const baseVol=[52,58,61,64,70,68,74,79,83,88,92,96];
+    const comp=[71,73,75,78,80,79,82,84,86,88,90,91];
+    const rev=baseVol.map((v,i)=> Math.round(v*mult*1.9)*1_000_000 + i*400000);
+    const start=12-periodLen;
+    const labelsAr=monthsAr.slice(start), labelsEn=monthsEn.slice(start);
+    const vols=baseVol.slice(start).map(v=>Math.round(v*mult));
+    const comps=comp.slice(start);
+    const revs=rev.slice(start);
+    const applications=vols.reduce((a,b)=>a+b,0)*14;
+    const maxRev=Math.max(...revs,1);
+    const num=(n)=> new Intl.NumberFormat(ar?"ar-IQ":"en-GB").format(Math.round(n));
+    const revIdx=Math.min(ex.revIndex, revs.length-1);
+    const digital=Math.round(72*(ex.transaction==="all"?1:0.9));
+    const dirShare=Math.max(0,94-digital-6), assisted=6;
+    const set=(patch)=>this.setState({ exec:{...ex, ...patch, revIndex: patch.period? (patch.period==="12m"?11:patch.period==="6m"?5:patch.period==="3m"?2:0) : (revs.length-1) } });
+    const txOpts=[["all","الكل","All"],["education","تعليمية","Education"],["health","صحية","Health"],["housing","سكنية","Housing"]];
+    const govOpts=[["all","كل المحافظات","All governorates"],["baghdad","بغداد","Baghdad"],["basra","البصرة","Basra"],["nineveh","نينوى","Nineveh"]];
+    const perOpts=[["12m","١٢ شهر","12 months"],["6m","٦ أشهر","6 months"],["3m","٣ أشهر","3 months"],["1m","شهر","1 month"]];
+    const kb=(bg,fg)=>({iconBg:bg,iconFg:fg});
+    return {
+      eyebrow:this.L("مكتب رئيس المؤسسة · مؤشرات تنفيذية","PRESIDENT OFFICE · EXECUTIVE INDICATORS"),
+      title:this.L("المعاملات والإيرادات في مشهد واحد قابل للتحليل.","Transactions and revenue in one explorable view."),
+      sub:this.L("غيّر نوع المعاملة أو المحافظة أو الفترة؛ كل المؤشرات والشارتات أدناه تتحدث فوراً ببيانات تجريبية مترابطة.","Change transaction, governorate or period; every KPI and chart updates immediately with connected demo data."),
+      filters:[
+        { label:this.L("نوع المعاملة","Transaction"), value:ex.transaction, onChange:(e)=>set({transaction:e.target.value}), options:txOpts.map(([id,a,en])=>({id,label:this.L(a,en)})) },
+        { label:this.L("المحافظة","Governorate"), value:ex.governorate, onChange:(e)=>set({governorate:e.target.value}), options:govOpts.map(([id,a,en])=>({id,label:this.L(a,en)})) },
+        { label:this.L("الفترة","Period"), value:ex.period, onChange:(e)=>set({period:e.target.value}), options:perOpts.map(([id,a,en])=>({id,label:this.L(a,en)})) },
+      ],
+      reset:()=>this.setState({ exec:{ transaction:"all", governorate:"all", period:"12m", revIndex:11 } }), resetLabel:this.L("إعادة","Reset"),
+      kpis:[
+        {...kb("var(--accent-weak)","var(--accent-strong)"),icon:"♧",label:this.L("المستفيدون ضمن الفلتر","Filtered beneficiaries"),value:num(48200*mult),trend:this.L("سجلات نشطة","active records")},
+        {...kb("rgba(11,38,61,.1)","var(--brand)"),icon:"⌂",label:this.L("الأسر ضمن الفلتر","Filtered families"),value:num(12640*mult),trend:this.L("ملفات مترابطة","linked profiles")},
+        {...kb("var(--gold-bg)","var(--gold)"),icon:"✓",label:this.L("طلبات مكتملة","Completed applications"),value:num(applications*0.82),trend:this.L("ضمن الفترة المختارة","within selected period")},
+        {...kb("var(--info-bg)","var(--info)"),icon:"◷",label:this.L("امتثال المهلة","SLA compliance"),value:`${Math.round(94.6-(1-mult)*4)}%`,trend:this.L("محسوب حسب النطاق","scope-adjusted")},
+        {...kb("var(--gold-bg)","var(--gold)"),icon:"◈",label:this.L("إيرادات الفترة","Period revenue"),value:`${num(revs.reduce((a,b)=>a+b,0))} ${this.L("د.ع","IQD")}`,trend:`98% ${this.L("تمت تسويته","reconciled")}`},
+        {...kb("rgba(11,38,61,.1)","var(--brand)"),icon:"♡",label:this.L("رضا المستفيدين","Beneficiary satisfaction"),value:"4.6/5",trend:this.L("استبيانات تجريبية","demo surveys")},
+      ],
+      trendLabel:this.L("حجم المعاملات ونسبة الإنجاز","TRANSACTION VOLUME & COMPLETION"),
+      trendTitle:this.L("أداء النطاق المختار عبر الزمن","Selected scope performance over time"),
+      legendVol:this.L("المعاملات","Transactions"), legendComp:this.L("الإنجاز","Completion"),
+      bars: vols.map((v,i)=>({ h:`${Math.round(v/Math.max(...vols)*100)}%`, comp:`${Math.min(comps[i],97)}%` })),
+      insight:this.L(`يعرض الفلتر ${num(applications)} معاملة بنسبة امتثال ${Math.round(94.6-(1-mult)*4)}%، مع تحديث الإيرادات والأداء الجغرافي من نفس النطاق.`,`The filter contains ${num(applications)} transactions at ${Math.round(94.6-(1-mult)*4)}% SLA compliance, with revenue and geography from the same scope.`),
+      revLabel:this.L("الإيرادات التجريبية","DEMO REVENUE"), revTitle:this.L("الإيراد حسب الشهر","Revenue by month"),
+      reconciled:`98% ${this.L("مسوّى","reconciled")}`,
+      revenue: revs.map((v,i)=>({ m:num(Math.round(v/1_000_000))+(ar?"م":"M"), h:`${Math.max(v/maxRev*100,8)}%`, label:this.L(labelsAr[i],labelsEn[i]),
+        bar: i===revIdx? "linear-gradient(180deg,var(--gold-500),var(--gold-600))" : "var(--surface-3)",
+        txt: i===revIdx? "var(--gold)" : "var(--text-subtle)",
+        select:()=>this.setState({ exec:{...ex, revIndex:i} }) })),
+      selMonthLabel:this.L(`إيراد ${labelsAr[revIdx]}`,`${labelsEn[revIdx]} revenue`),
+      selRevenue:`${num(revs[revIdx])} ${this.L("د.ع","IQD")}`,
+      selTxLabel:this.L("المعاملات","Transactions"), selTx:num(vols[revIdx]),
+      revDisclaimer:this.L("الأرقام افتراضية لإثبات الفلترة والتحليل، ولا تمثل تحصيلاً أو رسوماً قانونية.","Figures are synthetic to demonstrate filtering; they are not real collections or legal fees."),
+      geoLabel:this.L("الأداء الجغرافي","GEOGRAPHIC PERFORMANCE"), geoTitle:this.L("المحافظات ضمن الفلتر","Governorates in scope"),
+      governorates:[["بغداد","Baghdad",96,84],["البصرة","Basra",88,79],["نينوى","Nineveh",72,68],["أربيل","Erbil",90,81],["النجف","Najaf",85,77]].map(([a,e,score,sla],i)=>({ rank:i+1, name:this.L(a,e), volume:`${num([1240,980,760,690,610][i]*mult)} ${this.L("معاملة","transactions")}`, score:`${score}%`, sla:`${sla}%` })),
+      channelLabel:this.L("مزيج القنوات","CHANNEL MIX"), channelTitle:this.L("القناة حسب نوع المعاملة","Channel by transaction type"),
+      donutStyle:`width:140px;height:140px;border-radius:99px;display:grid;place-items:center;background:conic-gradient(var(--accent) 0 ${digital}%, var(--brand) ${digital}% ${digital+dirShare}%, var(--gold-500) ${digital+dirShare}% 100%);--mask:1`+`;position:relative`,
+      digitalShare:`${digital}%`, digitalLabel:this.L("رقمي","Digital"),
+      channels:[["var(--accent)",this.L("رقمي بالكامل","Fully digital"),`${digital}%`],["var(--brand)",this.L("مديرية","Directorate"),`${dirShare}%`],["var(--gold-500)",this.L("مراكز مساعدة","Assisted"),`${assisted}%`]].map(([color,label,pct])=>({color,label,pct})),
+      alertLabel:this.L("اهتمام تنفيذي","EXECUTIVE ATTENTION"), alertTitle:this.L("ثلاث إشارات قابلة للإجراء","Three actionable signals"),
+      alerts:[["!","التكامل المصرفي متوقف منذ ٣ ساعات","Banking integration failed 3h ago","خطر","Risk","danger"],["◇","نينوى دون هدف المهلة بـ ٣٫٢ نقطة","Nineveh 3.2 pts below SLA","متوسط","Medium","warning"],["♧","٢٣ سجلاً محتمل التكرار هذا الأسبوع","23 possible duplicates this week","بيانات","Data","warning"]].map(([icon,ta,te,tga,tge,tone])=>({ icon, title:this.L(ta,te), sub:this.L("افتح للتحليل والإجراء","Open for analysis and action"), tag:this.L(tga,tge), badge:this.badge(tone), iconBg: tone==="danger"?"var(--danger-bg)":"var(--warning-bg)", iconFg: tone==="danger"?"var(--danger)":"var(--warning)", go:()=>this.showToast("تحليل الإشارة","Signal analysis") })),
+    };
+  }
+
+  wizardNext(){
+    const st=this.state, wd=st.wizardDraft, ar=this.ar(), errs=[];
+    if(st.wizardStep===3 && !wd.year) errs.push(this.L("اختاري السنة الدراسية.","Select the academic year."));
+    if(st.wizardStep===4 && !wd.uploaded) errs.push(this.L("أرفقي تأييد الاستمرار بالدراسة قبل المتابعة.","Attach the enrollment confirmation before continuing."));
+    if(st.wizardStep===5 && !wd.uploaded) errs.push(this.L("لا يمكن الإرسال قبل اكتمال الوثائق المطلوبة.","Cannot submit until all required documents are complete."));
+    if(st.wizardStep===5 && !wd.consent) errs.push(this.L("الموافقة مطلوبة قبل الإرسال.","Consent is required before submission."));
+    if(errs.length){ this.setState({ errors:errs }); return; }
+    this.setState({ errors:[] });
+    if(st.wizardStep<5){ this.setState({ wizardStep:st.wizardStep+1 }); this.showToast("تم الحفظ تلقائياً","Autosaved"); }
+    else { this.showToast("تم تقديم الطلب MF-2026-000184","Application MF-2026-000184 submitted"); this.navigate("citizen"); }
+  }
+}
+</script>
+</body>
+</html>

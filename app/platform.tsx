@@ -837,6 +837,15 @@ function PersonaDialog({
   close: () => void;
   navigate: (path: string) => void;
 }) {
+  // Escape closes the dialog, matching the other overlays in the shell.
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") close();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [close]);
+
   return (
     <div className="modal-backdrop" role="presentation" onMouseDown={close}>
       <section
@@ -1675,7 +1684,7 @@ function ApplicationWizard({
         ))}
       </ol>
       <div className="wizard-layout">
-        <section className="wizard-card">
+        <section className="wizard-card screen-in" key={state.wizardStep}>
           {state.wizardStep === 1 && (
             <>
               <WizardTitle ar={ar} number="١" titleAr="بيانات المستفيدة الموثّقة" titleEn="Verified beneficiary data" descriptionAr="تم جلب هذه البيانات من الملف التجريبي. الحقول الموثّقة للقراءة فقط." descriptionEn="Loaded from the demo profile. Verified fields are read-only." />
@@ -1999,7 +2008,7 @@ function GenericServiceWizard({
         ))}
       </ol>
       <div className="wizard-layout">
-        <section className="wizard-card">
+        <section className="wizard-card screen-in" key={step}>
           {step === 1 && (
             <>
               <WizardTitle ar={ar} number="١" titleAr="تفاصيل الطلب" titleEn="Request details" descriptionAr="بيانات المستفيد موثقة؛ أضف وصفاً واضحاً للاحتياج." descriptionEn="Beneficiary data is verified; add a clear description of the need." />
@@ -3526,7 +3535,21 @@ function CommitteeMeeting({
           <section className="vote-result"><header><span>{ar ? "النتيجة الحية" : "LIVE RESULT"}</span><strong>{approveCount}/{votes.length || 3}</strong></header><div><i style={{ width: `${Math.max(approveCount / 3, 0.05) * 100}%` }} /></div><p>{ar ? `${approveCount} موافقة · ${votes.length - approveCount} أصوات أخرى` : `${approveCount} approve · ${votes.length - approveCount} other`}</p></section>
           <label className="input-field"><span>{ar ? "مسودة أسباب القرار *" : "Decision rationale *"}</span><textarea value={reason} onChange={(event) => updateCommitteeDraft({ reason: event.target.value })} /></label>
           <div className="approval-checks"><span>{quorum ? "✓" : "○"} {ar ? "النصاب مكتمل" : "Quorum met"}</span><span>{approveCount >= 2 ? "✓" : "○"} {ar ? "موافقتان مؤهلتان على الأقل" : "At least two eligible approvals"}</span><span>{reason.trim() ? "✓" : "○"} {ar ? "أسباب القرار مكتوبة" : "Decision rationale entered"}</span><span>{committeeBlockers.length === 0 ? "✓" : "○"} {ar ? "بوابة الامتثال خالية" : "Compliance gate clear"}</span></div>
-          <button className="button button-gold button-full" disabled={state.case.signed} onClick={signDecision}>{state.case.signed ? (ar ? "✓ تم التوقيع والنشر" : "✓ Signed and published") : (ar ? "توقيع القرار ونشره" : "Sign and publish decision")} ◇</button>
+          {/* Disabled until quorum + two approvals + a written rationale + a clear
+              compliance gate, per the readiness contract in lib/domain.ts. The
+              unmet reasons are listed beneath so the block is explainable. */}
+          <button className="button button-gold button-full" disabled={state.case.signed || !readiness.ready} onClick={signDecision}>{state.case.signed ? (ar ? "✓ تم التوقيع والنشر" : "✓ Signed and published") : (ar ? "توقيع القرار ونشره" : "Sign and publish decision")} ◇</button>
+          {!state.case.signed && !readiness.ready && (
+            <small className="sign-blocked-note">
+              {ar ? "متبقٍ: " : "Still required: "}
+              {[
+                !readiness.quorum && (ar ? "النصاب" : "quorum"),
+                readiness.approveCount < 2 && (ar ? "صوتان بالموافقة" : "two approval votes"),
+                !readiness.hasRationale && (ar ? "سبب مكتوب" : "a written rationale"),
+                !readiness.complianceClear && (ar ? "بوابة امتثال خالية" : "a clear compliance gate"),
+              ].filter(Boolean).join(ar ? " · " : " · ")}
+            </small>
+          )}
           <small className="signature-note">{ar ? "توقيع إلكتروني محاكى — لا قيمة قانونية له." : "Simulated electronic signature — no legal validity."}</small>
         </aside>
       </div>
