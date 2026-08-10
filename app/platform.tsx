@@ -911,6 +911,14 @@ function LandingPage({
   return (
     <>
       <main className="landing">
+        {/* Ambient background: three drifting blobs plus a masked dotted grid.
+            Decorative only — never mirrored, and hidden from assistive tech. */}
+        <div className="aurora" aria-hidden="true">
+          <b />
+          <b />
+          <b />
+        </div>
+        <div className="grid-overlay" aria-hidden="true" />
         <section className="hero">
           <div className="hero-copy">
             <span className="institutional-kicker">
@@ -1111,8 +1119,18 @@ function LoginPage({
         </div>
       </section>
       <aside className="login-visual">
-        <div className="visual-orbit orbit-one" />
-        <div className="visual-orbit orbit-two" />
+        {/* Same ambient aurora as the landing screen, plus two concentric rings
+            rotating in opposite directions. Decorative — not mirrored in RTL. */}
+        <div className="aurora" aria-hidden="true">
+          <b />
+          <b />
+        </div>
+        <div className="visual-orbit orbit orbit-outer" aria-hidden="true">
+          <span />
+        </div>
+        <div className="visual-orbit orbit orbit-inner" aria-hidden="true">
+          <span />
+        </div>
         <div className="visual-emblem">
           <BrandMark className="brand-mark-xl brand-mark-light" />
         </div>

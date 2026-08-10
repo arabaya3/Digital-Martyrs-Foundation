@@ -85,12 +85,132 @@ a:hover{color:var(--accent)}
 .stagger>*:nth-child(5){animation-delay:.24s}.stagger>*:nth-child(6){animation-delay:.29s}
 .nav-btn{position:relative;transition:background var(--dur2) var(--ease),color var(--dur2)}
 .nav-btn .nav-ind{position:absolute;inset-inline-start:0;inset-block:8px;width:3px;border-radius:99px;background:var(--gold-500);transform-origin:center;animation:navPulse var(--dur2) var(--ease-out) both}
+@keyframes auroraDrift{0%{transform:translate3d(-4%,-2%,0) rotate(0deg) scale(1.05)}50%{transform:translate3d(4%,3%,0) rotate(8deg) scale(1.18)}100%{transform:translate3d(-4%,-2%,0) rotate(0deg) scale(1.05)}}
+@keyframes orbFloat{0%{transform:translateY(0)}50%{transform:translateY(-26px)}100%{transform:translateY(0)}}
+@keyframes orbFloat2{0%{transform:translateY(0)}50%{transform:translateY(22px)}100%{transform:translateY(0)}}
+@keyframes spinSlow{to{transform:rotate(360deg)}}
+@keyframes spinRev{to{transform:rotate(-360deg)}}
+@keyframes floatStat{0%{transform:translateY(0)}50%{transform:translateY(-12px)}100%{transform:translateY(0)}}
+@keyframes gridPan{0%{background-position:0 0}100%{background-position:56px 56px}}
+@keyframes sheen{0%{transform:translateX(-120%)}60%,100%{transform:translateX(220%)}}
+@keyframes pulseRing{0%{transform:scale(.8);opacity:.7}70%{transform:scale(1.9);opacity:0}100%{opacity:0}}
+.aurora{position:absolute;inset:-30%;filter:blur(60px);opacity:.55;pointer-events:none}
+.aurora b{position:absolute;border-radius:50%;display:block;mix-blend-mode:screen}
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
+  .aurora,.orbit,.orb{animation:none !important}
 }
 </style>
 </helmet>
 <div dir="{{ dir }}" data-lang="{{ language }}" style="min-height:100vh;background:var(--app-grad);font-family:var(--font);line-height:var(--lh)">
+
+  <!-- ===== PUBLIC: LANDING ===== -->
+  <sc-if value="{{ showLanding }}" hint-placeholder-val="">
+    <div style="position:relative;min-height:100vh;overflow:hidden;background:linear-gradient(160deg,var(--brand-strong),var(--brand) 55%,#0c3350)">
+      <div class="aurora" aria-hidden="true">
+        <b style="width:46vw;height:46vw;inset-block-start:-8vw;inset-inline-end:-6vw;background:radial-gradient(circle at 30% 30%, var(--accent), transparent 65%);animation:auroraDrift 26s var(--ease) infinite"></b>
+        <b style="width:40vw;height:40vw;inset-block-end:-12vw;inset-inline-start:-8vw;background:radial-gradient(circle at 50% 50%, var(--gold-600), transparent 62%);animation:auroraDrift 34s var(--ease) infinite reverse"></b>
+        <b style="width:32vw;height:32vw;inset-block-start:30%;inset-inline-start:40%;background:radial-gradient(circle at 50% 50%, #1d4a6c, transparent 60%);animation:auroraDrift 30s var(--ease) infinite"></b>
+      </div>
+      <div aria-hidden="true" style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(120% 90% at 70% 0,#000 40%,transparent 78%);animation:gridPan 24s linear infinite"></div>
+
+      <div style="position:relative;z-index:2;display:flex;flex-direction:column;min-height:100vh;color:#eaf1f0">
+        <header style="display:flex;align-items:center;gap:var(--s4);padding:var(--s5) var(--s8);max-width:1280px;width:100%;margin-inline:auto">
+          <span style="width:40px;height:40px;border-radius:11px;background:linear-gradient(160deg,#0e2f4c,#071b2e);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);display:grid;place-items:center;flex:0 0 auto"><span style="width:6px;height:20px;background:var(--gold-500);border-radius:6px 6px 2px 2px;box-shadow:0 0 12px rgba(185,141,63,.6)"></span></span>
+          <span style="display:grid;gap:1px"><strong style="font-size:14px;color:#fff">{{ c.foundation }}</strong><small style="font-size:10px;color:rgba(234,241,240,.6)">{{ c.platform }}</small></span>
+          <div style="margin-inline-start:auto;display:flex;gap:var(--s2)">
+            <button onClick="{{ toggleLang }}" style="height:38px;padding:0 16px;border-radius:99px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;font-weight:600;font-size:12.5px">{{ langLabel }}</button>
+            <button onClick="{{ goLogin }}" style="height:38px;padding:0 18px;border-radius:99px;background:var(--gold-500);color:#1a1205;font-weight:700;font-size:12.5px">{{ lp.demoCta }}</button>
+          </div>
+        </header>
+
+        <main style="flex:1;display:grid;grid-template-columns:1.05fr .95fr;gap:var(--s8);align-items:center;max-width:1280px;width:100%;margin-inline:auto;padding:var(--s6) var(--s8) var(--s9)" class="landing-hero">
+          <div style="display:grid;gap:var(--s5);max-width:60ch" class="stagger">
+            <span style="display:inline-flex;align-items:center;gap:8px;width:fit-content;padding:7px 14px;border-radius:99px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);font-size:11.5px;font-weight:600;color:var(--gold-100)"><i style="width:7px;height:7px;border-radius:99px;background:var(--gold-500);box-shadow:0 0 0 4px rgba(185,141,63,.25);display:inline-block"></i>{{ lp.kicker }}</span>
+            <h1 style="margin:0;font-size:clamp(34px,4.6vw,58px);font-weight:700;line-height:1.14;letter-spacing:-.02em;color:#fff">{{ lp.h1a }}<em style="font-style:normal;color:var(--gold-500)">{{ lp.h1b }}</em></h1>
+            <p style="margin:0;font-size:16px;line-height:1.85;color:rgba(234,241,240,.78)">{{ lp.sub }}</p>
+            <div style="display:flex;gap:var(--s3);flex-wrap:wrap;align-items:center">
+              <button onClick="{{ goServices }}" style="display:inline-flex;align-items:center;gap:8px;height:52px;padding:0 26px;border-radius:99px;background:var(--accent-strong);color:#fff;font-weight:700;font-size:14.5px;box-shadow:0 10px 30px rgba(10,139,111,.4);transition:transform var(--dur2) var(--ease)" style-hover="transform:translateY(-2px)">{{ lp.explore }} ←</button>
+              <button onClick="{{ goLogin }}" style="display:inline-flex;align-items:center;gap:8px;height:52px;padding:0 24px;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);color:#fff;font-weight:600;font-size:14px">{{ lp.demo }}</button>
+            </div>
+            <div style="display:flex;gap:var(--s5);flex-wrap:wrap;color:rgba(234,241,240,.62);font-size:12.5px;padding-block-start:var(--s2)">
+              <sc-for list="{{ lp.trust }}" as="t" hint-placeholder-count="3"><span style="display:flex;align-items:center;gap:6px"><i style="color:var(--accent);font-style:normal">✓</i>{{ t.label }}</span></sc-for>
+            </div>
+          </div>
+
+          <div style="position:relative;justify-self:center;width:100%;max-width:460px" class="landing-product">
+            <div aria-hidden="true" style="position:absolute;inset:-8% -6%;border-radius:32px;background:radial-gradient(circle at 50% 40%, rgba(28,174,140,.4), transparent 68%);filter:blur(40px);animation:orbFloat 9s var(--ease) infinite"></div>
+            <div style="position:relative;border-radius:22px;background:rgba(9,25,40,.72);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12);box-shadow:0 40px 90px rgba(0,0,0,.5);overflow:hidden">
+              <div aria-hidden="true" style="position:absolute;inset-block-start:0;inset-inline-start:0;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.09),transparent);animation:sheen 6s var(--ease) infinite"></div>
+              <header style="display:flex;align-items:center;gap:10px;padding:16px 18px;border-block-end:1px solid rgba(255,255,255,.08)">
+                <span style="width:34px;height:34px;border-radius:9px;background:var(--brand);border:1px solid rgba(255,255,255,.12);display:grid;place-items:center"><span style="width:5px;height:15px;background:var(--gold-500);border-radius:5px 5px 1px 1px"></span></span>
+                <span style="display:grid;gap:1px;flex:1"><b style="font-size:12.5px;color:#fff">{{ lp.cardTitle }}</b><small dir="ltr" style="font-size:10px;color:rgba(234,241,240,.55);font-family:var(--font-en)">MF-2026-000184</small></span>
+                <span style="{{ badgeGold }}">{{ lp.cardStatus }}</span>
+              </header>
+              <div style="display:flex;gap:6px;padding:14px 18px">
+                <sc-for list="{{ lp.steps }}" as="st" hint-placeholder-count="4"><div style="flex:1;display:grid;gap:5px;justify-items:center;text-align:center"><i style="width:24px;height:24px;border-radius:99px;display:grid;place-items:center;font-size:11px;font-weight:700;font-style:normal;background:{{ st.bg }};color:{{ st.fg }}">{{ st.mark }}</i><span style="font-size:9px;color:rgba(234,241,240,.6)">{{ st.label }}</span></div></sc-for>
+              </div>
+              <div style="padding:0 18px 18px;display:grid;gap:12px">
+                <div style="padding:14px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);display:grid;gap:4px"><span style="font-size:9.5px;font-weight:700;letter-spacing:1px;color:rgba(234,241,240,.5)">{{ lp.nextLabel }}</span><b style="font-size:13.5px;color:#fff">{{ lp.nextAction }}</b><small style="font-size:11px;color:rgba(234,241,240,.62);line-height:1.55">{{ lp.nextDesc }}</small></div>
+                <div style="padding:12px 14px;border-radius:12px;background:rgba(28,174,140,.12);border:1px solid rgba(28,174,140,.3);display:grid;gap:2px"><span style="font-size:9.5px;font-weight:700;color:var(--accent)">✦ {{ lp.aiLabel }}</span><b style="font-size:12.5px;color:#fff">{{ lp.aiValue }}</b><small style="font-size:10px;color:rgba(234,241,240,.55)">{{ lp.aiSource }}</small></div>
+              </div>
+            </div>
+            <div style="position:absolute;inset-block-start:8%;inset-inline-start:-9%;display:grid;gap:1px;padding:12px 15px;border-radius:14px;background:rgba(9,25,40,.85);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.14);box-shadow:0 18px 40px rgba(0,0,0,.4);animation:floatStat 7s var(--ease) infinite" class="float-stat"><span style="font-size:14px">◷</span><b style="font-size:14px;color:#fff">{{ lp.stat1 }}</b><small style="font-size:9.5px;color:rgba(234,241,240,.6)">{{ lp.stat1sub }}</small></div>
+            <div style="position:absolute;inset-block-end:10%;inset-inline-end:-8%;display:grid;gap:1px;padding:12px 15px;border-radius:14px;background:rgba(9,25,40,.85);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.14);box-shadow:0 18px 40px rgba(0,0,0,.4);animation:floatStat 8s var(--ease) infinite 1s" class="float-stat"><span style="font-size:14px;color:var(--accent)">✓</span><b style="font-size:13px;color:#fff">{{ lp.stat2 }}</b><small dir="ltr" style="font-size:9.5px;color:rgba(234,241,240,.6);font-family:var(--font-en)">COR-26-11854</small></div>
+          </div>
+        </main>
+
+        <section style="border-block-start:1px solid rgba(255,255,255,.1);background:rgba(4,16,27,.4)">
+          <div style="max-width:1280px;margin-inline:auto;padding:var(--s6) var(--s8);display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s5)" class="landing-metrics stagger">
+            <sc-for list="{{ lp.metrics }}" as="m" hint-placeholder-count="4"><div style="display:grid;gap:4px"><strong style="font-size:30px;font-weight:700;color:#fff">{{ m.value }}</strong><span style="font-size:12px;color:rgba(234,241,240,.6)">{{ m.label }}</span></div></sc-for>
+          </div>
+        </section>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===== PUBLIC: LOGIN / ROLE PICKER ===== -->
+  <sc-if value="{{ showLogin }}" hint-placeholder-val="">
+    <div style="min-height:100vh;display:grid;grid-template-columns:1fr .82fr" class="login-grid">
+      <section style="display:flex;flex-direction:column;justify-content:center;gap:var(--s5);padding:var(--s9) var(--s8);max-width:640px;width:100%;margin-inline:auto">
+        <button onClick="{{ goLanding }}" style="{{ backLink }};color:var(--text-muted)">{{ lg.back }}</button>
+        <div style="display:grid;gap:var(--s3)">
+          <span style="display:inline-flex;align-items:center;gap:7px;width:fit-content;padding:6px 13px;border-radius:99px;background:var(--gold-bg);color:var(--gold);font-size:11px;font-weight:700"><i style="width:6px;height:6px;border-radius:99px;background:currentColor;display:inline-block"></i>{{ lg.demo }}</span>
+          <h1 style="margin:0;font-size:30px;font-weight:700;letter-spacing:-.01em">{{ lg.title }}</h1>
+          <p style="margin:0;color:var(--text-muted);font-size:14px;line-height:1.8;max-width:56ch">{{ lg.sub }}</p>
+        </div>
+        <div style="display:grid;gap:var(--s2)" class="stagger">
+          <sc-for list="{{ lg.personas }}" as="p" hint-placeholder-count="6">
+            <button onClick="{{ p.pick }}" style="display:flex;align-items:center;gap:var(--s3);padding:var(--s4);border-radius:var(--r);border:1px solid var(--border);background:var(--surface);text-align:start;transition:border-color var(--dur2) var(--ease),transform var(--dur2) var(--ease),box-shadow var(--dur2)" style-hover="border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--sh-md)">
+              <span style="width:44px;height:44px;border-radius:12px;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;font-weight:700;flex:0 0 auto">{{ p.initials }}</span>
+              <span style="flex:1;display:grid;gap:1px"><strong style="font-size:13.5px">{{ p.label }}</strong><b style="font-size:12px;color:var(--text-muted);font-weight:500">{{ p.name }}</b><small style="font-size:11px;color:var(--text-subtle);line-height:1.5">{{ p.desc }}</small></span>
+              <i style="color:var(--accent-strong);font-style:normal;font-size:16px">←</i>
+            </button>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:var(--s3);align-items:center;padding:var(--s4);border-radius:var(--r);background:var(--surface-2);border:1px solid var(--border)">
+          <span style="color:var(--text-subtle);font-size:16px">⚿</span>
+          <div style="display:grid;gap:2px"><strong style="font-size:12.5px">{{ lg.noticeTitle }}</strong><small style="font-size:11px;color:var(--text-muted);line-height:1.6">{{ lg.noticeBody }}</small></div>
+        </div>
+      </section>
+
+      <aside style="position:relative;overflow:hidden;display:grid;place-items:center;background:linear-gradient(160deg,var(--brand-strong),var(--brand) 60%,#0c3350)" class="login-visual">
+        <div class="aurora" aria-hidden="true">
+          <b style="width:44vw;height:44vw;inset-block-start:-6vw;inset-inline-end:-8vw;background:radial-gradient(circle,var(--accent),transparent 65%);animation:auroraDrift 28s var(--ease) infinite"></b>
+          <b style="width:36vw;height:36vw;inset-block-end:-10vw;inset-inline-start:-6vw;background:radial-gradient(circle,var(--gold-600),transparent 62%);animation:auroraDrift 32s var(--ease) infinite reverse"></b>
+        </div>
+        <div class="orbit" aria-hidden="true" style="position:absolute;width:min(30vw,380px);aspect-ratio:1;border:1px solid rgba(255,255,255,.14);border-radius:50%;animation:spinSlow 40s linear infinite"><span style="position:absolute;inset-block-start:-5px;inset-inline-start:50%;width:9px;height:9px;border-radius:99px;background:var(--gold-500);box-shadow:0 0 14px var(--gold-500)"></span></div>
+        <div class="orbit" aria-hidden="true" style="position:absolute;width:min(20vw,250px);aspect-ratio:1;border:1px solid rgba(255,255,255,.18);border-radius:50%;animation:spinRev 30s linear infinite"><span style="position:absolute;inset-block-end:-4px;inset-inline-start:50%;width:7px;height:7px;border-radius:99px;background:var(--accent);box-shadow:0 0 12px var(--accent)"></span></div>
+        <div style="position:relative;z-index:2;display:grid;gap:var(--s6);justify-items:center;text-align:center;padding:var(--s8);color:#eaf1f0">
+          <span style="position:relative;width:80px;height:80px;border-radius:22px;background:linear-gradient(160deg,#0e2f4c,#071b2e);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14),0 24px 50px rgba(0,0,0,.5);display:grid;place-items:center"><span aria-hidden="true" style="position:absolute;inset:0;border-radius:22px;box-shadow:0 0 0 0 rgba(185,141,63,.5);animation:pulseRing 3.4s var(--ease) infinite"></span><span style="width:11px;height:38px;background:var(--gold-500);border-radius:11px 11px 3px 3px;box-shadow:0 0 20px rgba(185,141,63,.6)"></span></span>
+          <div style="display:grid;gap:var(--s3);max-width:34ch"><span style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gold-100)">{{ lg.visualEyebrow }}</span><h2 style="margin:0;font-size:23px;font-weight:700;line-height:1.5;color:#fff">{{ lg.visualTitle }}</h2></div>
+        </div>
+      </aside>
+    </div>
+  </sc-if>
+
+  <!-- ===== AUTHENTICATED APP SHELL ===== -->
+  <sc-if value="{{ showShell }}" hint-placeholder-val="{{ true }}">
   <div style="display:grid;grid-template-columns:var(--sidebar-w, 264px) 1fr;min-height:100vh" class="shell-grid">
 
     <!-- SIDEBAR -->
@@ -735,6 +855,7 @@ a:hover{color:var(--accent)}
       </main>
     </div>
   </div>
+  </sc-if>
 
   <!-- PERSONA MODAL -->
   <sc-if value="{{ personaOpen }}" hint-placeholder-val="">
@@ -750,7 +871,7 @@ a:hover{color:var(--accent)}
             </button>
           </sc-for>
         </div>
-        <footer style="display:flex;gap:var(--s2);align-items:center;color:var(--text-subtle);font-size:11.5px;padding-block-start:var(--s3);border-block-start:1px solid var(--hairline)"><span>⚿ MFA</span>{{ persona.dialogFooter }}</footer>
+        <footer style="display:flex;gap:var(--s3);align-items:center;justify-content:space-between;padding-block-start:var(--s3);border-block-start:1px solid var(--hairline)"><span style="display:flex;gap:6px;align-items:center;color:var(--text-subtle);font-size:11.5px"><span>⚿ MFA</span>{{ persona.dialogFooter }}</span><button onClick="{{ goLandingFromModal }}" style="{{ linkBtn }}">{{ persona.exit }} ←</button></footer>
       </section>
     </div>
   </sc-if>
@@ -785,7 +906,7 @@ const HOME = { citizen:"citizen", staff:"staff", manager:"manager", committee:"c
 
 class Component extends DCLogic {
   state = {
-    language:"ar", theme:"light", persona:"citizen", route:"citizen",
+    language:"ar", theme:"light", persona:"citizen", route:"landing",
     personaOpen:false, toast:"", wizardStep:1,
     wizardDraft:{ member:"maryam", university:"جامعة بغداد", universityEn:"University of Baghdad", year:"", uploaded:false, consent:false },
     errors:[],
@@ -794,7 +915,9 @@ class Component extends DCLogic {
   };
   _toastTimer = null;
 
+  _onKeydown=(e)=>{ if(e.key==="Escape" && this.state.personaOpen) this.setState({ personaOpen:false }); };
   componentDidMount(){
+    window.addEventListener("keydown", this._onKeydown);
     const p=this.props||{};
     const patch={};
     if(p.defaultLanguage && p.defaultLanguage!==this.state.language) patch.language=p.defaultLanguage;
@@ -806,6 +929,7 @@ class Component extends DCLogic {
   componentDidUpdate(prev){
     if((prev.props||{}).accentColor !== (this.props||{}).accentColor) this.applyAccent((this.props||{}).accentColor);
   }
+  componentWillUnmount(){ window.removeEventListener("keydown", this._onKeydown); }
   applyAccent(hex){
     if(!hex) { const el=document.getElementById("__accent-override"); if(el) el.remove(); return; }
     let el=document.getElementById("__accent-override");
@@ -995,12 +1119,20 @@ class Component extends DCLogic {
       c, persona:{ initials:persona.initials, name:this.L(persona.nameAr,persona.nameEn), label:this.L(persona.labelAr,persona.labelEn),
         dialogEyebrow:this.L("تبديل فوري — يحفظ حالة العرض","Instant switch — demo state preserved"),
         dialogTitle:this.L("اختر منظور المستخدم","Choose a user perspective"),
-        dialogFooter:this.L("محاكاة واجهة فقط. لا يوجد تحقق هوية أو صلاحيات إنتاجية.","Interface simulation only. No production identity or authorization.") },
+        dialogFooter:this.L("محاكاة واجهة فقط.","Interface simulation only."),
+        exit:this.L("الخروج إلى المنصة العامة","Exit to public site") },
+      goLandingFromModal:()=>this.setState({ personaOpen:false, route:"landing" }),
       nav:this.navItems(),
       personaList: PERSONAS.map(p=>({ initials:p.initials, label:this.L(p.labelAr,p.labelEn), name:this.L(p.nameAr,p.nameEn), desc:this.L(p.descAr,p.descEn), selected:st.persona===p.id,
         pick:()=>this.setPersona(p.id),
         style:`display:flex;align-items:center;gap:12px;padding:14px;border-radius:var(--r);border:1.5px solid ${st.persona===p.id?"var(--accent)":"var(--border)"};background:${st.persona===p.id?"var(--accent-weak)":"var(--surface)"};text-align:start;transition:border-color var(--dur2),background var(--dur2)` })),
       screenKey: st.route, screenPlaceholder:"",
+      showLanding: st.route==="landing",
+      showLogin: st.route==="login",
+      showShell: st.route!=="landing" && st.route!=="login",
+      lp: this.buildLanding(), lg: this.buildLogin(),
+      goLanding:()=>this.navigate("landing"),
+      goLogin:()=>this.navigate("login"),
       showCitizen: st.route==="citizen",
       showWizard: st.route==="wizard",
       showCommittee: st.route==="committee" || st.route==="committee-meeting",
@@ -1029,6 +1161,47 @@ class Component extends DCLogic {
       goCitizen:()=>this.navigate("citizen"),
       goServices:()=>this.showToast("دليل الخدمات","Service catalogue"),
       goProfile:()=>this.showToast("الملف الشخصي","Profile"),
+    };
+  }
+
+  buildLanding(){
+    const s=this.styles(), ar=this.ar();
+    const steps=[["✓","تم التقديم","Submitted",true],["✓","مراجعة الموظف","Staff review",true],["3","قرار اللجنة","Committee",false],["4","النتيجة","Decision",false]];
+    return {
+      demoCta:this.L("دخول العرض","Open demo"),
+      kicker:this.L("خدمات حكومية مترابطة، واضحة، وإنسانية","Connected, clear and human government services"),
+      h1a:this.L("حقّك أقرب، وخدمتك","Your entitlement, delivered"),
+      h1b:this.L(" أوضح."," with clarity."),
+      sub:this.L("منصة رقمية موحّدة تضع المستفيد والأسرة في قلب الخدمة، وتربط الطلب بالوثيقة والقاعدة القانونية والقرار القابل للتحقق.","A unified digital platform that puts the beneficiary and family at the center, linking each request to verified data, evidence, legal rules and a verifiable decision."),
+      explore:this.L("استكشف الخدمات","Explore services"), demo:this.L("دخول العرض التجريبي","Open interactive demo"),
+      trust:[["عربي أولاً","Arabic-first"],["قرارات بشرية","Human decisions"],["أثر تدقيقي واضح","Visible audit trail"]].map(([a,e])=>({label:this.L(a,e)})),
+      cardTitle:this.L("طلب المنحة التعليمية","Education Grant Application"),
+      cardStatus:this.L("قيد المراجعة","Under review"),
+      steps: steps.map(([mark,a,e,done])=>({ mark, label:this.L(a,e), bg: done?"var(--accent)":"rgba(255,255,255,.1)", fg: done?"#fff":"rgba(234,241,240,.7)" })),
+      nextLabel:this.L("الإجراء التالي","NEXT ACTION"),
+      nextAction:this.L("إضافة تأييد الاستمرار بالدراسة","Add enrollment confirmation"),
+      nextDesc:this.L("مطلوب لإكمال التحقق من أهلية الطالبة مريم.","Required to complete Maryam’s eligibility review."),
+      aiLabel:this.L("ذكاء اصطناعي محاكى","SIMULATED AI"),
+      aiValue:this.L("٣ من ٤ متطلبات مكتملة","3 of 4 requirements complete"),
+      aiSource:this.L("المصدر: قائمة وثائق EDU-2.3","Source: EDU-2.3 document list"),
+      stat1:this.L("٨٢ ساعة","82 hours"), stat1sub:this.L("متبقية ضمن المهلة","remaining in SLA"),
+      stat2:this.L("قابل للتدقيق","Auditable"),
+      metrics:[["20+","خدمة ممثلة","represented services"],["6","مناظير وظيفية","role perspectives"],["100%","بيانات اصطناعية","synthetic data"],["AA","هدف إتاحة العرض","accessibility target"]].map(([v,a,e])=>({value:v,label:this.L(a,e)})),
+    };
+  }
+
+  buildLogin(){
+    return {
+      back:this.L("→ العودة إلى المنصة العامة","← Back to public site"),
+      demo:this.L("وضع العرض التجريبي","DEMO MODE"),
+      title:this.L("اختر دوراً لبدء الجولة","Choose a role to begin"),
+      sub:this.L("يمكنك تبديل الدور في أي وقت. تبقى حالة الطلب والقرارات محفوظة بين جميع المناظير.","Switch roles at any time. Case progress and decisions stay synchronized across every perspective."),
+      personas: PERSONAS.map(p=>({ initials:p.initials, label:this.L(p.labelAr,p.labelEn), name:this.L(p.nameAr,p.nameEn), desc:this.L(p.descAr,p.descEn),
+        pick:()=>{ this.setState({ persona:p.id, route:HOME[p.id] }); window.scrollTo({top:0}); } })),
+      noticeTitle:this.L("بيئة عرض آمنة","Safe demonstration environment"),
+      noticeBody:this.L("جميع الأسماء والسجلات والوثائق اصطناعية. لا يوجد اتصال بخدمات حكومية أو دفع حقيقي.","All names, records and documents are synthetic. No live government or payment connection exists."),
+      visualEyebrow:this.L("المنصة الرقمية الموحّدة","UNIFIED DIGITAL PLATFORM"),
+      visualTitle:this.L("خدمة مترابطة. قرار مُفسّر. أثر موثوق.","Connected service. Explainable decision. Trusted trail."),
     };
   }
 
@@ -1258,8 +1431,8 @@ class Component extends DCLogic {
       rationaleLabel:this.L("مسودة أسباب القرار","Decision rationale"),
       reason:cm.reason, setReason:(ev)=>this.setState({ committee:{...cm, reason:ev.target.value} }),
       checks: checks.map(([ok,label])=>({ mark: ok?"✓":"○", color: ok?"var(--success)":"var(--text-subtle)", label })),
-      signed: cm.signed, 
-      signStyle: cm.signed ? s.btnGold+";opacity:.65;filter:grayscale(.3)" : (ready? s.btnGold : s.btnGold+";opacity:.55"),
+      signed: cm.signed || !ready,
+      signStyle: cm.signed ? s.btnGold+";opacity:.65;filter:grayscale(.3)" : (ready? s.btnGold : s.btnGold+";opacity:.55;cursor:not-allowed"),
       signLabel: cm.signed? this.L("✓ تم التوقيع والنشر","✓ Signed and published") : this.L("توقيع القرار ونشره","Sign and publish decision"),
       sign:()=>{ if(cm.signed) return; if(!ready){ this.showToast("يتطلب الاعتماد نصاباً وصوتين بالموافقة وسبباً مكتوباً وبوابة امتثال خالية.","Signature requires quorum, two approvals, a written rationale and a clear gate."); return; } this.setState({ committee:{...cm, signed:true} }); this.showToast("تم توقيع القرار ونشره للمواطن","Decision signed and published to the citizen"); },
       signNote:this.L("توقيع إلكتروني محاكى — لا قيمة قانونية له.","Simulated electronic signature — no legal validity."),
