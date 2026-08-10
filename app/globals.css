@@ -961,12 +961,23 @@ textarea::placeholder {
   font-size: 21px;
 }
 
+/* A card must never put text against its own border. Cards that need a
+   different inset override this; a bare .content-card no longer renders
+   unpadded. */
+.content-card.administrative-alerts,
+.content-card.task-list {
+  /* These two carry the inset on their rows so the rows can span edge to edge. */
+  padding: 0;
+}
+
 .content-card {
-  border: 1px solid var(--stone-200);
+  padding: var(--s5);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface);
   box-shadow: var(--shadow-sm);
 }
+
 
 .section-header {
   display: flex;
