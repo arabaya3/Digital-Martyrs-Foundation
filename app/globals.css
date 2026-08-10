@@ -2,112 +2,105 @@
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");
 
 :root {
-  --navy-950: #071b2e;
-  --navy-900: #0b263d;
+  /* ---- brand ramp (handoff spec) ---- */
+  --navy-950: #061726;
+  --navy-900: #0b2438;
   --navy-800: #123653;
   --navy-700: #1d4a6c;
-  --emerald-700: #08755f;
-  --emerald-600: #0b8b70;
-  --emerald-500: #18a887;
-  --emerald-100: #dff4ee;
-  --emerald-50: #effaf7;
-  --gold-700: #9c6e12;
-  --gold-600: #b88620;
-  --gold-500: #d5a43e;
-  --gold-100: #f7e9c3;
-  --gold-50: #fcf7e8;
-  --stone-950: #19201f;
-  --stone-800: #303a38;
-  --stone-700: #4b5754;
-  --stone-600: #68736f;
-  --stone-500: #7e8885;
-  --stone-400: #aab2af;
-  --stone-300: #ccd2d0;
-  --stone-200: #e2e6e4;
-  --stone-150: #ebeeed;
-  --stone-100: #f2f4f3;
-  --stone-50: #f8f9f8;
-  --white: #fff;
-  --danger: #b93c49;
-  --danger-100: #fbe5e7;
-  --warning: #9b5e10;
-  --warning-100: #fceed7;
-  --info: #276eb4;
-  --info-100: #e3effb;
-  --shadow-sm: 0 1px 2px rgba(7, 27, 46, 0.05), 0 4px 12px rgba(7, 27, 46, 0.04);
-  --shadow-md: 0 10px 30px rgba(7, 27, 46, 0.09);
-  --shadow-lg: 0 24px 70px rgba(7, 27, 46, 0.16);
-  --radius-sm: 8px;
-  --radius: 14px;
-  --radius-lg: 22px;
-  --font-ar: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, "Noto Sans Arabic", Arial, sans-serif;
-  --font-en: "IBM Plex Sans", "Segoe UI", Inter, Arial, sans-serif;
-  --font: var(--font-ar);
-
-  /* --- extended palette (fills references that were previously undefined) --- */
   --navy-600: #2b5f86;
   --navy-100: #dbe6ef;
-  --emerald-900: #054c3d;
-  --emerald-800: #066450;
-  --emerald-400: #3dbc9e;
-  --emerald-300: #7ed3bd;
-  --gold-800: #7d570b;
-  --gold-400: #e0b866;
-  --gold-300: #ead093;
+  --emerald-900: #04513f;
+  --emerald-800: #055a46;
+  --emerald-700: #066b54;
+  --emerald-600: #0a8b6f;
+  --emerald-500: #1cae8c;
+  --emerald-400: #46c2a4;
+  --emerald-300: #86d8c2;
+  --emerald-100: #e4f3ee;
+  --emerald-50: #f1faf7;
+  --gold-800: #614817;
+  --gold-700: #7a5a1e;
+  --gold-600: #946e28;
+  --gold-500: #b98d3f;
+  --gold-400: #cfab6b;
+  --gold-300: #dfc696;
+  --gold-100: #efe2c6;
+  --gold-50: #f7f0de;
+  --stone-950: #0f1f1a;
+  --stone-800: #2b3532;
+  --stone-700: #45514d;
+  --stone-600: #586863;
+  --stone-500: #74807c;
+  --stone-400: #a3aca9;
+  --stone-300: #c8cfcc;
   --stone-250: #d9dedc;
-  --danger-700: #96262f;
+  --stone-200: #e0e6e3;
+  --stone-150: #e7ecea;
+  --stone-100: #eff3f1;
+  --stone-50: #f6f9f7;
+  --white: #fff;
+  --danger-700: #8f2c36;
 
-  /* --- semantic status tokens ---
-     Foregrounds are tuned to clear WCAG AA (4.5:1) against their own tinted
-     background; the brand tones above are left untouched. */
-  --success: #097058;
-  --success-bg: var(--emerald-100);
-  --info-bg: var(--info-100);
-  --warning-bg: var(--warning-100);
-  --danger-bg: var(--danger-100);
+  /* ---- semantic tones ----
+     Three light foregrounds are one step darker than the handoff values so the
+     badges clear WCAG 2.2 AA, which the same document requires. */
+  --info: #276eb4;
+  --info-bg: #e3effb;
+  --info-100: #e3effb;
+  --success: #08745d;
+  --success-bg: #dff4ee;
+  --warning: #9c5f10;
+  --warning-bg: #fceed7;
+  --warning-100: #fceed7;
+  --danger: #bb3a47;
+  --danger-bg: #fae4e6;
+  --danger-100: #fae4e6;
   --neutral: #4b5754;
-  --neutral-bg: #eef1f0;
-  --gold: #8b6210;
-  --gold-bg: var(--gold-100);
-  --gold-strong: var(--gold-700);
+  --neutral-bg: #eaefed;
+  --gold: #7a5a1e;
+  --gold-bg: #efe2c6;
+  --gold-strong: #7a5a1e;
 
-  /* --- semantic surfaces (light) --- */
-  --bg: #eef1f0;
-  --app-grad: radial-gradient(1200px 600px at 100% -10%, #f4f7f6 0, #eef1f0 60%);
+  /* ---- surfaces (light) ---- */
+  --bg: #e9eeec;
+  --app-grad: radial-gradient(1300px 680px at 100% -12%, #f3f7f5 0, #e7edea 62%);
   --surface: #ffffff;
-  --surface-soft: #f6f8f7;
-  --surface-2: #f6f8f7;
-  --surface-3: #eef1f0;
-  --overlay: rgba(7, 27, 46, 0.42);
-  --border: #e4e8e6;
-  --border-strong: #d3d9d6;
-  --hairline: #eceeed;
+  --surface-soft: #f4f7f5;
+  --surface-2: #f4f7f5;
+  --surface-3: #e9efec;
+  --overlay: rgba(6, 20, 34, 0.46);
+  --border: #e0e6e3;
+  --border-strong: #cfd6d2;
+  --hairline: #eaeeec;
 
-  /* --- semantic text --- */
-  --ink: #12211d;
-  --text: #12211d;
-  --text-muted: #5c6b66;
-  --muted: #5c6b66;
+  /* ---- text ---- */
+  --text: #0f1f1a;
+  --ink: #0f1f1a;
+  --text-muted: #586863;
+  --muted: #586863;
   --text-subtle: #8a938f;
   --text-invert: #f4f8f6;
   --assistant-ink: #0d2b23;
   --assistant-muted: #4c625b;
 
-  /* --- brand + accent --- */
-  --brand: #0b263d;
-  --brand-strong: #071b2e;
+  /* ---- brand + accent (swappable) ---- */
+  --brand: #0b2438;
+  --brand-strong: #061726;
   --brand-ink: #eaf1f0;
-  --accent: #0b8b70;
-  --accent-strong: #08755f;
+  --accent: #0a8b6f;
+  --accent-strong: #066b54;
   --accent-ink: #ffffff;
-  --accent-weak: #e6f5f0;
-  --focus: rgba(24, 168, 135, 0.42);
+  --accent-weak: #e4f3ee;
+  --focus: rgba(10, 139, 111, 0.4);
 
-  /* --- typography rhythm (per script) --- */
+  /* ---- type ---- */
+  --font-ar: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  --font-en: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  --font: var(--font-ar);
   --lh: 1.75;
   --lh-tight: 1.4;
 
-  /* --- spacing scale --- */
+  /* ---- spacing ---- */
   --s1: 4px;
   --s2: 8px;
   --s3: 12px;
@@ -119,21 +112,27 @@
   --s9: 48px;
   --s10: 64px;
 
-  /* --- radii --- */
+  /* ---- radii ---- */
   --r-xs: 6px;
   --r-sm: 10px;
   --r: 14px;
   --r-lg: 20px;
   --r-xl: 26px;
   --r-pill: 999px;
+  --radius-sm: 10px;
+  --radius: 14px;
+  --radius-lg: 20px;
 
-  /* --- elevation --- */
-  --sh-sm: var(--shadow-sm);
-  --sh-md: var(--shadow-md);
-  --sh-lg: var(--shadow-lg);
+  /* ---- elevation ---- */
+  --sh-sm: 0 1px 2px rgba(7, 27, 46, 0.06), 0 2px 8px rgba(7, 27, 46, 0.05);
+  --sh-md: 0 8px 24px rgba(7, 27, 46, 0.09), 0 2px 6px rgba(7, 27, 46, 0.05);
+  --sh-lg: 0 24px 64px rgba(7, 27, 46, 0.16), 0 6px 16px rgba(7, 27, 46, 0.08);
+  --shadow-sm: var(--sh-sm);
+  --shadow-md: var(--sh-md);
+  --shadow-lg: var(--sh-lg);
   --ring: inset 0 0 0 1px var(--border);
 
-  /* --- motion --- */
+  /* ---- motion ---- */
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --dur1: 120ms;
@@ -143,69 +142,71 @@
 
 /* ---------- dark theme ---------- */
 [data-theme="dark"] {
-  --bg: #050f1a;
-  --app-grad: radial-gradient(1200px 600px at 100% -10%, #0b2035 0, #060f1a 60%);
-  --surface: #0c1f31;
-  --surface-soft: #0f2739;
-  --surface-2: #0f2739;
-  --surface-3: #133045;
-  --overlay: rgba(0, 0, 0, 0.6);
-  --border: rgba(255, 255, 255, 0.1);
-  --border-strong: rgba(255, 255, 255, 0.18);
-  --hairline: rgba(255, 255, 255, 0.06);
+  --bg: #040d16;
+  --app-grad: radial-gradient(1300px 680px at 100% -12%, #0a1e31 0, #040c15 62%);
+  --surface: #0a1d2e;
+  --surface-soft: #0d2436;
+  --surface-2: #0d2436;
+  --surface-3: #112c40;
+  --overlay: rgba(0, 0, 0, 0.64);
+  --border: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.17);
+  --hairline: rgba(255, 255, 255, 0.055);
 
-  --ink: #eef4f2;
-  --text: #eef4f2;
-  --text-muted: #a7b6b1;
-  --muted: #a7b6b1;
-  --text-subtle: #798884;
-  --text-invert: #071b2e;
+  --text: #eaf2f0;
+  --ink: #eaf2f0;
+  --text-muted: #9fb0ab;
+  --muted: #9fb0ab;
+  --text-subtle: #728380;
+  --text-invert: #061726;
   --assistant-ink: #dff0ea;
   --assistant-muted: #9db6ae;
 
-  --brand: #0a1f31;
-  --brand-strong: #06121f;
+  --brand: #081d2e;
+  --brand-strong: #04101b;
   --brand-ink: #eaf1f0;
-  --accent: #18a887;
-  --accent-strong: #18a887;
+  --accent: #1cae8c;
+  /* one step lighter than the handoff value to clear AA on --surface */
+  --accent-strong: #179479;
   --accent-ink: #04140f;
-  --accent-weak: rgba(24, 168, 135, 0.14);
+  --accent-weak: rgba(28, 174, 140, 0.15);
+  --focus: rgba(28, 174, 140, 0.45);
 
   --info: #7bb4ec;
-  --success: #57d3b3;
+  --success: #5bd6b5;
   --warning: #e6a94a;
   --danger: #ef8a94;
   --neutral: #c4ccc9;
-  --gold: #e2bc63;
-  --gold-strong: #e2bc63;
+  --gold: #d8b56a;
+  --gold-strong: #d8b56a;
   --info-bg: rgba(39, 110, 180, 0.18);
-  --success-bg: rgba(24, 168, 135, 0.16);
+  --success-bg: rgba(28, 174, 140, 0.16);
   --warning-bg: rgba(189, 115, 19, 0.18);
-  --danger-bg: rgba(193, 63, 76, 0.18);
+  --danger-bg: rgba(189, 59, 72, 0.2);
   --neutral-bg: rgba(255, 255, 255, 0.06);
-  --gold-bg: rgba(213, 164, 62, 0.16);
+  --gold-bg: rgba(185, 141, 63, 0.18);
   --info-100: rgba(39, 110, 180, 0.18);
   --warning-100: rgba(189, 115, 19, 0.18);
-  --danger-100: rgba(193, 63, 76, 0.18);
-  --emerald-100: rgba(24, 168, 135, 0.16);
-  --emerald-50: rgba(24, 168, 135, 0.09);
-  --gold-100: rgba(213, 164, 62, 0.16);
-  --gold-50: rgba(213, 164, 62, 0.09);
+  --danger-100: rgba(189, 59, 72, 0.2);
+  --emerald-100: rgba(28, 174, 140, 0.16);
+  --emerald-50: rgba(28, 174, 140, 0.09);
+  --gold-100: rgba(185, 141, 63, 0.18);
+  --gold-50: rgba(185, 141, 63, 0.09);
 
-  --stone-950: #eef4f2;
-  --stone-800: #dbe5e1;
-  --stone-700: #c2cfca;
-  --stone-600: #a7b6b1;
-  --stone-500: #91a29d;
-  --stone-400: #798884;
-  --stone-300: #4d5f5a;
-  --stone-250: #3d4d49;
-  --stone-200: #33423e;
-  --stone-150: #26332f;
-  --stone-100: #1b2724;
-  --stone-50: #14201d;
-  --white: #0c1f31;
-  --navy-100: #24384a;
+  --stone-950: #eaf2f0;
+  --stone-800: #dae5e2;
+  --stone-700: #c0cecb;
+  --stone-600: #9fb0ab;
+  --stone-500: #8b9c98;
+  --stone-400: #728380;
+  --stone-300: #495b57;
+  --stone-250: #3a4b47;
+  --stone-200: #30413d;
+  --stone-150: #24322e;
+  --stone-100: #192724;
+  --stone-50: #12201d;
+  --white: #0a1d2e;
+  --navy-100: #22354a;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -285,7 +286,9 @@ button {
 
 button:disabled {
   cursor: not-allowed;
-  opacity: 0.48;
+  opacity: 0.5;
+  transform: none;
+  box-shadow: none;
 }
 
 h1,
@@ -371,6 +374,53 @@ textarea::placeholder {
   to {
     transform: scaleY(1);
   }
+}
+
+@keyframes barGrow {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* Route/screen change — transform and opacity only. */
+@keyframes screenIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.986);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Active-nav indicator grows from its centre. */
+@keyframes navPulse {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.screen-in {
+  animation: screenIn 300ms var(--ease-out) both;
+}
+
+/* Direction-aware glyphs.
+   Bilingual strings already carry the correct arrow per language, so only
+   shared standalone glyphs are marked. Non-directional icons (clock, check,
+   user) are never given this class. */
+.dir-icon {
+  display: inline-block;
+}
+
+[dir="ltr"] .dir-icon {
+  transform: scaleX(-1);
 }
 
 .enter {
@@ -537,9 +587,15 @@ textarea::placeholder {
 }
 
 .button-gold {
-  background: var(--gold-500);
-  color: var(--navy-950);
-  border-color: var(--gold-500);
+  background: linear-gradient(160deg, var(--gold-500), var(--gold-600));
+  color: #1a1205;
+  border-color: var(--gold-600);
+  font-weight: 700;
+  box-shadow: 0 6px 20px rgba(185, 141, 63, 0.3);
+}
+
+.button-gold:hover:not(:disabled) {
+  box-shadow: 0 10px 26px rgba(185, 141, 63, 0.38);
 }
 
 .button-large {
@@ -1640,6 +1696,8 @@ textarea::placeholder {
   inset-inline-start: -13px;
   border-radius: 3px;
   background: var(--gold-500);
+  transform-origin: center;
+  animation: navPulse var(--dur3) var(--ease-out) both;
 }
 
 .side-nav button.active > span {
@@ -9717,13 +9775,23 @@ button.metric-card {
 }
 
 .legal-citations span {
-  padding: 5px 8px;
-  border: 1px solid #d5dfec;
-  border-radius: 7px;
-  color: var(--info);
-  background: var(--info-100);
-  font-size: 11px;
-  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border: 1px solid color-mix(in srgb, var(--gold) 34%, transparent);
+  border-radius: var(--r-sm);
+  color: var(--gold-strong);
+  background: var(--gold-bg);
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.legal-citations span::before {
+  content: "\00a7";
+  font-size: 13px;
+  font-weight: 700;
+  opacity: 0.75;
 }
 
 .remediation-box {
@@ -10702,13 +10770,27 @@ button.metric-card {
 }
 
 .answer-citations button {
-  padding: 4px 7px;
-  border: 1px solid #cbddee;
-  border-radius: 6px;
-  color: var(--info);
-  background: var(--info-100);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border: 1px solid color-mix(in srgb, var(--gold) 34%, transparent);
+  border-radius: var(--r-sm);
+  color: var(--gold-strong);
+  background: var(--gold-bg);
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 700;
+  transition: background var(--dur2) var(--ease), border-color var(--dur2) var(--ease);
+}
+
+.answer-citations button::before {
+  content: "\00a7";
+  font-size: 12.5px;
+  opacity: 0.75;
+}
+
+.answer-citations button:hover {
+  border-color: color-mix(in srgb, var(--gold) 55%, transparent);
 }
 
 .assistant-composer {
